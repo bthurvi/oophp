@@ -1,0 +1,36 @@
+
+/* 
+    Created on : 2015-sep-12, 05:48:55
+    Author     : urbvik
+*/
+
+.lablewidth100{width: 130px; display: inline-block;}
+
+section label{ width: 200px; display: inline-block;}
+
+section label span{ font-weight: bold;}
+
+#gameinfo{
+    border: 1px solid #333;
+    background: #eee;
+    padding: 5px;
+    overflow-y: scroll;
+    height: 70px;
+}
+
+#indicator{
+    display: inline-block;
+    width: 0.8em;
+    height: 0.8em;
+    margin-right: 5px;
+}
+
+.arrow-left {
+width: 0 !important; 
+height: 0 !important; 
+border-top: 0.5em solid transparent;
+border-bottom: 0.5em solid transparent;
+border-left: 0.5em solid green;
+margin-right: 10px!important; 
+}
+
