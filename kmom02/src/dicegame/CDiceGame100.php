@@ -20,7 +20,7 @@ class CDiceGame100
   static public $enterPlayers = 1;
   static public $enterNames = 2;
   static public $gameRunning = 3;
-  static public $gameStoped = 4;
+  static public $haveWinner = 4;
   
   function __construct() 
   {
@@ -43,7 +43,27 @@ class CDiceGame100
       case CDiceGame100::$gameRunning:
         echo CDiceGameMenus::gameBoard($this);
         break;  
+      case CDiceGame100::$haveWinner:
+        echo CDiceGameMenus::gameBoard($this,true);
+        break;  
     }
+  }
+  
+  private function doWeHaveAWinner()
+  {
+    $stop = count($this->players);
+    for($i=0; $i<$stop; $i++) 
+    {
+       if($this->players[$i]->getScore()>=100)
+       {
+         //log that we have a winner
+         $this->messages[] = "<b>{$this->players[$this->activePlayer]->getName()}</b> har vunnit. Grattis!<br/>"; 
+         $this->changeGameState(CDiceGame100::$haveWinner);
+         
+         return true;
+       }  
+    }
+    return false;
   }
   
   
@@ -100,14 +120,24 @@ class CDiceGame100
   
   private function saveTurn()
   {
+    //get points
+    $p=$this->dice->getSum();
+    
     //add round to score
-    $this->players[$this->activePlayer]->addToScore($this->dice->getSum());
+    $this->players[$this->activePlayer]->addToScore($p);
     
-    //reset dice (to zero points)
-    $this->dice->resetSum();
+    //generate message
+    $this->messages[]= "<b>{$this->getActivePlayerName()}</b> sparade <b>$p</b> poäng."
+            . " Hen har nu totalt <b>{$this->players[$this->activePlayer]->getScore()}</b> poäng.";
     
-    //next players turn
-    $this->nextPlayer();
+    if(!$this->doWeHaveAWinner())
+    {
+      //reset dice (to zero points)
+      $this->dice->resetSum();
+
+      //next players turn
+      $this->nextPlayer();
+    }
   }
     
     

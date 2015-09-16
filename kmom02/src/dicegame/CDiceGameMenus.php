@@ -70,7 +70,7 @@ EOS;
   
 }
 
-public static function gameBoard($game)
+public static function gameBoard($game, $winner=false)
 {
   $html = <<<EOA
 <section>
@@ -111,21 +111,26 @@ $html .= <<<EOA
 <form id="controls" method="post">
 <input type="hidden" name="cont" value="fortsätta spela">
 EOA;
-
-if($game->getActivePlayer()->getType()=="spelare")
+if($winner)
+{
+$html .= <<<EOA
+    <div>Vill du <input type="submit" value="starta ett nytt spel" name="restart">?</div>
+EOA;
+} 
+else if($game->getActivePlayer()->getType()=="spelare")
 {
 $html .= <<<EOA
     <div><input type="submit" value="Rulla tärningen" name="roll"/> 
         <input type="submit" value="Stanna och spara" name="save"/></div>
 EOA;
 }
-
-if($game->getActivePlayer()->getType()=="AI")
+else if($game->getActivePlayer()->getType()=="AI" )
 {
 $html .= <<<EOA
  <div><input type="submit" value="Nästa &#10095;" /> </div>
 EOA;
 }
+
         
 $html .= "</form>";
 
