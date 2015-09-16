@@ -15,7 +15,7 @@ if(!isset($_SESSION['game']))
 }
 else if(isset($_SESSION['game']) && (isset($_POST['cont']) && $_POST['cont']=="fortsätta spela"))
 {
-  echo "Fortsätter spelomgång";
+  //echo "Fortsätter spelomgång";
   $theGame = $_SESSION['game'];
 }
 else if(isset($_SESSION['game']) && (!isset($_POST['game-on'])))
@@ -29,10 +29,10 @@ if(isset($theGame))
   $theGame->runGame($_POST);
 
 
-//dump below used for debugging
+/*dump below used for debugging
 echo "<div style='border:1px solid black; background: #eee; padding: 10px; margin-top:100px;'>";
 var_dump($_SESSION);
-echo "</div>";
+echo "</div>";*/
 
 
 

@@ -49,7 +49,7 @@ class CDiceGame100
   
   private function processInput($post)
   {
-      var_dump($post);
+      //var_dump($post);
       
     //if user has entered number of players
     if(isset($post['humans'])&& isset($post['ai']))
@@ -88,19 +88,42 @@ class CDiceGame100
     }
     
     if( isset($_POST["roll"]) && $_POST["roll"]=="Rulla tärningen")
-    {
-      echo "dags att rulla tärningen!";
       $this->runTurn();
-    }
-    //next input...
+    
+    
+    if( isset($_POST["save"]) && $_POST["save"]=="Stanna och spara")
+      $this->saveTurn();
+ 
+    
+
   }
   
+  private function saveTurn()
+  {
+    //add round to score
+    $this->players[$this->activePlayer]->addToScore($this->dice->getSum());
+    
+    //reset dice (to zero points)
+    $this->dice->resetSum();
+    
+    //next players turn
+    $this->nextPlayer();
+  }
+    
+    
   private function runTurn()
   {
     $res = $this->dice->roll();
-    $this->messages[]= "<b>{$this->getActivePlayerName()}</b> rullade tärningen och fick en <b>$res</b>a.";
-    $this->messages[]= "<b>{$this->getActivePlayerName()}</b> har nu <b>{$this->dice->getSum()}</b> poäng i omgången.";
-
+    
+    $this->messages[]= "<b>{$this->getActivePlayerName()}</b> rullade tärningen och fick en <b>$res</b>a."
+            . " Hen har nu <b>{$this->dice->getSum()}</b> poäng i omgången.";
+            
+    if($res==1)
+    {
+      $this->messages[]= "Eftersom <b>{$this->getActivePlayerName()}</b> fick en <b>$res</b>a "
+            . " så blir det nu nästa spelares tur.";
+      $this->nextPlayer();
+    }
   }
   
   private function nextPlayer()
@@ -108,13 +131,11 @@ class CDiceGame100
     //set next player as active
     $this->activePlayer++;
     
-     if($this->activePlayer>($this->computerplayers+$this->humans))
+     if($this->activePlayer>($this->computerplayers+$this->humans-1))
       $this->activePlayer=0;
     
     //log who is active
-    $this->messages[] = "<b>{$this->players[$this->activePlayer]->getName()}</b>s tur.<br/>";
-    
-   
+    $this->messages[] = "<b>{$this->players[$this->activePlayer]->getName()}</b>s tur.<br/>"; 
   }
   
   private function createPlayers($names)

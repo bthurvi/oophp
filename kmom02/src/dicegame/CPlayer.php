@@ -42,6 +42,8 @@ class CPlayer {
    }
    
    public function getScore(){ return $this->score;}
+   public function addToScore($points){ $this->score += $points; return $this->score;}
+   public function resetScore(){ $this->score=0; return $this->score;}
    public function getName(){ return $this->name;}
    public function getType(){ return $this->type;}
 }

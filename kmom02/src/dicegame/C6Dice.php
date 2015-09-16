@@ -24,14 +24,11 @@ class C6Dice
      if($r!=1)
       $this->sum += $r;
     else
-       $this->sum == 0;
+       $this->sum = 0;
   }
   
-  
-  public function getSum()
-  {
-    return $this->sum;
-  }
+  public function resetSum(){$this->sum=0;}      
+  public function getSum(){ return $this->sum; }
 }
 
 
