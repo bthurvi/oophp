@@ -1,37 +1,5 @@
 <?php
 
-/*var_dump ($_SESSION);
-
-
-if(isset($_POST['continue']) && $_POST['continue']=="continue" )
-{ 
-  var_dump ($_SESSION);
-}
-else if(isset($_POST['restart']) && $_POST['restart']=="restart")
-{
-  echo "Startar nytt spel.";
-  $t = new CTest();
-  $_SESSION['t']=$t;
-}
-else if(isset($_SESSION['t']) )
-{
-  echo "Det verkar finnas ett pågående spel:";
-  echo "<form method='post'>";
-  echo "<input type='submit' value='continue' name='continue'>";
-  echo "<input type='submit' value='restart' name='restart' >";
-  echo "<a href='destroySession.php'>Förstör sessionen</a>";
-  echo "</form >";
-}
-else 
-{
-  echo "Inleder ett nytt spel.";
-  $t = new CTest();
-
-}*/
-
-
-
-
 //restart game
 if(isset($_POST['restart']) && $_POST['restart']=="starta ett nytt spel")
 {

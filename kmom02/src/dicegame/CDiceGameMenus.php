@@ -21,10 +21,12 @@ public static function chosePlayersMenu()
     <label><input type="radio" name="humans" value="2">2 </label> 
     <label><input type="radio" name="humans" value="3">3 </label> 
     <label><input type="radio" name="humans" value="4">4 </label> 
+    <label><input type="radio" name="humans" value="5">5 </label> 
     <br/>
     <span class="lablewidth100">Datorspelare (AI):</span>
+    <label><input type="radio" name="ai" value="0" checked>0 </label> 
     <label><input type="radio" name="ai" value="1">1 </label> 
-    <label><input type="radio" name="ai" value="2" checked>2 </label> 
+    <label><input type="radio" name="ai" value="2">2 </label> 
     <label><input type="radio" name="ai" value="3">3 </label> 
     <label><input type="radio" name="ai" value="4">4 </label>
     <p>
@@ -80,7 +82,7 @@ EOA;
     $html .= "<div>";
     $html .= "<span id='indicator' class='";
     
-    if($key==2)
+    if($key==$game->getActivePlayerIndex())
       $html .=  "arrow-left";
     
     $html .= "'></span>";
@@ -96,22 +98,37 @@ EOA;
 <div id="gameinfo">
 EOA;
   
-    /*<strong>Kalles</strong> tur.<br>
-    <strong>Urban</strong> väljer att avsluta sin omgång.<br>
-    <strong>Urban</strong> fick en 3:a hen har nu 42 poäng.<br>
-    <strong>Urban</strong> väljer att kasta tärningen.<br>
-    <strong>Urbans</strong> tur.<br>*/
+  $messages = array_reverse($game->getMessages());
+  foreach($messages as $msg) 
+  {
+    $html .= $msg ."<br/>" ;
+  }
+ 
             
 $html .= <<<EOA
 </div>
-
 <h2>Kontrollpanel</h2>
-<form id="controls">
-    <div><input type="submit" value="Kasta tärningen en gång till" /> 
-        <input type="submit" value="Lägg ner tärningen och spara" /></div>
-    <div><input type="submit" value="Nästa &#10095;" /> </div>
-</form>
+<form id="controls" method="post">
+<input type="hidden" name="cont" value="fortsätta spela">
 EOA;
+
+if($game->getActivePlayer()->getType()=="spelare")
+{
+$html .= <<<EOA
+    <div><input type="submit" value="Rulla tärningen" name="roll"/> 
+        <input type="submit" value="Stanna och spara" name="save"/></div>
+EOA;
+}
+
+if($game->getActivePlayer()->getType()=="AI")
+{
+$html .= <<<EOA
+ <div><input type="submit" value="Nästa &#10095;" /> </div>
+EOA;
+}
+        
+$html .= "</form>";
+
   
   return $html;
 }

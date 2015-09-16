@@ -9,9 +9,28 @@
  */
 class C6Dice 
 {
-  public static function roll()
+  private $history=[];
+  private $sum;
+  
+  public function roll()
   {
-    return rand(1,6);
+    $r=rand(1,6);
+    $this->calcSum($r);
+    return $r; 
+  }
+  
+  private function calcSum($r)
+  {
+     if($r!=1)
+      $this->sum += $r;
+    else
+       $this->sum == 0;
+  }
+  
+  
+  public function getSum()
+  {
+    return $this->sum;
   }
 }
 
