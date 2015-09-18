@@ -68,9 +68,7 @@ class CDiceGame100
   
   
   private function processInput($post)
-  {
-      var_dump($post);
-      
+  {   
     //if user has entered number of players
     if(isset($post['humans'])&& isset($post['ai']))
     {
@@ -192,14 +190,12 @@ class CDiceGame100
   
   private function createPlayers($names)
   {
-    var_dump($names);
-    
       //create human players
       foreach ($names as $name) 
       {
         $this->players[] = new CPlayer($name,"spelare");
       }
-      
+        
       //create computer players
       for($i=1; $i<=$this->computerplayers; $i++)
       { 

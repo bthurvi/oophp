@@ -73,6 +73,7 @@ EOS;
 public static function gameBoard($game, $winner=false)
 {
   $html = <<<EOA
+<h1>Tärningsspelet 100</h1>
 <section>
     <h2>Poängställning</h2>
 EOA;
@@ -142,7 +143,7 @@ public static function restartMenu()
 {
 return <<<EOB
 <form method="post">
-    <h2>Det finns en påbörjad spelomgång i minnet</h2>
+    <h1>Det finns en påbörjad spelomgång i minnet</h1>
     Vill du:
     <input type="submit" value="fortsätta spela" name="cont"> eller
     <input type="submit" value="starta ett nytt spel" name="restart">?

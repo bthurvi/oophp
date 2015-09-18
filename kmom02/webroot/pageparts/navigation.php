@@ -13,13 +13,12 @@ function setActive($items) {
 
 $menu = array('callback' => 'setActive',
               'items' => array( 'about'  => array('text'=>'Om mig',  'url'=>'?p=about', 'class'=>null),
-                                'dice'  => array('text'=>'Tärningar',  'url'=>'?p=dice', 'class'=>null),
-                                'dicegame' => array('text'=>'Tärningsspelet 100', 'url'=>'?p=dicegame','class'=>null),
+                                'dice'  => array('text'=>'Tärningar',  'url'=>'?p=dice', 'class'=>null),                          
                                 'slideshow'  => array('text'=>'Bildspel',  'url'=>'?p=slideshow', 'class'=>null),
+                                'dicegame' => array('text'=>'Tärning100', 'url'=>'?p=dicegame','class'=>null),
+                                'calendar' => array('text'=>'Kalender', 'url'=>'?p=calendar','class'=>null),
                                 'code'  => array('text'=>'Källkod',  'url'=>'?p=code', 'class'=>null),
-                                'desc' => array('text'=>'Redovisningar', 'url'=>'?p=desc','class'=>null),
-                                'test' => array('text'=>'Test', 'url'=>'?p=test','class'=>null),
-                                'dest' => array('text'=>'avsluta session', 'url'=>'?p=dest','class'=>null),
+                                'desc' => array('text'=>'Redovisningar', 'url'=>'?p=desc','class'=>null),                                                        
   ),
 );
 
@@ -60,14 +59,9 @@ else
       $file = "description.php";
       $urbax['title'] = "Redovisning";
       break;
-    case "test": 
-      $file = "test.php";
-      $urbax['stylesheets'][]="css/dicegame.css";
-      $urbax['title'] = "Test";
-      break;
-    case "dest": 
-      $file = "destroysession.php";
-      $urbax['title'] = "Förstör sessionen";
+    case "calendar": 
+      $file = "calendar.php";
+      $urbax['title'] = "Kalender";
       break;
     default : header("location:?p=about");
   }

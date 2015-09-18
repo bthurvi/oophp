@@ -20,27 +20,6 @@ class CPlayer {
    }
 
    
-   /*public function rollDice($echo=true)
-   {
-      //roll dice
-      $res=C6Dice::roll();
-      
-      //save all rolls as history
-      $this->rolls[]= $res;
-      
-      //count score
-      if($res===0)
-        {$this->score=0;}
-      else
-        {$this->score+=$res;}
-        
-      if($echo)
-      {
-        echo "<p><strong>$this->name</strong> kastar tärningen och får {$res}a, "
-        . "$this->sex har nu ". $this->getScore() . " poäng.";
-      }
-   }*/
-   
    public function getScore(){ return $this->score;}
    public function addToScore($points){ $this->score += $points; return $this->score;}
    public function resetScore(){ $this->score=0; return $this->score;}
