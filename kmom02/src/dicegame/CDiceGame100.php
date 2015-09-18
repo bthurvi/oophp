@@ -117,7 +117,10 @@ class CDiceGame100
     //next button - for AI
     if(isset($_POST['next_turn_for_AI-player']))
     {
-      echo "<h2>". $this->getActivePlayerName() ."ska nu bestämma sig</h2>";
+      if($this->getActivePlayer()->doLogic())
+        $this->messages[]= "<b>{$this->getActivePlayerName()}</b> bestämde sig för att rulla tärningen igen!";
+      else
+        $this->messages[]= "<b>{$this->getActivePlayerName()}</b> bestämde sig för att <b>INTE</b> rulla tärningen igen!";
     }
  
     
@@ -187,7 +190,7 @@ class CDiceGame100
       //create computer players
       for($i=1; $i<=$this->computerplayers; $i++)
       { 
-        $this->players[] = new CPlayer("Dator $i","AI"); 
+        $this->players[] = new C3Player("Dator $i","AI"); 
       }
       
       //shuffle the players array
