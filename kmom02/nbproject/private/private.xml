@@ -3,13 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Bitnami/joomla-3.3.6-0/apache2/htdocs/oophp/kmom02/webroot/pages/dicegame.php</file>
-            <file>file:/C:/Bitnami/joomla-3.3.6-0/apache2/htdocs/oophp/kmom02/webroot/css/dicegame.css</file>
-            <file>file:/C:/Bitnami/joomla-3.3.6-0/apache2/htdocs/oophp/kmom02/webroot/pages/test.php</file>
-            <file>file:/C:/Bitnami/joomla-3.3.6-0/apache2/htdocs/oophp/kmom02/src/dicegame/C6Dice.php</file>
             <file>file:/C:/Bitnami/joomla-3.3.6-0/apache2/htdocs/oophp/kmom02/src/dicegame/CDiceGameMenus.php</file>
-            <file>file:/C:/Bitnami/joomla-3.3.6-0/apache2/htdocs/oophp/kmom02/webroot/pageparts/navigation.php</file>
             <file>file:/C:/Bitnami/joomla-3.3.6-0/apache2/htdocs/oophp/kmom02/src/dicegame/CDiceGame100.php</file>
+            <file>file:/C:/Bitnami/joomla-3.3.6-0/apache2/htdocs/oophp/kmom02/src/dicegame/C3Player.php</file>
             <file>file:/C:/Bitnami/joomla-3.3.6-0/apache2/htdocs/oophp/kmom02/src/dicegame/CPlayer.php</file>
         </group>
     </open-files>
