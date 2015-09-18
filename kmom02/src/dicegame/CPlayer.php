@@ -20,7 +20,7 @@ class CPlayer {
    }
 
    
-   public function rollDice($echo=true)
+   /*public function rollDice($echo=true)
    {
       //roll dice
       $res=C6Dice::roll();
@@ -39,7 +39,7 @@ class CPlayer {
         echo "<p><strong>$this->name</strong> kastar tärningen och får {$res}a, "
         . "$this->sex har nu ". $this->getScore() . " poäng.";
       }
-   }
+   }*/
    
    public function getScore(){ return $this->score;}
    public function addToScore($points){ $this->score += $points; return $this->score;}

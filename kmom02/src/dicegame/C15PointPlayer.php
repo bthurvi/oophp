@@ -19,8 +19,8 @@ class C15PointPlayer extends CPlayer
   
   public function doLogic()
   {
-    //this AI keeps allways tries to reach at least 15 points...   
-    if($this->dice->getSum()<=15)
+    //this AI keeps allways tries to reach at least 15 points (or wins).   
+    if($this->dice->getSum()<=15 && ($this->dice->getSum()+$this->getScore())<100)
       return true;
     else
       return false;
@@ -30,8 +30,7 @@ class C15PointPlayer extends CPlayer
   
   public function resetLogic()
   {
-    echo "<h2>Resetting the game logic</h2>";
-    $this->nrOfRolls=0;
+    //do nothing... 
   }  
 }
 

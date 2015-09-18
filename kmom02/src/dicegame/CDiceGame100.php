@@ -203,7 +203,10 @@ class CDiceGame100
       //create computer players
       for($i=1; $i<=$this->computerplayers; $i++)
       { 
-        $this->players[] = new C3Player("Dator $i","AI"); 
+        if(mt_rand(0,1))
+         $this->players[] = new C3Player("Dator $i","AI");
+        else
+          $this->players[] = new C15PointPlayer("Dator $i","AI",$this->dice);
       }
       
       //shuffle the players array
