@@ -118,9 +118,9 @@ class CDiceGame100
     if(isset($_POST['next_turn_for_AI-player']))
     {
       if($this->getActivePlayer()->doLogic())
-        $this->messages[]= "<b>{$this->getActivePlayerName()}</b> bestämde sig för att rulla tärningen igen!";
+        $this->runTurn();
       else
-        $this->messages[]= "<b>{$this->getActivePlayerName()}</b> bestämde sig för att <b>INTE</b> rulla tärningen igen!";
+        $this->saveTurn();
     }
  
     
@@ -138,6 +138,12 @@ class CDiceGame100
     //generate message
     $this->messages[]= "<b>{$this->getActivePlayerName()}</b> sparade <b>$p</b> poäng."
             . " Hen har nu totalt <b>{$this->players[$this->activePlayer]->getScore()}</b> poäng.";
+            
+    //if it is a AI-player - reset the decision logic before next turn
+      if($this->getActivePlayer()->getType()=="AI")
+      {
+        $this->getActivePlayer()->resetLogic();
+      }
     
     if(!$this->doWeHaveAWinner())
     {
@@ -161,6 +167,13 @@ class CDiceGame100
     {
       $this->messages[]= "Eftersom <b>{$this->getActivePlayerName()}</b> fick en <b>$res</b>a "
             . " så blir det nu nästa spelares tur.";
+      
+      //if it is a AI-player - reset the decision logic before next turn
+      if($this->getActivePlayer()->getType()=="AI")
+      {
+        $this->getActivePlayer()->resetLogic();
+      }
+      
       $this->nextPlayer();
     }
   }

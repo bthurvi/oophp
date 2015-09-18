@@ -29,6 +29,7 @@ class C3Player extends CPlayer
   
   public function resetLogic()
   {
+    echo "<h2>Resetting the game logic</h2>";
     $this->nrOfRolls=0;
   }  
 }

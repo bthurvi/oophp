@@ -127,7 +127,7 @@ EOA;
 else if($game->getActivePlayer()->getType()=="AI" )
 {
 $html .= <<<EOA
- <div><input type="submit" value="Nästa &#10095;" name="next turn for AI-player"/> </div>
+ <div><input type="submit" value="Nästa &#10095;" name="next_turn_for_AI-player"/> </div>
 EOA;
 }
 
