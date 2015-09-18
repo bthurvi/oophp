@@ -69,7 +69,7 @@ class CDiceGame100
   
   private function processInput($post)
   {
-      //var_dump($post);
+      var_dump($post);
       
     //if user has entered number of players
     if(isset($post['humans'])&& isset($post['ai']))
@@ -113,6 +113,12 @@ class CDiceGame100
     
     if( isset($_POST["save"]) && $_POST["save"]=="Stanna och spara")
       $this->saveTurn();
+    
+    //next button - for AI
+    if(isset($_POST['next_turn_for_AI-player']))
+    {
+      echo "<h2>". $this->getActivePlayerName() ."ska nu bestämma sig</h2>";
+    }
  
     
 

@@ -10,7 +10,7 @@ class CPlayer {
   
    private $rolls=[];
    private $score;
-   private $name;
+   protected $name;
    private $type;
    
    function __construct($name, $type) 
