@@ -60,8 +60,9 @@ else
       $urbax['title'] = "Redovisning";
       break;
     case "calendar": 
-      $file = "calendar.php";
+      $file = "manadens_babe.php";
       $urbax['title'] = "Kalender";
+      $urbax['stylesheets'][]="css/calendar.css";
       break;
     default : header("location:?p=about");
   }

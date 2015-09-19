@@ -22,12 +22,14 @@ function myAutoloader($class)
 {
   $path1 = URBAX_INSTALL_PATH . "/src/base/{$class}.php";
   $path2 = URBAX_INSTALL_PATH . "/src/dice/{$class}.php";
-  $path3 = URBAX_INSTALL_PATH . "/src/dicegame/{$class}.php";
+  $path3 = URBAX_INSTALL_PATH . "/src/calendar/{$class}.php";
+  $path4 = URBAX_INSTALL_PATH . "/src/dicegame/{$class}.php";
   
   if(is_file($path1)) {include($path1);}
   else if(is_file($path2)) {include($path2);}
   else if(is_file($path3)) {include($path3);}
-  else {throw new Exception("Classfile '{$path1}, {$path2} or {$path3}' does not exists.");}
+  else if(is_file($path4)) {include($path4);}
+  else {throw new Exception("Classfile '{$path1},{$path2}, {$path3} or {$path4}' does not exists.");}
 }
 
 
