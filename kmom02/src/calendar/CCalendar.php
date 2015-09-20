@@ -44,15 +44,44 @@ class CCalendar
      <header>
 
     <section>	
-     {$this->month} 20{$this->year} startar med dag nr {$this->dayOfWeek($this->year,$this->monthNr,false)} i veckan.
-     <p>
-     {$this->month} 20{$this->year} har {$this->daysInMonth($this->year,$this->monthNr)} dagar i månaden.
+     {$this->calendarTable()}
     </section>
 EOT;
    
      return $html;
    }
    
+   private function calendarTable()
+   {
+     //första dagen i månaden
+     $d="20".$this->year."-".$this->monthNr."-01";
+     $date= new DateTime($d);
+     //echo "<p>Första dagen i månaden är: ".date_format($date,"D d/m (Y)");
+     
+     //första dagen i kalender-tabellen
+     $f= $this->dayOfWeek($this->year,$this->monthNr,false)-1;
+     $diff = new DateInterval( "P".$f."D" ); 
+     $date->sub($diff);
+     //echo "<p>Startdatum för kalendertabellen är: ".date_format($date,"D d/m (Y)");
+     
+     $html = "<table border=1>";
+     $html .= "<tr><td>Måndag</td><td>Tisdag</td><td>Onsdag</td><td>Torsdag</td>"
+             . "<td>Fredag</td><td>Lördag</td><td>Söndag</td></tr>";
+     $diff = new DateInterval( "P1D" );
+     for($i=1;$i<=42;$i++)
+     {
+        $html .= "<td>".date_format($date,"d")."</td>";
+        $date->add($diff);
+        
+        if($i<42 && $i%7==0)
+          $html .=  "</tr><tr>";
+     }
+      $html .=  "</tr></table>";
+      
+      return $html;
+   }
+
+
    public function dayOfWeek($yearNr,$monthNr,$echo=false)
    {
      $timestamp=mktime(0, 0, 0, $monthNr,1,$yearNr);
