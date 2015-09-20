@@ -2,15 +2,6 @@
 
 include '../src/res/svHollidays.php';
 
-/*$h = getHolidays(2015);
-var_dump($h);
-
-echo "<p>";
-foreach ($h as $hday) 
-  echo date("y-m-d",$hday->getDate()) ." " .$hday->getDesc()['sv']. "<br/>";*/
-
-
-
 class CCalendar
 {
   private $month;
@@ -31,7 +22,7 @@ class CCalendar
       $this->year= $ynr;
       
       //calculate hollidays for current year
-      $h = getHolidays($ynr);
+      $h = getHolidays("20".$ynr);
       foreach ($h as $hday)
       {
         $this->holidays[] = date("y-m-d",$hday->getDate());
@@ -51,7 +42,8 @@ class CCalendar
      foreach ($this->holidays as $i=>$hday)
        $html .= "20" .$hday ." " .$this->holidaysDesc[$i]. "<br/>";
      
-     return $html."</div>";
+     return $html."<p style='margin-bottom:0;'>Credit to <em>Björn Viktor</em> (Bjorn@Victor.se) för kod som att räknar fram dagarna "
+             . "ovan. <a target='_blank' href='http://victor.se/bjorn/holidays.php'>Källa.</a> </p></div>";
    }
    
    public function show()
@@ -110,8 +102,10 @@ EOT;
      $diff = new DateInterval( "P1D" );
      for($i=1;$i<=42;$i++)
      {
-      
-       if(date_format($date,"m")==$this->monthNr && date_format($date,"D")=="Sun")
+       //format dates according to how important day is
+       if(date_format($date,"m")==$this->monthNr && in_array(date_format($date,"y-m-d"),$this->holidays))
+         $html .= "<td class='day sunday'>".date_format($date,"j")."</td>";
+       else if(date_format($date,"m")==$this->monthNr && date_format($date,"D")=="Sun")
          $html .= "<td class='day sunday'>".date_format($date,"j")."</td>";
        else if(date_format($date,"m")==$this->monthNr)
         $html .= "<td class='day'>".date_format($date,"j")."</td>";

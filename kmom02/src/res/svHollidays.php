@@ -1,4 +1,14 @@
 <?php
+// Below is a slightly modified a code snippet from Björn Viktor ~ Bjorn@Victor.se
+// http://victor.se/bjorn/holidays-source.php
+// http://victor.se/bjorn/holidays.php
+// 
+// Copyright (c) 2001-2014, Björn Victor <Bjorn@Victor.se>
+// This work is licensed under the Creative Commons Attribution 2.5
+// Sweden License. To view a copy of this license, visit
+// http://creativecommons.org/licenses/by/2.5/se/ or send a letter to
+// Creative Commons, 444 Castro Street, Suite 900, Mountain View,
+// California, 94041, USA.
 
 class holiDay {
   var $date, $desc, $flag;
