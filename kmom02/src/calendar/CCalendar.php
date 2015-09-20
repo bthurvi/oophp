@@ -1,10 +1,23 @@
 <?php
 
+include '../src/res/svHollidays.php';
+
+/*$h = getHolidays(2015);
+var_dump($h);
+
+echo "<p>";
+foreach ($h as $hday) 
+  echo date("y-m-d",$hday->getDate()) ." " .$hday->getDesc()['sv']. "<br/>";*/
+
+
+
 class CCalendar
 {
   private $month;
   private $year;
   private $monthNr;
+  private $holidays;
+  private $holidaysDesc;
   
   function __construct($ynr,$nr) 
   {
@@ -14,8 +27,31 @@ class CCalendar
       $this->month=CswMonths::mon($nr);
     }
     if($ynr>10 && $ynr<=30)
+    {
       $this->year= $ynr;
+      
+      //calculate hollidays for current year
+      $h = getHolidays($ynr);
+      foreach ($h as $hday)
+      {
+        $this->holidays[] = date("y-m-d",$hday->getDate());
+        $this->holidaysDesc[] = $hday->getDesc()['sv'];
+      }
+     
+    }
+  
+   }
    
+   public function showHollidays()
+   {
+     
+     $html="<div style='padding:1em'>"
+           . "<h3 style='margin-top:0'>20" .$this->year. " har följande extra söndagar</h3>";
+     
+     foreach ($this->holidays as $i=>$hday)
+       $html .= "20" .$hday ." " .$this->holidaysDesc[$i]. "<br/>";
+     
+     return $html."</div>";
    }
    
    public function show()
@@ -41,10 +77,11 @@ class CCalendar
      <h2 class="strokeme">{$this->month} 20{$this->year}</h2>
      <img class="header" src="img/calendar/{$this->getMonthImage()}" 
      alt="image of the month"></header>
-     <header>
+     
 
     <section>	
      {$this->calendarTable()}
+     {$this->showHollidays()}
     </section>
 EOT;
    
@@ -64,17 +101,28 @@ EOT;
      $date->sub($diff);
      //echo "<p>Startdatum för kalendertabellen är: ".date_format($date,"D d/m (Y)");
      
-     $html = "<table border=1>";
-     $html .= "<tr><td>Måndag</td><td>Tisdag</td><td>Onsdag</td><td>Torsdag</td>"
-             . "<td>Fredag</td><td>Lördag</td><td>Söndag</td></tr>";
+     $html = "<table>";
+     $html .= "<tr class='grey loline'><td class='vecka'>Vecka</td><td>Måndag</td><td>Tisdag</td>"
+             . "<td>Onsdag</td><td>Torsdag</td><td>Fredag</td><td>Lördag</td>"
+             . "<td>Söndag</td></tr>";
+     $html .= "<td class='vecka grey'>".date_format($date,"W")."</td>";
+     
      $diff = new DateInterval( "P1D" );
      for($i=1;$i<=42;$i++)
      {
-        $html .= "<td>".date_format($date,"d")."</td>";
+      
+       if(date_format($date,"m")==$this->monthNr && date_format($date,"D")=="Sun")
+         $html .= "<td class='day sunday'>".date_format($date,"j")."</td>";
+       else if(date_format($date,"m")==$this->monthNr)
+        $html .= "<td class='day'>".date_format($date,"j")."</td>";
+       else
+        $html .= "<td class='notThisMonth'>".date_format($date,"j")."</td>";
+        
+        
         $date->add($diff);
         
         if($i<42 && $i%7==0)
-          $html .=  "</tr><tr>";
+          $html .=  "</tr><tr><td class='vecka grey'>".date_format($date,"W")."</td>";
      }
       $html .=  "</tr></table>";
       

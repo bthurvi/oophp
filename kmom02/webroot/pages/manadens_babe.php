@@ -1,4 +1,5 @@
 <?php
+setlocale(LC_TIME,"sv","sv_SE");
 
   if(isset($_GET['y']) && isset($_GET['m']))
   {

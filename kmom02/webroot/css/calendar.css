@@ -7,10 +7,11 @@
 .header{
     width: 80%;
     height: 22vw;
-    border-radius: 5px;
+    border-radius: 5px 5px 0 0;
     border: 1px solid #6f6f6f;
     display: block;
-    margin: 30px auto;
+    margin: 30px auto 0;
+    
 }
 
 header{ position: relative; }
@@ -40,8 +41,26 @@ header h2{ position: absolute; width: 80%;
 .right{float:right; margin-right: 2%;}
 
 section{
-	min-height: 600px;
-	margin: 30px 0;
+        width:80%;
+        margin:0 auto;
+        border:1px solid #999;
+        border-top:0;
+        border-radius: 0 0 5px 5px;
+}
+
+section table{ 
+    width: 100%;
+    border-collapse: collapse;
+}
+
+section table td{
+    border:1px solid #333;
+    text-align: center;
+}
+
+section table tr{
+    vertical-align:middle;
+    line-height: 5em; 
 }
 
 .strokeme
@@ -52,5 +71,36 @@ section{
     1px -1px 0 #6f6f6f,
     -1px 1px 0 #6f6f6f,
     1px 1px 0 #6f6f6f;  
+}
+
+.day{
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.vecka{
+    font-size: 0.7em;
+    width: 25px;
+    padding: 0 1em;
+}
+
+.notThisMonth{
+    padding: 10px;
+    line-height: 1.2em;
+    font-size: 0.7em;
+    vertical-align: top !important;
+    text-align: right;
+}
+
+.grey{
+    background: #eee;
+}
+
+.loline{
+    line-height: 3em !important;
+}
+
+.sunday{
+    color: #CC0000;
 }
 
