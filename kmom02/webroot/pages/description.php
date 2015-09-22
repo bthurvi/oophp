@@ -1,21 +1,4 @@
 <h1>Redovisningar</h1>
-<h4>Kmom01 - <a href="http://dbwebb.se/oophp/kmom01">Kom igång med programmering i PHP</a></h4>
-
-<p>Jag använder utvecklingsmiljön NetBeans till kodandet av uppgifterna i denna kurs.</p>
-<p>Guiden 20 steg för att komma igång med PHP har jag i ärlighetens namn bara skummat igenom. Vid genomläsningen föreföll det inte vara särskilt mycket nytt för mig. Jag upplevde att jag kunde det mesta och valde därför att gå vidare med själva kodandet av anax.</p>
-<p>Min version av anax valde jag att kalla för urbax, eller förkortat UV-ax. Där Ax-ändelsen kommer  från anax och UV är mina initialer. Som du som läser detta kan se ovan tillverkade jag även en egen logga och favicon till urbax. Eftersom jag råkar heta Urban blev loggan och faviconen inspierad av bebyggelse (Urban betyder ju även stad). Min tanke är att loggan eventuellt kan fungera att använda till kunskapsmomentet 07/10. Min tanke är nämligen att eventuellt byta ut RM Rental Movies till Rental accommodations, dvs hus och lägenheter. När jag kommer så långt i kursen får vi se hur och om det blir så... </p>
-
-<p>Det enklaste sättet att bygga denna webbplats utifrån anax-basen hade naturligtvis varit att bara klona git-koden och sedan byta några namn. Men eftersom jag gärna vill ha koll på vad jag gör i koden så valde jag istället att bygga allt från grunden enligt mos guide. Lite mer jobb men mycket bättre förståelse enligt mitt sätt att se på saken. Samtidigt som jag följde guiden ändrade en del i css-en från anax, bytte typsnitt, ändrade menyutformning och valde att centrera vissa sidelement som rubriker och så. I övrigt tyckte jag att den vita designen fick vara kvar.</p>
-
-<p>Själva strukturen i Anax trivs jag ganska bra med, men jag gjorde några ändringar till mitt urbax. Bland annat skapade jag en index-sida som inkulderar header, navigation och footer (så slipper jag ha med den koden i varje page-controller). Index-pagecontrollern styr via navigation.php vilket sid-innehåll som skall laddas. Innehållet till de olika sidorna (som ligger i pages-mappen) överförs där I(i navigation.php) till variabeln  jag content. En utskrift av innehållet i content sker sedan vid renderingen, dvs templatefilen (index.tpl.php). Eventuellt kan användandet av get-variabel för navigering innebära lite besvärligar rewrite-rules än vanligt när man tänker mvc (men om det blir aktuellt i den här kursen återstår att se). En annan anledning till att det blev en get-lösning beror nog på att guiden om de dynamiska navigationselementet (klassen cNavigation) var skriven på det sättet... </p>
-
-<p>Det jag tycker att jag har lärt mig av det här kursmomentet är främst autoloaderfunktionen. <strong>spl_autoload_register</strong> hade jag inte hört talas om tidigare. Likaså var strukturen med en  callbackfunktion för att hantera aktiv sida i menyn ny för mig. Ett hyffsat smidigt förfaringssätt tycker jag.</p>
-
-<p>Det gick bra för mig att inkludera source.php som en modul. först fick jag lov att lägga till en get-parameter i sökvägen för breadcrumben, mapparna och filerna eftersom jag använder mig av en index-sida med get parametrar. Jag fick även fixa lite med CSS-en för att få en snygg utskrift. </p>
-  
-<p>Efter uppladdningen av av detta, kmom01, gjorde jag även extrauppgiften med GitHub - eftersom jag ville påminna mig om det. Jag hade gjort det förr, någon gång, men glömt en del. Det sägs ju att repetition är kunskapens moder...</p>
-
-<hr>
 
 <h4>Kmom02 - <a href="http://dbwebb.se/oophp/kmom02">Objektorienterad programmering i PHP</a></h4>
 
@@ -35,3 +18,21 @@
 
 <p>Sammanfattningsvis kan man säga att jag hade några få besvär,svårigheter och problem med logiken men löste det. Kursmomenten tycker jag har gett mig ökad erfarenhet i objektorienterad programmering Resultatet tycker jag blev hyfsat (även om koden säkerligen går att förfina, förenkla och göra elegantare). De lärdomar som dessa båda uppgifter har gett mig är ökad förståelse för variablers synlighet i samband med objektorienterad programmering (exempelvis parent:: och self::). Uppgifterna har även gett mig ökad erfarenhet av att få klass-instanser att samverka med varandra (som t.ex.C3Player och CDice). </p>
 
+<p>&nbsp;</p>
+<hr>
+
+<h4>Kmom01 - <a href="http://dbwebb.se/oophp/kmom01">Kom igång med programmering i PHP</a></h4>
+
+<p>Jag använder utvecklingsmiljön NetBeans till kodandet av uppgifterna i denna kurs.</p>
+<p>Guiden 20 steg för att komma igång med PHP har jag i ärlighetens namn bara skummat igenom. Vid genomläsningen föreföll det inte vara särskilt mycket nytt för mig. Jag upplevde att jag kunde det mesta och valde därför att gå vidare med själva kodandet av anax.</p>
+<p>Min version av anax valde jag att kalla för urbax, eller förkortat UV-ax. Där Ax-ändelsen kommer  från anax och UV är mina initialer. Som du som läser detta kan se ovan tillverkade jag även en egen logga och favicon till urbax. Eftersom jag råkar heta Urban blev loggan och faviconen inspierad av bebyggelse (Urban betyder ju även stad). Min tanke är att loggan eventuellt kan fungera att använda till kunskapsmomentet 07/10. Min tanke är nämligen att eventuellt byta ut RM Rental Movies till Rental accommodations, dvs hus och lägenheter. När jag kommer så långt i kursen får vi se hur och om det blir så... </p>
+
+<p>Det enklaste sättet att bygga denna webbplats utifrån anax-basen hade naturligtvis varit att bara klona git-koden och sedan byta några namn. Men eftersom jag gärna vill ha koll på vad jag gör i koden så valde jag istället att bygga allt från grunden enligt mos guide. Lite mer jobb men mycket bättre förståelse enligt mitt sätt att se på saken. Samtidigt som jag följde guiden ändrade en del i css-en från anax, bytte typsnitt, ändrade menyutformning och valde att centrera vissa sidelement som rubriker och så. I övrigt tyckte jag att den vita designen fick vara kvar.</p>
+
+<p>Själva strukturen i Anax trivs jag ganska bra med, men jag gjorde några ändringar till mitt urbax. Bland annat skapade jag en index-sida som inkulderar header, navigation och footer (så slipper jag ha med den koden i varje page-controller). Index-pagecontrollern styr via navigation.php vilket sid-innehåll som skall laddas. Innehållet till de olika sidorna (som ligger i pages-mappen) överförs där I(i navigation.php) till variabeln  jag content. En utskrift av innehållet i content sker sedan vid renderingen, dvs templatefilen (index.tpl.php). Eventuellt kan användandet av get-variabel för navigering innebära lite besvärligar rewrite-rules än vanligt när man tänker mvc (men om det blir aktuellt i den här kursen återstår att se). En annan anledning till att det blev en get-lösning beror nog på att guiden om de dynamiska navigationselementet (klassen cNavigation) var skriven på det sättet... </p>
+
+<p>Det jag tycker att jag har lärt mig av det här kursmomentet är främst autoloaderfunktionen. <strong>spl_autoload_register</strong> hade jag inte hört talas om tidigare. Likaså var strukturen med en  callbackfunktion för att hantera aktiv sida i menyn ny för mig. Ett hyffsat smidigt förfaringssätt tycker jag.</p>
+
+<p>Det gick bra för mig att inkludera source.php som en modul. först fick jag lov att lägga till en get-parameter i sökvägen för breadcrumben, mapparna och filerna eftersom jag använder mig av en index-sida med get parametrar. Jag fick även fixa lite med CSS-en för att få en snygg utskrift. </p>
+  
+<p>Efter uppladdningen av av detta, kmom01, gjorde jag även extrauppgiften med GitHub - eftersom jag ville påminna mig om det. Jag hade gjort det förr, någon gång, men glömt en del. Det sägs ju att repetition är kunskapens moder...</p>
