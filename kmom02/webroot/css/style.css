@@ -119,7 +119,7 @@ h1{
   color: #666;
 }
 
-//helper classes
+/*helper classes*/
 .justify{ text-align: justify;}
 .center{ text-align: center;}
 .h1margins{ margin: 20px 0;}

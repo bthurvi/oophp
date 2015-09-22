@@ -97,7 +97,7 @@ EOT;
      $html .= "<tr class='grey loline'><td class='vecka'>Vecka</td><td>Måndag</td><td>Tisdag</td>"
              . "<td>Onsdag</td><td>Torsdag</td><td>Fredag</td><td>Lördag</td>"
              . "<td>Söndag</td></tr>";
-     $html .= "<td class='vecka grey'>".date_format($date,"W")."</td>";
+     $html .= "<tr><td class='vecka grey'>".date_format($date,"W")."</td>";
      
      $diff = new DateInterval( "P1D" );
      for($i=1;$i<=42;$i++)

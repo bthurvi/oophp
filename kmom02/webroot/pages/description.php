@@ -18,6 +18,9 @@
 
 <p>Sammanfattningsvis kan man säga att jag hade några få besvär,svårigheter och problem med logiken men löste det. Kursmomenten tycker jag har gett mig ökad erfarenhet i objektorienterad programmering Resultatet tycker jag blev hyfsat (även om koden säkerligen går att förfina, förenkla och göra elegantare). De lärdomar som dessa båda uppgifter har gett mig är ökad förståelse för variablers synlighet i samband med objektorienterad programmering (exempelvis parent:: och self::). Uppgifterna har även gett mig ökad erfarenhet av att få klass-instanser att samverka med varandra (som t.ex.C3Player och CDice). </p>
 
+<p>Källkoden till denna webbplats ligger ute på GitHub 
+    du hittar det <a href="https://github.com/bthurvi/oophp">här</a>.</p>
+
 <p>&nbsp;</p>
 <hr>
 

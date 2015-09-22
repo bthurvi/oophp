@@ -20,6 +20,8 @@ set_exception_handler('myExceptionHandler');
 
 function myAutoloader($class) 
 {
+  //$class = ucfirst($class);
+  
   $path1 = URBAX_INSTALL_PATH . "/src/base/{$class}.php";
   $path2 = URBAX_INSTALL_PATH . "/src/dice/{$class}.php";
   $path3 = URBAX_INSTALL_PATH . "/src/calendar/{$class}.php";

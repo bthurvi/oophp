@@ -23,7 +23,7 @@ $menu = array('callback' => 'setActive',
 );
 
 //menu to display
-$nav = cNavigation::GenerateMenu("navmenu",$menu);
+$nav = CNavigation::GenerateMenu("navmenu",$menu);
 $urbax['nav'] = $nav;
 
 //content to show

@@ -132,7 +132,7 @@ class CSource {
     $path = null; 
     foreach($this->breadcrumb as $val) {
       $path .= "$val/";      
-      $html .= "<li><a href='?p=code&path={$path}'>{$val}</a>/</li>";
+      $html .= "<li><a href='?p=code&amp;path={$path}'>{$val}</a>/</li>";
     }
     $html .= "</ul>\n";
 
@@ -157,7 +157,7 @@ class CSource {
 
       $file = basename($val) . (is_dir($val) ? '/' : null);
       $path = (empty($this->path) ? null : $this->path . '/') . $file;
-      $html .= "<li><a href='?p=code&path={$path}'>{$file}</a></li>\n";
+      $html .= "<li><a href='?p=code&amp;path={$path}'>{$file}</a></li>\n";
     }
     $html .= "</ul>\n";
 
