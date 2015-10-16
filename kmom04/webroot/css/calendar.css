@@ -1,0 +1,106 @@
+
+/* 
+    Created on : 2015-sep-19, 11:29:20
+    Author     : urbvik
+*/
+
+.header{
+    width: 80%;
+    height: 22vw;
+    border-radius: 5px 5px 0 0;
+    border: 1px solid #6f6f6f;
+    display: block;
+    margin: 30px auto 0;
+    
+}
+
+header{ position: relative; }
+
+
+
+header h2{ position: absolute; width: 80%;
+           top:10px;
+           left:10%;
+           text-align: center;
+           color:white; 
+           font-size: 5vw;
+           font-weight: 300;
+           margin-top:6vw;
+           letter-spacing: -6px;
+}
+
+
+.navsquare{color:black; padding: 5px; 
+          border: 1px solid black; border-radius:3px; 
+          text-decoration: none; 
+          margin-top: 11vw;}
+.navsquare:hover{ background: #eee;}
+.navsquare:active{ background: #ddd;}
+
+.left{float:left; margin-right:0; margin-left: 2%;}
+.right{float:right; margin-right: 2%;}
+
+section{
+        width:80%;
+        margin:0 auto;
+        border:1px solid #999;
+        border-top:0;
+        border-radius: 0 0 5px 5px;
+}
+
+section table{ 
+    width: 100%;
+    border-collapse: collapse;
+}
+
+section table td{
+    border:1px solid #333;
+    text-align: center;
+}
+
+section table tr{
+    vertical-align:middle;
+    line-height: 5em; 
+}
+
+.strokeme
+{
+    color: white;
+    text-shadow:
+    -1px -1px 0 #6f6f6f,
+    1px -1px 0 #6f6f6f,
+    -1px 1px 0 #6f6f6f,
+    1px 1px 0 #6f6f6f;  
+}
+
+.day{
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.vecka{
+    font-size: 0.7em;
+    width: 25px;
+    padding: 0 1em;
+}
+
+.notThisMonth{
+    padding: 10px;
+    line-height: 1.2em;
+    font-size: 0.7em;
+    vertical-align: top !important;
+    text-align: right;
+}
+
+.grey{
+    background: #eee;
+}
+
+.loline{
+    line-height: 3em !important;
+}
+
+.sunday{
+    color: #CC0000;
+}
+
