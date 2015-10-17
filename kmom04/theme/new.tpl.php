@@ -13,7 +13,7 @@
 
 <body>
   <div id='wrapper'>
-    <div id='nav'><?=$nav?></div>
+    <div class='nav'><?=$nav?></div>
     <div id='header'><?=$header?></div>
     <div id='main'><?php include $content?></div>
     <div id='footer'><?=$footer?></div>

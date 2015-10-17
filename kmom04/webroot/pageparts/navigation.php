@@ -11,7 +11,7 @@ function setActive($items) {
   return $items;
 }
 
-$menu = array('callback' => 'setActive',
+/*$menu = array('callback' => 'setActive',
               'items' => array( 'about'  => array('text'=>'Om mig',  'url'=>'?p=about', 'class'=>null),
                                 'dice'  => array('text'=>'Tärningar',  'url'=>'?p=dice', 'class'=>null),                          
                                 'slideshow'  => array('text'=>'Bildspel',  'url'=>'?p=slideshow', 'class'=>null),
@@ -26,6 +26,27 @@ $menu = array('callback' => 'setActive',
 //menu to display
 $nav = CNavigation::GenerateMenu("navmenu",$menu);
 $urbax['nav'] = $nav;
+*/
+
+//menu to display
+$menu = array(new CMenuItem('Tarningar','?p=dice'), 
+              array(new CMenuItem('Kasta en tärning','?p=dice'),new CMenuItem('Tärningsspelet 100','?p=dicegame')),
+              new CMenuItem('Bildspel','?p=slideshow'),
+              new CMenuItem('Kalender','?p=calendar'),
+              new CMenuItem('Filmdatabas','?p=movie'),
+              //new CMenuItem('Djur','?'),
+              //array(new CMenuItem('Ankor','?p=anka'),array(new CMenuItem('Anderssons tama anka','?p=andank'),new CMenuItem('Vild anka','?p=vildank')), 
+              // new CMenuItem('Babian','?p=babian'),new CMenuItem('Citronfjäril','?p=fjaril')),
+              new CMenuItem('Information','?p=desc'),
+              array(new CMenuItem('Redovisningar','?p=desc'),new CMenuItem('Visa källkod','?p=code'),new CMenuItem('Utveckling','?p'),array(new CMenuItem('Om mig','?p=about')))
+            );
+
+
+$htmlMenu = new CDynamicDropDownMenu($menu,"activeNav");
+if(isset($_GET['p']))
+	$htmlMenu->HilighALLtMenuItemsBasedOnGetParam('p');  
+$urbax['nav'] =	 $htmlMenu->GetMenu();
+
 
 //content to show
 if(!isset($_GET['p']))

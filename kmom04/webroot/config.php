@@ -56,7 +56,7 @@ $urbax['title_append'] = ' | Urbax';
  * Theme related settings.
  *
  */
-$urbax['stylesheets'] = array('css/style.css');
+$urbax['stylesheets'] = array('css/new.css');
 $urbax['stylesheets'][]="http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,300,600";
 $urbax['favicon']    = 'favicon.ico';
 
