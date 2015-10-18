@@ -5,10 +5,11 @@
 */
 
 body {
-  color: #333;
+  color: #222;
   font-family: 'Open Sans',arial, sans-serif;
   font-weight: 300;
   padding: 0;
+  background:#fafaff;
   margin: 0;
 }
 
@@ -23,23 +24,22 @@ styles for header part of page
     margin-top:-1px;
 }
 
-#header img{ 
-    height: 85px;
-    display: block;
+#header #logo img{ height: 85px;}
+
+#header #logo{ 
     margin:34px 0 36px 50px;
     opacity: 0.8;
 }
 
 
 #header #text{
-    background: black;
-    color: white;
+    background: #0c0c0c;
+     background: #1c1c1c;
+    color: #BBB4AB;
     margin-top: -4px;
     font-size: 10px;
-    color: #eee;
-    height: 30px;
-    padding-left: 5px;
-    opacity: 0.7;
+    padding: 8px 0 10px 20px;
+    line-height: 10px;
 }
 
 #header .sitetitle{
@@ -48,20 +48,15 @@ styles for header part of page
 
 
 
-h1{
-    font-weight: 300;
-}
-
-
  /*
  Styles for dynamic navigation dropdown menu
  */
-.nav{ font-family: arial,sans-serif; font-size:0.8em; font-weight:300; background: #111;}
+.nav{ font-family: arial,sans-serif; font-size:0.8em; font-weight:300;  background: #1c1c1c;}
 .nav a{text-decoration: none; color:#aaa;}
 .nav ul{list-style-type: none; margin:0; padding: 0;}
-.nav>ul>li{display: inline-block;  padding: 6px 0px; }
-.nav>ul>li>a{padding: 6px 12px; font-size: 1.2em; border-left: 1px solid #111; }
-.nav>ul>li>ul{background: #f3f3f3; position: absolute; margin-top: 5px; z-index:9999; border: 1px solid #111;}
+.nav>ul>li{display: inline-block;  padding: 6px 0px; margin-left: -1px; }
+.nav>ul>li>a{padding: 6px 12px; font-size: 1.2em; border-left:2px solid #C05316; }
+.nav>ul>li>ul{background: #f3f3f3; position: absolute; margin-top: 5px; margin-left:-0.5px;  z-index:9999; border: 1px solid #111;}
 .nav>ul>li>ul>li{position: relative;}
 .nav>ul>li>ul>li>a{display:block; width: 120px; padding: 6px 12px;}
 .nav>ul>li>ul>li>ul{position: absolute; margin-top:-1px; margin-left:144px; top:0; white-space: nowrap; background:#fafaff; border: 1px solid #222;}
@@ -75,4 +70,39 @@ h1{
 .nav li:hover>ul{display: block;}
 
 .activeNav>a{text-decoration: underline;}
+
+
+/*
+main content
+*/
+
+#main{
+    margin: 40px;
+    min-height:580px;
+}
+
+/*
+footer styles
+*/
+#footer
+{
+    padding: 10px 25px;
+    background: #1c1c1c;
+    color: #BBB4AB;
+    font-size: 10px;
+    min-height: 100px;
+}
+
+#footer footer a{
+     color: #FF9154;
+     text-decoration: none;
+}
+
+/*
+place element to left
+*/
+.left{
+    float: left;
+    margin-right: 30px;
+}
 

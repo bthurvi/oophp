@@ -2,17 +2,14 @@
 
 <h4>Kmom04 - <a href="http://dbwebb.se/oophp/kmom04">PHP PDO och MySQL</a></h4>
 
-<p>Reflektera över svårigheter, problem, lösningar, erfarenheter, lärdomar, resultatet, etc.</p>
 
-<p>Hur kändes det att jobba med PHP PDO?</p>
 <p>Att jobba med PHP PDO kändes bra. Jag har i och för sig jobbat med det tidigare vilket naturligtvis kan ha inverkat på min känsla.</p>
 
-<p>Gjorde du guiden med filmdatabasen, hur gick det?</p>
 
-<p>Jag följde guiden med filmdatabsen (eftersom det stod att man skulle det) alla momen kom inte riktig i den ordning som jag ville så jag fick hoppa runt lite i instruktionen.
-Det kändes lite besvärligt, men eftersom jag först skum-läste igenom hela guiden så gick det ändå hyffsat. Den ordning som jag valde att lägga upp arbetet på innebar dock att jag 
-direkt började med klassen CDatabase som Mikael hade introducerat först i mitten av texten. Min initiala arbetsgång blev följande: lägg in databas-anslutnings-parametrarna i config, 
-skapa klassen, fyll databasen och därefter testa så att det fungerade.</p>
+<p>Jag följde guiden med <a href="http://dbwebb.se/kunskap/kom-igang-med-php-pdo-och-mysql">filmdatabsen</a> (eftersom det stod att man skulle det) alla moment kom inte riktig i 
+   den ordning som jag ville. Därför fick jag hoppa runt lite i instruktionen vilket kändes lite besvärligt. Men eftersom jag först skum-läste igenom hela guiden så gick det ändå hyffsat. 
+   Den ordning som jag valde att lägga upp arbetet på innebar  att jag direkt började med klassen CDatabase som Mikael hade introducerat först i mitten av texten. Min initiala arbetsgång blev följande: 
+   lägg in databas-anslutnings-parametrarna i config, skapa klassen, fyll databasen och därefter testa så att det fungerade.</p>
 
 <p>Jag valde även att lägga till så att medlemsfunktionen ExecuteSelectQueryAndFetchAll kan returnera ett frågeresultat eller en komplett HTML-tabell. Dett kom att innebära att jag lade till
     en privat funktion till klassen, jag kallade den generateHTMLtableResult.</p>
@@ -24,13 +21,20 @@ i form av drop-down alternativ så gjorde jag återigen ett snabbt hopp för att
     Själva stylingen ville jag lägga till efter jag väl hade menyn på plats. Därför fick läste jag igenom delen om hur man 
     <a href="http://dbwebb.se/coachen/skapa-en-dynamisk-navbar-meny-med-undermeny-via-php">skapar en dynamisk meny med undermeny via PHP</a>. Med båda dessa i färskt minne
 valde jag att uppdatera funktionen GenerateMenu i klassen CNavigation så att den även kan hantera undermenyer. För att inte strula till det valde jag först att göra det som 
-ett litet testprogram som fungerade.  Efter lite jobb så fick jag det att fungera med både html-genereringen
-utifrån nästlade arrayer och med den CSS som jag önskade. Därefter kopierade jag in koden till hela kmomo04-projektet. Intressant. lärorikt och gav god erfarenhet tycker jag att det gjorde.</p>
+ett testprogram som fungerade. Det blev två klasser: CNavigation och CDropDownMenu.  Efter en hel del jobb så fick jag det att fungera med både html-genereringen utifrån nästlade arrayer 
+och med den CSS som jag önskade. Extra intressant var att jag var tvungen att använda SPL-klassen RecursiveItterator för att få markeringen av aktivt menyalternativ att fungera. Kul! 
+Därefter skapa de jag en ny branch i git, lade in klasserna i kmomo04-projektet, fixade menyn och gjorde om hela stylingen för siten (med en ny template och en ny css-fil). Sedan merge:ade jag
+den git-branchen tillbaka till mastern. Det var lärorikt och gav god erfarenhet tycker jag.</p>
+
+<p>Men menyn och nya designen fixad återvände jag till arbetet med att följa guiden om <a href="http://dbwebb.se/kunskap/kom-igang-med-php-pdo-och-mysql">filmdatabsen</a>.</p>
+
+
+<!-- fyll på här -->
 
 
 
-
-<p>Du har nu byggt ut ditt Anax med ett par moduler i form av klasser, hur tycker du det konceptet fungerar så här långt, fördelar, nackdelar?</p>
+<p>De fördelar jag kan se med Anax-konceptet/ramverket så här långt är att man enkelt kan återanvända klasserna i nya projekt. Lite besvärligare att hitta mellan olika filer - eftersom ramverket
+    är större. Dessutom är jag osäker på hur smidig blandningen mellan logik och html-kod i är i själva klass-filerna. Vi får se om det går hålla koden 'renare' när jag kommer till MVC-kursen...</p>
 
 
 

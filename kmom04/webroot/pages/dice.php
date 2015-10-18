@@ -26,7 +26,7 @@ if($roll) {
 
 <h1 class="center">Kasta tärning</h1>
 <p class="center">Detta är en exempelsida som visar hur Urbax fungerar tillsammans med återanvändbara moduler.</p>
-<div style="text-align: center">
+<div>
 <p >Hur många kast vill du göra, <a href='?p=dice&roll=1'>1 kast</a>, <a href='?p=dice&roll=3'>3 kast</a> eller <a href='?p=dice&roll=6'>6 kast</a>? </p>
 
 <?=$html;?>
