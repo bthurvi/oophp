@@ -106,3 +106,56 @@ place element to left
     margin-right: 30px;
 }
 
+/*
+styling for tables
+*/
+.table  
+{ 
+        width: 100%; 
+        border-collapse: collapse; 
+}
+/* Zebra striping */
+.table tr:nth-of-type(odd) { 
+        background: #eee; 
+}
+.table th { 
+        background: #333; 
+        color: white; 
+        font-weight: bold; 
+}
+/*hilight row */
+.table tr:hover{
+    background: #ddd;
+     cursor:arrow;
+}
+.table td, th { 
+        padding: 6px; 
+        border: 1px solid #ccc; 
+        text-align: left; 
+}
+
+
+/*
+Styling for buttons
+*/
+input[type="submit"], .aButton
+{
+    background: #333;
+    color: #ccc;
+    border: 1px solid #222;
+    border-radius: 2px;
+    padding: 3px 5px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+}
+input[type="submit"]:hover, .aButton:hover
+{
+    background: #E26924;
+}
+input[type="submit"]:active, .aButton:active
+{
+    color:#888;
+}
+
+

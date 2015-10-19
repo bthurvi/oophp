@@ -11,22 +11,6 @@ function setActive($items) {
   return $items;
 }
 
-/*$menu = array('callback' => 'setActive',
-              'items' => array( 'about'  => array('text'=>'Om mig',  'url'=>'?p=about', 'class'=>null),
-                                'dice'  => array('text'=>'Tärningar',  'url'=>'?p=dice', 'class'=>null),                          
-                                'slideshow'  => array('text'=>'Bildspel',  'url'=>'?p=slideshow', 'class'=>null),
-                                'dicegame' => array('text'=>'Tärning100', 'url'=>'?p=dicegame','class'=>null),
-                                'calendar' => array('text'=>'Kalender', 'url'=>'?p=calendar','class'=>null),
-                                'movie' => array('text'=>'Filmdatabas', 'url'=>'?p=movie','class'=>null),
-                                'code'  => array('text'=>'Källkod',  'url'=>'?p=code', 'class'=>null),
-                                'desc' => array('text'=>'Redovisningar', 'url'=>'?p=desc','class'=>null),                                                        
-  ),
-);
-
-//menu to display
-$nav = CNavigation::GenerateMenu("navmenu",$menu);
-$urbax['nav'] = $nav;
-*/
 
 //menu to display
 $menu = array(new CMenuItem('Tarningar','?p=dice'), 
@@ -34,9 +18,8 @@ $menu = array(new CMenuItem('Tarningar','?p=dice'),
               new CMenuItem('Bildspel','?p=slideshow'),
               new CMenuItem('Kalender','?p=calendar'),
               new CMenuItem('Filmdatabas','?p=movie'),
-              //new CMenuItem('Djur','?'),
-              //array(new CMenuItem('Ankor','?p=anka'),array(new CMenuItem('Anderssons tama anka','?p=andank'),new CMenuItem('Vild anka','?p=vildank')), 
-              // new CMenuItem('Babian','?p=babian'),new CMenuItem('Citronfjäril','?p=fjaril')),
+              array(new CMenuItem('Visa alla','?p=movie'),new CMenuItem('Återställ','?p=moviereset'), new CMenuItem('Sök efter titel','?p=movietitlesearch'),
+                   new CMenuItem('Sök efter år','?p=movieyearsearch')),
               new CMenuItem('Information','?p=desc'),
               array(new CMenuItem('Redovisningar','?p=desc'),new CMenuItem('Visa källkod','?p=code'),new CMenuItem('Utveckling','?p'),array(new CMenuItem('Om mig','?p=about')))
             );
@@ -74,7 +57,19 @@ else
       break;
     case "movie": 
       $file = "movie.php"; 
-      $urbax['title'] = "Filmdatabas";
+      $urbax['title'] = "Visa alla i filmdatabasen";
+      break;
+    case "moviereset": 
+      $file = "moviereset.php"; 
+      $urbax['title'] = "Återställ filmdatabasen";
+      break;
+    case "movietitlesearch": 
+      $file = "movie_title_search.php"; 
+      $urbax['title'] = "Sök film per titel";
+      break;
+    case "movieyearsearch": 
+      $file = "movie_year_search.php"; 
+      $urbax['title'] = "Sök film per år";
       break;
     case "code": 
       $file = "showcode.php"; 

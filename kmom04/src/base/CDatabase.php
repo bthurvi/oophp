@@ -75,6 +75,7 @@ class CDatabase {
     
   }
   
+  
   private function generateHTMLtableResult($stmObj,$tableCSSid='')
 	{
     if(empty($tableCSSid))
