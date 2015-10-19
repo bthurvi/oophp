@@ -158,4 +158,28 @@ input[type="submit"]:active, .aButton:active
     color:#888;
 }
 
+/*
+sort buttons
+*/
+.sortButton
+{
+    background: #444;
+    color: white;
+    border: 1px solid #666;
+    border-radius: 2px;
+    padding: 3px 5px;
+    text-decoration: none;
+    font-size: 10px;
+    font-weight: 400;
+    margin-right: 3px;
+}
+.sortButton:hover
+{
+    background: #E26924;
+}
+.sortButton:active
+{
+    color:#888;
+}
+
 

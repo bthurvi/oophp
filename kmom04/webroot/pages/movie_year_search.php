@@ -43,7 +43,7 @@ $year2 = isset($_POST['year2']) && !empty($_POST['year2']) ? $_POST['year2'] : n
 <p><input type='submit' name='submit' value='Sök'/></p>
 </form>
 
-<p><a href='?p=movietitlesearch' class='aButton'>Visa alla</a></p>
+<p><a href='?p=movieyearsearch' class='aButton'>Visa alla</a></p>
 
 <table class='table'>
   <tr><th>Rad</th><th>Id</th><th>Bild</th><th>Titel</th><th>År</th></tr>

@@ -18,8 +18,8 @@ $menu = array(new CMenuItem('Tarningar','?p=dice'),
               new CMenuItem('Bildspel','?p=slideshow'),
               new CMenuItem('Kalender','?p=calendar'),
               new CMenuItem('Filmdatabas','?p=movie'),
-              array(new CMenuItem('Visa alla','?p=movie'),new CMenuItem('Återställ','?p=moviereset'), new CMenuItem('Sök efter titel','?p=movietitlesearch'),
-                   new CMenuItem('Sök efter år','?p=movieyearsearch')),
+              array(new CMenuItem('Visa alla','?p=movie'),new CMenuItem('Återställ','?p=moviereset'), new CMenuItem('Sök via titel','?p=movietitlesearch'),
+                   new CMenuItem('Sök via år','?p=movieyearsearch'), new CMenuItem('Sök via genre','?p=moviegenresearch'),new CMenuItem('Sortera','?p=moviesort')),
               new CMenuItem('Information','?p=desc'),
               array(new CMenuItem('Redovisningar','?p=desc'),new CMenuItem('Visa källkod','?p=code'),new CMenuItem('Utveckling','?p'),array(new CMenuItem('Om mig','?p=about')))
             );
@@ -70,6 +70,18 @@ else
     case "movieyearsearch": 
       $file = "movie_year_search.php"; 
       $urbax['title'] = "Sök film per år";
+      break;
+    case "moviegenresearch": 
+      $file = "movie_genre_search.php"; 
+      $urbax['title'] = "Sök film per genre";
+      break;
+    case "moviesort": 
+      $file = "moviesort.php"; 
+      $urbax['title'] = "Sortera filmer";
+      break;
+    case "moviegenresearch": 
+      $file = "movie_genre_search.php"; 
+      $urbax['title'] = "Sök film per genre";
       break;
     case "code": 
       $file = "showcode.php"; 
