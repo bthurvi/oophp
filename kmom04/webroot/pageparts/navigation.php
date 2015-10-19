@@ -13,15 +13,18 @@ function setActive($items) {
 
 
 //menu to display
-$menu = array(new CMenuItem('Tarningar','?p=dice'), 
+$menu = array(new CMenuItem('Tärningar','?p=dice'), 
               array(new CMenuItem('Kasta en tärning','?p=dice'),new CMenuItem('Tärningsspelet 100','?p=dicegame')),
               new CMenuItem('Bildspel','?p=slideshow'),
               new CMenuItem('Kalender','?p=calendar'),
               new CMenuItem('Filmdatabas','?p=movie'),
+              array( new CMenuItem('Kom igång guide -&gt;','?p=movie'),
               array(new CMenuItem('Visa alla','?p=movie'),new CMenuItem('Återställ','?p=moviereset'), new CMenuItem('Sök via titel','?p=movietitlesearch'),
-                   new CMenuItem('Sök via år','?p=movieyearsearch'), new CMenuItem('Sök via genre','?p=moviegenresearch'),new CMenuItem('Sortera','?p=moviesort')),
+                   new CMenuItem('Sök via år','?p=movieyearsearch'), new CMenuItem('Sök via genre','?p=moviegenresearch'),new CMenuItem('Sortera','?p=moviesort'),
+                  new CMenuItem('Paginering','?p=paginate')),
+              new CMenuItem('Next menu item','?p=none')),   
               new CMenuItem('Information','?p=desc'),
-              array(new CMenuItem('Redovisningar','?p=desc'),new CMenuItem('Visa källkod','?p=code'),new CMenuItem('Utveckling','?p'),array(new CMenuItem('Om mig','?p=about')))
+              array(new CMenuItem('Redovisningar','?p=desc'),new CMenuItem('Visa källkod','?p=code'),new CMenuItem('Utveckling -&gt;','?p'),array(new CMenuItem('Om mig','?p=about')))
             );
 
 
@@ -82,6 +85,10 @@ else
     case "moviegenresearch": 
       $file = "movie_genre_search.php"; 
       $urbax['title'] = "Sök film per genre";
+      break;
+    case "paginate": 
+      $file = "moviepaginate.php"; 
+      $urbax['title'] = "Paginering av poster";
       break;
     case "code": 
       $file = "showcode.php"; 
