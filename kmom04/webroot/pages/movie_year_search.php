@@ -4,7 +4,8 @@
 
 <?php
   // Get parameters for sorting
-  $title = isset($_POST['title']) ? $_POST['title'] : null;
+$year1 = isset($_POST['year1']) && !empty($_POST['year1']) ? $_POST['year1'] : null;
+$year2 = isset($_POST['year2']) && !empty($_POST['year2']) ? $_POST['year2'] : null;
   
   
   //Connect to database
@@ -12,21 +13,34 @@
  
 
   // SELECT from a table
-  if($title) 
-  {
-    // prepare SQL for search
-    $sql = "SELECT * FROM Movie WHERE title LIKE ?;";
-    $params = array("%$title%"); 
+  if($year1 && $year2) 
+    {
+    $sql = "SELECT * FROM Movie WHERE year >= ? AND year <= ?;";
+    $params = array($year1,$year2);  
+  } 
+  else if($year1) {
+    $sql = "SELECT * FROM Movie WHERE year >= ?;";
+    $params = array($year1);  
+  }  
+  else if($year2) {
+    $sql = "SELECT * FROM Movie WHERE year <= ?;";
+    $params = array($year2);
   }
-  else {
-    // prepare SQL to show all
-    $sql = "SELECT id,title,image,year FROM Movie";
+  else{
+    $sql = "SELECT * FROM Movie;";
     $params = null;
   }
+
 ?>
 
 <form method="post">
-    <p><label>Titel (eller del av titel): <input type='search' autofocus="autofocus" name='title' value='<?=$title?>'/></label></p>
+   <p><label>Skapad mellan åren: 
+    <input type='search' name='year1' value='<?=$year1?>'/>
+    - 
+    <input type='search' name='year2' value='<?=$year2?>'/>
+  </label>
+</p>
+<p><input type='submit' name='submit' value='Sök'/></p>
 </form>
 
 <p><a href='?p=movietitlesearch' class='aButton'>Visa alla</a></p>
