@@ -46,7 +46,18 @@ if($id!=null) // EDIT mode
       die("CHECK: invalid id");
   
   
- 
+  if($save && isset($title) && isset($year))
+  {
+  $sql = 'UPDATE Movie SET title = ?,year = ?WHERE id = ?';
+  $params = array($title, $year, $id);
+  
+
+  $db->ExecuteQuery($sql, $params);
+  
+  echo  "Informationen sparad. <a href='?p=uppdate' class='aButton'>Visa alla</a>";
+  }
+  else
+  {
   //output edit form
   echo <<<EEE
   <form method=post>
@@ -61,8 +72,8 @@ if($id!=null) // EDIT mode
   <output></output>
   </fieldset>
 </form>
-  
 EEE;
+  }
 }
 else // NOT in EDIT mode
 {
