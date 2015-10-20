@@ -21,7 +21,7 @@ $menu = array(new CMenuItem('Tärningar','?p=dice'),
               array( new CMenuItem('Kom igång guide -&gt;','?p=movie'),
               array(new CMenuItem('Visa alla','?p=movie'),new CMenuItem('Återställ','?p=moviereset'), new CMenuItem('Sök via titel','?p=movietitlesearch'),
                    new CMenuItem('Sök via år','?p=movieyearsearch'), new CMenuItem('Sök via genre','?p=moviegenresearch'),new CMenuItem('Sortera','?p=moviesort'),
-                  new CMenuItem('Paginering','?p=paginate')),
+                  new CMenuItem('Paginering','?p=paginate'),new CMenuItem('Logga in','?p=login'),new CMenuItem('Logga ut','?p=logout'),new CMenuItem('Uppdatera','?p=uppdate')),
               new CMenuItem('Next menu item','?p=none')),   
               new CMenuItem('Information','?p=desc'),
               array(new CMenuItem('Redovisningar','?p=desc'),new CMenuItem('Visa källkod','?p=code'),new CMenuItem('Utveckling -&gt;','?p'),array(new CMenuItem('Om mig','?p=about')))
@@ -89,6 +89,18 @@ else
     case "paginate": 
       $file = "moviepaginate.php"; 
       $urbax['title'] = "Paginering av poster";
+      break;
+    case "login": 
+      $file = "login.php"; 
+      $urbax['title'] = "Logga in &amp; ut";
+      break;
+    case "logout": 
+      $file = "logout.php"; 
+      $urbax['title'] = "Logga in &amp; ut";
+      break;
+    case "uppdate": 
+      $file = "movie_uppdate.php"; 
+      $urbax['title'] = "Logga in &amp; ut";
       break;
     case "code": 
       $file = "showcode.php"; 
