@@ -44,7 +44,15 @@ class CDatabase {
       throw new PDOException('Could not connect to database, hiding connection details.'); // Hide connection details.
     }
  
-    $this->db->SetAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, $this->options['fetch_style']); 
+    $this->db->SetAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, $this->options['fetch_style']);
+    
+     // Get debug information from session if any.
+    if(isset($_SESSION['CDatabase'])) {
+      self::$numQueries = $_SESSION['CDatabase']['numQueries'];
+      self::$queries    = $_SESSION['CDatabase']['queries'];
+      self::$params     = $_SESSION['CDatabase']['params'];
+      unset($_SESSION['CDatabase']);
+    }
   }
   
 /**
@@ -109,6 +117,39 @@ class CDatabase {
  
     $this->stmt = $this->db->prepare($query);
     return $this->stmt->execute($params);
+  }
+  
+    /**
+   * Return last insert id.
+   */
+  public function LastInsertId() {
+    return $this->db->lastInsertid();
+  }
+  
+    /**
+   * Save debug information in session, useful as a flashmemory when redirecting to another page.
+   * 
+   * @param string $debug enables to save some extra debug information.
+   */
+  public function SaveDebug($debug=null) {
+    if($debug) {
+      self::$queries[] = $debug;
+      self::$params[] = null;
+    }
+ 
+    self::$queries[] = 'Saved debuginformation to session.';
+    self::$params[] = null;
+ 
+    $_SESSION['CDatabase']['numQueries'] = self::$numQueries;
+    $_SESSION['CDatabase']['queries']    = self::$queries;
+    $_SESSION['CDatabase']['params']     = self::$params;
+  }
+  
+    /**
+   * Return rows affected of last INSERT, UPDATE, DELETE
+   */
+  public function RowCount() {
+    return is_null($this->stmt) ? $this->stmt : $this->stmt->rowCount();
   }
   
   

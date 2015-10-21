@@ -27,7 +27,7 @@ EOD;
  
 
 
-if($id!=null) // EDIT mode
+if($id!=null) // DELETE mode
 {
   //do we have a valid id?
   $sql = "SELECT * FROM Movie";
@@ -45,39 +45,21 @@ if($id!=null) // EDIT mode
   if(!$movie)
       die("CHECK: invalid id");
   
+  $sql = 'DELETE FROM Movie2Genre WHERE idMovie = ?';
+  $db->ExecuteQuery($sql, array($id));
+  $db->SaveDebug("Det raderades " . $db->RowCount() . " rader från databasen.");
+ 
+  $sql = 'DELETE FROM Movie WHERE id = ? LIMIT 1';
+  $db->ExecuteQuery($sql, array($id));
+  $db->SaveDebug("Det raderades " . $db->RowCount() . " rader från databasen.");
   
-  if($save && isset($title) && isset($year))
-  {
-  $sql = 'UPDATE Movie SET title = ?,year = ?WHERE id = ?';
-  $params = array($title, $year, $id);
+  header('Location: ?p=deletemovie');
   
 
-  $db->ExecuteQuery($sql, $params);
-  
-  echo  "Informationen sparad. <a href='?p=uppdate' class='aButton'>Visa alla</a>";
-  }
-  else
-  {
-  //output edit form
-  echo <<<EEE
-  <form method=post>
- <div style="max-width: 500px; border: 1px solid #777; border-radius: 3px; padding: 10px 20px;">
-  <h1 style="margin-top: 0;">Ange filminformation</h1>
-  <input type='hidden' name='id' value='$movie->id'/>
-  <p><label>Titel:<br/><input type='text' name='title' value='$movie->title'/></label></p>
-  <p><label>År:<br/><input type='text' name='year' value='$movie->year'/></label></p>
-  <p><label>Bild:<br/><input type='text' name='image' value='$movie->image'/></label></p>
-  <p><input type='submit' name='save' value='Spara'/> <input type='reset' class='aButton' value='Återställ'/></p>
-  <p><a class='aButton' href='?p=uppdate'>Visa alla</a></p>
-  <output></output>
-  </div>
-</form>
-EEE;
-  }
 }
 else // NOT in EDIT mode
 {
-  echo "<h1 class='center'>Välj och uppdatera filminformation</h1>";
+  echo "<h1 class='center'>Välj film att radera</h1>";
 
   echo "<table class='table'>
     <tr><th>Rad</th><th>Id</th><th>Bild</th><th>Titel</th><th>År</th><th></th></tr>";
@@ -88,7 +70,7 @@ else // NOT in EDIT mode
   foreach ($res as $i=>$row) 
   {
     echo "<tr><td>$i</td><td>{$row->id}</td><td><img src='{$row->image}' alt='bild på film' width='100' height='50'></td>"
-       . "<td>{$row->title}</td><td>{$row->year}</td><td width='5%' style='text-align:center;'><a class='aButton' href='?p=uppdate&amp;id={$row->id}'>editera</a></td></tr>";
+       . "<td>{$row->title}</td><td>{$row->year}</td><td width='5%' style='text-align:center;'><a class='aButton' href='?p=deletemovie&amp;id={$row->id}'>radera</a></td></tr>";
   }
   
   echo "</table>";

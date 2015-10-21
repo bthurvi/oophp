@@ -21,7 +21,8 @@ $menu = array(new CMenuItem('Tärningar','?p=dice'),
               array( new CMenuItem('Kom igång guide -&gt;','?p=movie'),
               array(new CMenuItem('Visa alla','?p=movie'),new CMenuItem('Återställ','?p=moviereset'), new CMenuItem('Sök via titel','?p=movietitlesearch'),
                    new CMenuItem('Sök via år','?p=movieyearsearch'), new CMenuItem('Sök via genre','?p=moviegenresearch'),new CMenuItem('Sortera','?p=moviesort'),
-                  new CMenuItem('Paginering','?p=paginate'),new CMenuItem('Logga in','?p=login'),new CMenuItem('Logga ut','?p=logout'),new CMenuItem('Uppdatera','?p=uppdate')),
+                   new CMenuItem('Paginering','?p=paginate'),new CMenuItem('Logga in','?p=login'),new CMenuItem('Logga ut','?p=logout'),new CMenuItem('Uppdatera','?p=uppdate'),
+                   new CMenuItem('Ny film','?p=newmovie'), new CMenuItem('Radera film','?p=deletemovie'),new CMenuItem('Sök alla','?p=moviesearchall')),
               new CMenuItem('Next menu item','?p=none')),   
               new CMenuItem('Information','?p=desc'),
               array(new CMenuItem('Redovisningar','?p=desc'),new CMenuItem('Visa källkod','?p=code'),new CMenuItem('Utveckling -&gt;','?p'),array(new CMenuItem('Om mig','?p=about')))
@@ -86,6 +87,10 @@ else
       $file = "movie_genre_search.php"; 
       $urbax['title'] = "Sök film per genre";
       break;
+    case "moviesearchall": 
+      $file = "movie_search_all.php"; 
+      $urbax['title'] = "Sök film";
+      break;
     case "paginate": 
       $file = "moviepaginate.php"; 
       $urbax['title'] = "Paginering av poster";
@@ -100,7 +105,15 @@ else
       break;
     case "uppdate": 
       $file = "movie_uppdate.php"; 
-      $urbax['title'] = "Logga in &amp; ut";
+      $urbax['title'] = "Uppdatera filminformation";
+      break;
+    case "newmovie": 
+      $file = "movie_new.php"; 
+      $urbax['title'] = "Skapa ny film";
+      break;
+    case "deletemovie": 
+      $file = "movie_delete.php"; 
+      $urbax['title'] = "Radera film";
       break;
     case "code": 
       $file = "showcode.php"; 
