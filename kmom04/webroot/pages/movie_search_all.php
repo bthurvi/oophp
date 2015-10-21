@@ -1,49 +1,229 @@
 
 <?php
-  // Get parameters for sorting
-  $title = isset($_POST['title']) ? $_POST['title'] : null;
-  
-  
-  //Connect to database
-  $db = new CDatabase($urbax['database']);
- 
+ /**
+ * Use the current querystring as base, modify it according to $options and return the modified query string.
+ *
+ * @param array $options to set/change.
+ * @param string $prepend this to the resulting query string
+ * @return string with an updated query string.
+ */
+function getQueryString($options=array(), $prepend='?') {
+  // parse query string into array
+  $query = array();
+  parse_str($_SERVER['QUERY_STRING'], $query);
 
-  // SELECT from a table
-  if($title) 
-  {
-    // prepare SQL for search
-    $sql = "SELECT * FROM Movie WHERE title LIKE ?;";
-    $params = array("%$title%"); 
+  // Modify the existing query string with new options
+  $query = array_merge($query, $options);
+
+  // Return the modified querystring
+  return $prepend . htmlentities(http_build_query($query));
+}
+
+
+
+/**
+ * Create links for hits per page.
+ *
+ * @param array $hits a list of hits-options to display.
+ * @param array $current value.
+ * @return string as a link to this page.
+ */
+function getHitsPerPage($hits, $current=null) {
+  $nav = "Träffar per sida: ";
+  foreach($hits AS $val) {
+    if($current == $val) {
+      $nav .= "<a class='aButton' href='" . getQueryString(array('hits' => $val)) . "'>$val</a> ";
+    }
+    else {
+      $nav .= "<a class='aButton' href='" . getQueryString(array('hits' => $val)) . "'>$val</a> ";
+    }
+  }  
+  return $nav;
+}
+
+
+
+/**
+ * Create navigation among pages.
+ *
+ * @param integer $hits per page.
+ * @param integer $page current page.
+ * @param integer $max number of pages. 
+ * @param integer $min is the first page number, usually 0 or 1. 
+ * @return string as a link to this page.
+ */
+function getPageNavigation($hits, $page, $max, $min=1)
+{
+  $nav  = "<a class='aButton' href='" . getQueryString(array('page' => $min)) . "'>&lt;&lt;</a> ";
+  $nav .= "<a class='aButton' href='" . getQueryString(array('page' => ($page > $min ? $page - 1 : $min) )) . "'>&lt;</a> ";
+
+  for($i=$min; $i<=$max; $i++) {
+    $nav .= "<a class='aButton' href='" . getQueryString(array('page' => $i)) . "'>$i</a> ";
+  }
+
+  $nav .= "<a class='aButton' href='" . getQueryString(array('page' => ($page < $max ? $page + 1 : $max) )) . "'>&gt;</a> ";
+  $nav .= "<a class='aButton' href='" . getQueryString(array('page' => $max)) . "'>&gt;&gt;</a> ";
+  return $nav;
+}
+
+
+
+/**
+ * Function to create links for sorting
+ *
+ * @param string $column the name of the database column to sort by
+ * @return string with links to order by column.
+ */
+function orderby($column) {
+  $nav  = "<a class='sortButton' href='" . getQueryString(array('orderby'=>$column, 'order'=>'asc')) . "'>&darr;</a>";
+  $nav .= "<a class='sortButton' href='" . getQueryString(array('orderby'=>$column, 'order'=>'desc')) . "'>&uarr;</a>";
+  return "<span class='orderby'>" . $nav . "</span>";
+}
+
+
+
+// Connect to a MySQL database using PHP PDO
+$db = new CDatabase($urbax['database']);
+
+
+// Get parameters 
+$title    = isset($_GET['title']) ? $_GET['title'] : null;
+$genre    = isset($_GET['genre']) ? $_GET['genre'] : null;
+$hits     = isset($_GET['hits'])  ? $_GET['hits']  : 8;
+$page     = isset($_GET['page'])  ? $_GET['page']  : 1;
+$year1    = isset($_GET['year1']) && !empty($_GET['year1']) ? $_GET['year1'] : null;
+$year2    = isset($_GET['year2']) && !empty($_GET['year2']) ? $_GET['year2'] : null;
+$orderby  = isset($_GET['orderby']) ? strtolower($_GET['orderby']) : 'id';
+$order    = isset($_GET['order'])   ? strtolower($_GET['order'])   : 'asc';
+
+
+// Check that incoming parameters are valid
+is_numeric($hits) or die('Check: Hits must be numeric.');
+is_numeric($page) or die('Check: Page must be numeric.');
+is_numeric($year1) || !isset($year1)  or die('Check: Year must be numeric or not set.');
+is_numeric($year2) || !isset($year2)  or die('Check: Year must be numeric or not set.');
+
+
+// Get all genres that are active
+$sql = '
+  SELECT DISTINCT G.name
+  FROM Genre AS G
+    INNER JOIN Movie2Genre AS M2G
+      ON G.id = M2G.idGenre
+';
+$res = $db->ExecuteSelectQueryAndFetchAll($sql);
+
+$genres = null;
+foreach($res as $val) {
+  if($val->name == $genre) {
+    $genres .= "$val->name ";
   }
   else {
-    // prepare SQL to show all
-    $sql = "SELECT id,title,image,year FROM Movie";
-    $params = null;
+    $genres .= "<a class='aButton' href='" . getQueryString(array('genre' => $val->name)) . "'>{$val->name}</a> ";
   }
+}
+
+
+// Prepare the query based on incoming arguments
+$sqlOrig = '
+  SELECT 
+    M.*,
+    GROUP_CONCAT(G.name) AS genre
+  FROM Movie AS M
+    LEFT OUTER JOIN Movie2Genre AS M2G
+      ON M.id = M2G.idMovie
+    INNER JOIN Genre AS G
+      ON M2G.idGenre = G.id
+';
+$where    = null;
+$groupby  = ' GROUP BY M.id';
+$limit    = null;
+$sort     = " ORDER BY $orderby $order";
+$params   = array();
+
+// Select by title
+if($title) {
+  $where .= ' AND title LIKE ?';
+  $params[] = '%'.$title.'%';
+} 
+
+// Select by year
+if($year1) {
+  $where .= ' AND year >= ?';
+  $params[] = $year1;
+} 
+if($year2) {
+  $where .= ' AND year <= ?';
+  $params[] = $year2;
+} 
+
+// Select by genre
+if($genre) {
+  $where .= ' AND G.name = ?';
+  $params[] = $genre;
+} 
+
+// Pagination
+if($hits && $page) {
+  $limit = " LIMIT $hits OFFSET " . (($page - 1) * $hits);
+}
+
+// Complete the sql statement
+$where = $where ? " WHERE 1 {$where}" : null;
+$sql = $sqlOrig . $where . $groupby . $sort . $limit;
+$res = $db->ExecuteSelectQueryAndFetchAll($sql, $params);
+
+
+// Put results into a HTML-table
+$tr = "<tr><th>Rad</th><th>Id " . orderby('id') . "</th><th>Bild</th><th>Titel " . orderby('title') . "</th><th>År " . orderby('year') . "</th><th>Genre</th></tr>";
+foreach($res AS $key => $val) {
+  $tr .= "<tr><td>{$key}</td><td>{$val->id}</td><td><img width='80' height='40' src='{$val->image}' alt='{$val->title}' /></td><td>{$val->title}</td><td>{$val->year}</td><td>{$val->genre}</td></tr>";
+}
+
+
+
+// Get max pages for current query, for navigation
+$sql = "
+  SELECT
+    COUNT(id) AS rows
+  FROM 
+  (
+    $sqlOrig $where $groupby
+  ) AS Movie
+";
+$res = $db->ExecuteSelectQueryAndFetchAll($sql, $params);
+$rows = $res[0]->rows;
+$max = ceil($rows / $hits);
+
+
+
+$hitsPerPage = getHitsPerPage(array(2, 4, 8), $hits);
+$navigatePage = getPageNavigation($hits, $page, $max);
+$sqlDebug = $db->Dump();
 ?>
 
 
 <h1 class="center">Sök efter en film </h1>
 
 
-<form method="post">
-    <p><label>Titel (eller del av titel): <input type='search' autofocus="autofocus" name='title' value='<?=$title?>'/></label></p>
+<form method="get">
+  <input type=hidden name=p value='moviesearchall'/>
+  <input type=hidden name=hits value='<?=$hits?>'/>
+  <input type=hidden name=page value='1'/>
+  <p><label>Titel (eller del av titel): <input type='search' autofocus="autofocus" name='title' value='<?=$title?>'/></label></p>
+  <p><label>Välj genre:</label> <?=$genres?></p>
+  <p><label>Skapad mellan åren: <input type='text' name='year1' value='<?=$year1?>'/></label>-<label><input type='text' name='year2' value='<?=$year2?>'/></label></p>
+  <p><input class='aButton' type='submit' name='submit' value='Sök'/></p>
 </form>
 
-<p><a href='?p=movietitlesearch' class='aButton'>Visa alla</a></p>
+<p><div style="float: right;"><?=$hitsPerPage;?></div><a href='?p=moviesearchall' class='aButton'>Visa alla</a>
+</p>
 
 <table class='table'>
-  <tr><th>Rad</th><th>Id</th><th>Bild</th><th>Titel</th><th>År</th></tr>
-
-  <?php
-  $res = $db->ExecuteSelectQueryAndFetchAll($sql,$params);
-  
-  foreach ($res as $i=>$row) 
-  {
-    echo "<tr><td>$i</td><td>{$row->id}</td><td><img src='{$row->image}' alt='bild på film' width='100' height='50'></td><td>{$row->title}</td><td>{$row->year}</td></tr>";
-  }
-?>
+  <?=$tr;?>
 </table>
+<br>
+<div style="text-align: center;"><?=$navigatePage;?></div>
 
 
 

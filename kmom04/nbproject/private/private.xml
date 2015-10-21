@@ -3,13 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/oophp/kmom04/webroot/pages/login.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom04/webroot/pages/movie_delete.php</file>
             <file>file:/C:/wamp/www/oophp/kmom04/webroot/pages/movie_uppdate.php</file>
-            <file>file:/C:/wamp/www/oophp/kmom04/webroot/config.php</file>
-            <file>file:/C:/wamp/www/oophp/kmom04/src/bootstrap.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom04/webroot/pages/movie_new.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom04/webroot/pages/movie_search_all.php</file>
             <file>file:/C:/wamp/www/oophp/kmom04/src/base/CDatabase.php</file>
             <file>file:/C:/wamp/www/oophp/kmom04/webroot/pageparts/navigation.php</file>
-            <file>file:/C:/wamp/www/oophp/kmom04/webroot/pages/logout.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom04/webroot/pages/moviepaginate.php</file>
             <file>file:/C:/wamp/www/oophp/kmom04/webroot/pages/movie_genre_search.php</file>
         </group>
     </open-files>

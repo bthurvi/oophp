@@ -59,7 +59,7 @@ else {
 <p><a href='?p=moviegenresearch' class='aButton'>Visa alla</a></p>
 
 <table class='table'>
-  <tr><th>Rad</th><th>Id</th><th>Bild</th><th>Titel</th><th>År</th></tr>
+  <tr><th>Rad</th><th>Id</th><th>Bild</th><th>Titel</th><th>År</th><th>Genre</th></tr>
 
   <?php
   $res = $db->ExecuteSelectQueryAndFetchAll($sql,$params);
