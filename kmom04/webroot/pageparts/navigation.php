@@ -23,7 +23,7 @@ $menu = array(new CMenuItem('Tärningar','?p=dice'),
                    new CMenuItem('Sök via år','?p=movieyearsearch'), new CMenuItem('Sök via genre','?p=moviegenresearch'),new CMenuItem('Sortera','?p=moviesort'),
                    new CMenuItem('Paginering','?p=paginate'),new CMenuItem('Logga in','?p=login'),new CMenuItem('Logga ut','?p=logout'),new CMenuItem('Uppdatera','?p=uppdate'),
                    new CMenuItem('Ny film','?p=newmovie'), new CMenuItem('Radera film','?p=deletemovie'),new CMenuItem('Sök alla','?p=moviesearchall')),
-              new CMenuItem('Next menu item','?p=none')),   
+              new CMenuItem('Övningar med CDB','?p=cdbovningar')),   
               new CMenuItem('Information','?p=desc'),
               array(new CMenuItem('Redovisningar','?p=desc'),new CMenuItem('Visa källkod','?p=code'),new CMenuItem('Utveckling -&gt;','?p'),array(new CMenuItem('Om mig','?p=about')))
             );
@@ -114,6 +114,10 @@ else
     case "deletemovie": 
       $file = "movie_delete.php"; 
       $urbax['title'] = "Radera film";
+      break;
+    case "cdbovningar": 
+      $file = "test.php"; 
+      $urbax['title'] = "Övnignar med CDatabase";
       break;
     case "code": 
       $file = "showcode.php"; 
