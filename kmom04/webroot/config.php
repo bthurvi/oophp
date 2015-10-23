@@ -64,9 +64,12 @@ $urbax['favicon']    = 'favicon.ico';
  * Settings for the database.
  *
  */
+define('DB_USER', 'root'); // The database username
+define('DB_PASSWORD', ''); // The database password
+
 $urbax['database']['dsn']            = 'mysql:host=localhost;dbname=Movie;';
-$urbax['database']['username']       = 'root';
-$urbax['database']['password']       = '';
+$urbax['database']['username']       = DB_USER;
+$urbax['database']['password']       = DB_PASSWORD;
 $urbax['database']['driver_options'] = array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'");
 
 

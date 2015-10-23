@@ -19,6 +19,12 @@ class CDatabase {
   private static $queries = array();  // Save all queries for debugging purpose
   private static $params = array();   // Save all parameters for debugging purpose
   
+  /**
+   * Getters
+   */
+  public function GetNumQueries() { return self::$numQueries; }
+  public function GetQueries() { return self::$queries; }
+  
   
   /**
    * Constructor creating a PDO object connecting to a choosen database.
@@ -184,6 +190,23 @@ class CDatabase {
 		$html .= "</table>";
 		return $html;
 	}
+  
+  /**
+   * Return error code of last unsuccessful statement, see PDO::errorCode().
+   *
+   * @return mixed null or the error code.
+   */
+  public function ErrorCode() {
+    return $this->stmt->errorCode();
+  }
+  /**
+   * Return textual representation of last error, see PDO::errorInfo().
+   *
+   * @return array with information on the error.
+   */
+  public function ErrorInfo() {
+    return $this->stmt->errorInfo();
+  }
   
 
  
