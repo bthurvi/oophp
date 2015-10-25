@@ -17,7 +17,7 @@ class CMovieSearch
     
     
     return <<< eod
-     <form method="get" style=' padding:10px; border: 1px solid #aaa; background: #EDEDED; border-radius: 3px;'>
+     <form method="get" style=' padding:10px; border: 1px solid #aaa; background: #EDEDED; border-radius: 3px; margin-bottom:8px;'>
       <input type=hidden name=p value='$p'/>
       <input type=hidden name=hits value='$hits'/>
       <input type=hidden name=page value='1'/>
@@ -54,8 +54,7 @@ eod;
     // Prepare the query based on incoming arguments
     $sqlOrig = '
       SELECT 
-        M.*,
-        GROUP_CONCAT(G.name) AS genre
+        M.id as id,  M.image as bild , M.title as titel, M.year as År, GROUP_CONCAT(G.name) AS genre
       FROM Movie AS M
         LEFT OUTER JOIN Movie2Genre AS M2G
           ON M.id = M2G.idMovie
@@ -95,14 +94,26 @@ eod;
       $limit = " LIMIT $hits OFFSET " . (($page - 1) * $hits);
     }
 
-    // Complete the sql statement
+    // Where
     $where = $where ? " WHERE 1 {$where}" : null;
-    $sql = $sqlOrig . $where . $groupby . $sort . $limit;
     
+    // Execute query without pagination and count results
+    $sql = $sqlOrig . $where . $groupby . $sort;
+    $res = $databasehandle->ExecuteSelectQueryAndFetchAll($sql,$params);
+    $max = count($res);
+    
+    // Execute query with pagination
+    $sql = $sqlOrig . $where . $groupby . $sort . $limit;
+    $res = $databasehandle->ExecuteSelectQueryAndFetchAll($sql,$params);
+    
+    // Build array and return BOTH results
+    $return['maxresults'] = $max;
+    $return['resultset'] = $res;
+    return $return;
    
-    return $databasehandle->ExecuteSelectQueryAndFetchAll($sql,$params);
     
   }
+  
   
   
 
