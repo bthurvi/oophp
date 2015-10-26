@@ -17,7 +17,7 @@ class CMovieSearch
     
     
     return <<< eod
-     <form method="get" style=' padding:10px; border: 1px solid #aaa; background: #EDEDED; border-radius: 3px; margin-bottom:8px;'>
+     <form method="get" class='searchpanel'>
       <input type=hidden name=p value='$p'/>
       <input type=hidden name=hits value='$hits'/>
       <input type=hidden name=page value='1'/>

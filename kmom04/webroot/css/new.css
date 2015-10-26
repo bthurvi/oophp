@@ -191,7 +191,17 @@ paginationhits
 #paginationhits{
   position: absolute;
     top: 11px;
-    right: 0;
+    right: 0px;
 }
+
+/* search panel */
+.searchpanel
+{
+   padding:10px; 
+   border: 1px solid #aaa; 
+   background: #EDEDED; 
+   border-radius: 3px; 
+   margin-bottom:8px;
+ }
 
 

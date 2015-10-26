@@ -1,47 +1,15 @@
 <?php
+// ADD FILTER INPUT!
+$user    = isset($_GET['acronym']) ? $_GET['acronym'] : null;
+$pass    = isset($_GET['password']) ? $_GET['password'] : null;
+
+// Check that incoming parameters are valid
+//is_string($user) or die('Check: User must be string.');
+//is_string($pass) or die('Check: Pass must be numeric.');
+?>
 
 
-
-// Check if user is authenticated.
-$acronym = isset($_SESSION['user']) ? $_SESSION['user']->acronym : null;
-
-  if($acronym) {
-    $output = "Du är inloggad som: $acronym ({$_SESSION['user']->name})";
-  }
-  else {
-    $output = "Du är INTE inloggad.";
-  }
-
-
-
-// Check if user and password is okey
-if(isset($_POST['login']))
-{
-  //build query and array
-  $sql = "SELECT acronym, name FROM User WHERE acronym = ? AND password = md5(concat(?, salt))";
-  $params = array($_POST['acronym'], $_POST['password']);
-  
-  // Connect to a MySQL database using PHP PDO
-  $db = new CDatabase($urbax['database']);
-  
-  //run query
-   $res = $db->ExecuteSelectQueryAndFetchAll($sql,$params);
-   
-   var_dump($res);
-   
-   if(isset($res[0])) {
-    $_SESSION['user'] = $res[0];
-  }
-  
-  //redirect back - reload
-  header('Location: ?p=login');
-}
-  
-  
-  
- ?>
-
-<div style="max-width: 500px; border: 1px solid #777; border-radius: 3px; padding: 10px 20px;">
+<div class='searchpanel'>
     <h1 style="margin-top: 0;">Logga in</h1>
   <p>Du kan logga in med doe:doe eller admin:admin.</p>
 
@@ -49,14 +17,10 @@ if(isset($_POST['login']))
       <p><label>Användare:<br/><input type='text' name='acronym' autofocus="autofocus" value=''/></label></p>
       <p><label>Lösenord:<br/><input type='password' name='password' value=''/></label></p>
  
-  <p><input type='submit' name='login' value='Logga in'/><a href="?p=logout" class="aButton" style="display: block; float: right;">Logga ut</a></p>
+  <p><input type='submit' name='login' value='Logga in'/></p>
   </form>
 </div>
 
-<output><p style="margin-left: 20px;"><b><?=$output;?></b></p></output>
-  
-  
 
-  
 
 

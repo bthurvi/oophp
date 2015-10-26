@@ -18,12 +18,13 @@ $menu = array(new CMenuItem('Tärningar','?p=dice'),
               new CMenuItem('Bildspel','?p=slideshow'),
               new CMenuItem('Kalender','?p=calendar'),
               new CMenuItem('Filmdatabas','?p=movie'),
-              array( new CMenuItem('Kom igång guide -&gt;','?p=movie'),
+              array( new CMenuItem('Guide -&gt;','?p=movie'),
               array(new CMenuItem('Visa alla','?p=movie'),new CMenuItem('Återställ','?p=moviereset'), new CMenuItem('Sök via titel','?p=movietitlesearch'),
                    new CMenuItem('Sök via år','?p=movieyearsearch'), new CMenuItem('Sök via genre','?p=moviegenresearch'),new CMenuItem('Sortera','?p=moviesort'),
                    new CMenuItem('Paginering','?p=paginate'),new CMenuItem('Logga in','?p=login'),new CMenuItem('Logga ut','?p=logout'),new CMenuItem('Uppdatera','?p=uppdate'),
                    new CMenuItem('Ny film','?p=newmovie'), new CMenuItem('Radera film','?p=deletemovie'),new CMenuItem('Sök alla','?p=moviesearchall')),
-              new CMenuItem('Övningar med CDB','?p=cdbovningar'),new CMenuItem('HTML-tabell','?p=generate')),   
+              new CMenuItem('CDatabase','?p=cdbovningar'),new CMenuItem('CMovieSearch','?p=generate'), 
+              new CMenuItem('CUser -&gt;','?p='), array( new CMenuItem('Status','?p=cstatus'), new CMenuItem('Logga in','?p=clogin'), new CMenuItem('Logga ut','?p=clogout') )  ),
               new CMenuItem('Information','?p=desc'),
               array(new CMenuItem('Redovisningar','?p=desc'),new CMenuItem('Visa källkod','?p=code'),new CMenuItem('Utveckling -&gt;','?p'),array(new CMenuItem('Om mig','?p=about')))
             );
@@ -60,59 +61,59 @@ else
       $urbax['title'] = "Visa bildspel";
       break;
     case "movie": 
-      $file = "movie.php"; 
+      $file = "movie/movie.php"; 
       $urbax['title'] = "Visa alla i filmdatabasen";
       break;
     case "moviereset": 
-      $file = "moviereset.php"; 
+      $file = "movie/moviereset.php"; 
       $urbax['title'] = "Återställ filmdatabasen";
       break;
     case "movietitlesearch": 
-      $file = "movie_title_search.php"; 
+      $file = "movie/movie_title_search.php"; 
       $urbax['title'] = "Sök film per titel";
       break;
     case "movieyearsearch": 
-      $file = "movie_year_search.php"; 
+      $file = "movie/movie_year_search.php"; 
       $urbax['title'] = "Sök film per år";
       break;
     case "moviegenresearch": 
-      $file = "movie_genre_search.php"; 
+      $file = "movie/movie_genre_search.php"; 
       $urbax['title'] = "Sök film per genre";
       break;
     case "moviesort": 
-      $file = "moviesort.php"; 
+      $file = "movie/moviesort.php"; 
       $urbax['title'] = "Sortera filmer";
       break;
     case "moviegenresearch": 
-      $file = "movie_genre_search.php"; 
+      $file = "movie/movie_genre_search.php"; 
       $urbax['title'] = "Sök film per genre";
       break;
     case "moviesearchall": 
-      $file = "movie_search_all.php"; 
+      $file = "movie/movie_search_all.php"; 
       $urbax['title'] = "Sök film";
       break;
     case "paginate": 
-      $file = "moviepaginate.php"; 
+      $file = "movie/moviepaginate.php"; 
       $urbax['title'] = "Paginering av poster";
       break;
     case "login": 
-      $file = "login.php"; 
+      $file = "movie/login.php"; 
       $urbax['title'] = "Logga in &amp; ut";
       break;
     case "logout": 
-      $file = "logout.php"; 
+      $file = "movie/logout.php"; 
       $urbax['title'] = "Logga in &amp; ut";
       break;
     case "uppdate": 
-      $file = "movie_uppdate.php"; 
+      $file = "movie/movie_uppdate.php"; 
       $urbax['title'] = "Uppdatera filminformation";
       break;
     case "newmovie": 
-      $file = "movie_new.php"; 
+      $file = "movie/movie_new.php"; 
       $urbax['title'] = "Skapa ny film";
       break;
     case "deletemovie": 
-      $file = "movie_delete.php"; 
+      $file = "movie/movie_delete.php"; 
       $urbax['title'] = "Radera film";
       break;
     case "cdbovningar": 
@@ -122,6 +123,18 @@ else
     case "generate": 
       $file = "generateHTMLtable.php"; 
       $urbax['title'] = "Paginerad och sökbar OOP tabell";
+      break;
+    case "cstatus": 
+      $file = "status.php"; 
+      $urbax['title'] = "Visa användarstatus";
+      break;
+    case "clogin": 
+      $file = "login.php"; 
+      $urbax['title'] = "Logga in";
+      break;
+    case "clogout": 
+      $file = "logout.php"; 
+      $urbax['title'] = "Logga ut";
       break;
     case "code": 
       $file = "showcode.php"; 
