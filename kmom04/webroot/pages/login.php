@@ -1,11 +1,20 @@
 <?php
-// ADD FILTER INPUT!
-$user    = isset($_GET['acronym']) ? $_GET['acronym'] : null;
-$pass    = isset($_GET['password']) ? $_GET['password'] : null;
+// get filtered input
+$acro    = isset($_POST['acronym']) ? (string)filter_input(INPUT_POST, 'acronym',FILTER_SANITIZE_STRING) : null;
+$pass    = isset($_POST['password']) ? (string)filter_input(INPUT_POST, 'password',FILTER_SANITIZE_STRING) : null;
 
-// Check that incoming parameters are valid
-//is_string($user) or die('Check: User must be string.');
-//is_string($pass) or die('Check: Pass must be numeric.');
+//get singelton instance (this only allovs ONE user)
+$user = CUser::Instance();
+
+//connect to session and database
+$user->Init($urbax['database']);
+
+
+// If form is posted - try to login
+if($acro && $pass)
+{
+  $user->Login($acro, $pass);
+}
 ?>
 
 
@@ -20,6 +29,10 @@ $pass    = isset($_GET['password']) ? $_GET['password'] : null;
   <p><input type='submit' name='login' value='Logga in'/></p>
   </form>
 </div>
+
+<?php
+$user->PrintAuthInfo();
+?>
 
 
 

@@ -1,7 +1,13 @@
 <h1>Visar status:</h1>
 
 <?php
-$user = new CUser($urbax['database']);
+//get singelton instance (this only allovs ONE user)
+$user = CUser::Instance();
+
+//connect to session and database
+$user->Init($urbax['database']);
+
+//get auth-info
 $user->PrintAuthInfo();
 ?>
 

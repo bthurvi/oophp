@@ -4,6 +4,9 @@
 
 /**
  * @author urbvik
+ *
+ * CUser is a singelton - use CUser::Instance() to create object
+ * 
  */
 class CUser 
 {
@@ -11,16 +14,22 @@ class CUser
  private $acronym;
  private $name;
  
+ private static $instance = null;
+ 
+ //instance
+ public static function Instance()
+ { 
+   return is_null(self::$instance) ? self::$instance = new self : self::$instance;
+ }
+
+
  //constructor
- public function __construct($dbConSetArr)
+ private function __construct()
  {
-    //new session - if we do not have one...
+    /*new session - if we do not have one...
    if (session_status() == PHP_SESSION_NONE) 
    {
-     
       session_start();            
-      $this->acronym = null;
-      $this->name = null;
    }
 
     //if we have user data in session - load it
@@ -29,11 +38,42 @@ class CUser
        $this->acronym = $_SESSION['user']->acronym;
        $this->name = $_SESSION['user']->name;
     }
+    else
+    {
+      $this->acronym = null;
+      $this->name = null;
+    }
    
 
     // Connect to a MySQL database using PHP PDO
-    $db = new CDatabase($dbConSetArr);
+    $this->db = new CDatabase($dbConSetArr);*/
     
+ }
+ 
+ // setup - start session, get data from session (if possible) and connect to database
+ public function init($dbConSetArr)
+ {
+    //new session - if we do not have one...
+   if (session_status() == PHP_SESSION_NONE) 
+   {
+      session_start();            
+   }
+
+    //if we have user data in session - load it
+    if(isset($_SESSION['user']))
+    {
+       $this->acronym = $_SESSION['user']->acronym;
+       $this->name = $_SESSION['user']->name;
+    }
+    else
+    {
+      $this->acronym = null;
+      $this->name = null;
+    }
+   
+
+    // Connect to a MySQL database using PHP PDO
+    $this->db = new CDatabase($dbConSetArr);
     
  }
   
@@ -42,15 +82,16 @@ class CUser
  {  
      //build query and array
     $sql = "SELECT acronym, name FROM User WHERE acronym = ? AND password = md5(concat(?, salt))";
-    $params = array($acronym, $password);
+    $params = array($user, $password);
 
     //run query
-     $res = $db->ExecuteSelectQueryAndFetchAll($sql,$params);
+     $res = $this->db->ExecuteSelectQueryAndFetchAll($sql,$params);
 
-     var_dump($res);
-
+     //login - success!
      if(isset($res[0])) {
       $_SESSION['user'] = $res[0];
+       $this->acronym = $res[0]->acronym;
+      $this->name = $res[0]->name;
     }
 
  }    
@@ -58,7 +99,7 @@ class CUser
  // logs off user    
  public function Logout() 
  {
-
+   unset($_SESSION['user']);
  } 
 
  // returns true or false
@@ -95,7 +136,7 @@ class CUser
    if($this->IsAuthenticated())
       echo "Du är inloggad som: <b>" . $this->GetAcronym() . "</b> (" . $this->GetName() . ")";
     else
-      echo "Du är INTE inloggad.";
+      echo "Du är <b>UTLOGGAD</b>.";
  }
 
 }
