@@ -23,34 +23,14 @@ class CUser
  }
 
 
- //constructor
- private function __construct()
- {
-    /*new session - if we do not have one...
-   if (session_status() == PHP_SESSION_NONE) 
-   {
-      session_start();            
-   }
-
-    //if we have user data in session - load it
-    if(isset($_SESSION['user']))
-    {
-       $this->acronym = $_SESSION['user']->acronym;
-       $this->name = $_SESSION['user']->name;
-    }
-    else
-    {
-      $this->acronym = null;
-      $this->name = null;
-    }
-   
-
-    // Connect to a MySQL database using PHP PDO
-    $this->db = new CDatabase($dbConSetArr);*/
-    
- }
+ // disable constructor
+ private function __construct(){}
  
- // setup - start session, get data from session (if possible) and connect to database
+ /*
+  *  setup - use this as constructor
+  * 
+  *  starts a session, get data from session (if possible) and connect to database
+  */
  public function init($dbConSetArr)
  {
     //new session - if we do not have one...
@@ -77,7 +57,9 @@ class CUser
     
  }
   
-  //logs in - if user and passs is correct
+ /*
+  * logs in - if user and passs is correct
+  */
  public function Login($user, $password)
  {  
      //build query and array
@@ -96,7 +78,9 @@ class CUser
 
  }    
 
- // logs off user    
+ /*
+  *  logs off user    
+  */
  public function Logout() 
  {
    unset($_SESSION['user']);
@@ -119,18 +103,25 @@ class CUser
     return $this->IsAuthenticated;
  } 
 
- // retrun user acronym
+ /*
+  * retrun user acronym
+  */
  public function GetAcronym() 
  {
     return  $this->acronym;
  } 
 
- // return user name
+ /*
+  *  return user name
+  */
  public function GetName() 
  {
     return  $this->name;
  }
  
+ /*
+  *  print if user is logged in or not
+  */
  public function PrintAuthInfo() 
  {
    if($this->IsAuthenticated())
