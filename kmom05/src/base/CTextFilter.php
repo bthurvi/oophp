@@ -246,4 +246,33 @@ EOD;
 
         return $html;
     }
+    
+    /**
+    * Format text according to PHP SmartyPants Typographer.
+    *
+    * @param string $text the text that should be formatted.
+    * @return string as the formatted html-text.
+    */
+   public function smartyPantsTypographer($text) 
+   {
+     require_once(__DIR__ . '/../smartypantstypographer/smartypants.php');
+     return SmartyPants($text);
+   }
+   
+   
+   /**
+   * HTML Purifier - generates standards compliant code (and removes  malicious code, if any)
+   *
+   * @param $text string the dirty HTML.
+   * @returns string as the clean HTML.
+   */
+   public function purify($text) 
+  {   
+    require_once(__DIR__.'/../htmlpurifier-4.7.0-standalone/HTMLPurifier.standalone.php');
+      $config = HTMLPurifier_Config::createDefault();
+      $config->set('Cache.DefinitionImpl', null);
+      $instance = new HTMLPurifier($config);
+    
+    return $instance->purify($text);
+  }
 }
