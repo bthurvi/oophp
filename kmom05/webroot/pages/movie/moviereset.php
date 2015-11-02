@@ -38,7 +38,7 @@ if(isset($_POST['restore']) || isset($_GET['restore']))
   
   $res = exec($cmd);
   //var_dump($res); 
-  $output = "<p>Databasen är återställd via kommandot<br/><code>{$cmd}</code></p><p>{$res}</p>";
+  $output = "<p>Databasen är återställd.</p><p>{$res}</p>";
   echo $output;
   }
 

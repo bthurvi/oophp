@@ -20,7 +20,7 @@ if(isset($_POST['restore']) || isset($_GET['restore']))
     $mysql    = 'mysql';
     $host     = 'blu-ray.student.bth.se';
     $login    = 'urvi15';
-    $password = 'Py-5t1Q;';
+    $password = DB_PASSWORD;
     $output = null;
     
     $cmd = "$mysql -h{$host} -u{$login} -p'{$password}' < $sql 2>&1";
@@ -38,7 +38,7 @@ if(isset($_POST['restore']) || isset($_GET['restore']))
   
   $res = exec($cmd);
   //var_dump($res); 
-  $output = "<p>Databasen är återställd via kommandot<br/><code>{$cmd}</code></p><p>{$res}</p>";
+  $output = "<p>Databasen är återställd.</p><p>{$res}</p>";
   echo $output;
   }
 

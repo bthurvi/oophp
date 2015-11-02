@@ -80,8 +80,56 @@ EOD;
 echo $filter->doFilter($filtertest,'markdown,clickable');
 ?>
 
+<p>&nbsp;</p>
+<hr>
+<p>&nbsp;</p>
+
 <h3>Extrauppgift 1:</h3>
-<p>Föreslog en utökning av bbcode till att inkludera font-size</p>
+<p>Föreslog en utökning av bbcode till att <a href='https://github.com/mosbth/Anax-oophp/issues/7'>inkludera font-size</a></p>
+
+<h3>Extrauppgift 2:</h3>
+<p>Använder [FIGURE] shortcode:</p>
+<?php
+// Shortcode
+$shortcodetest = '[FIGURE src="img/sevenlogo.png" caption="Bild1: En bild på sju-kt fin logga..." alt="Bild på en sjua" href="https://upload.wikimedia.org/wikipedia/commons/e/e0/7Sport_Logo.png"]';
+
+
+// Konvertera och skriv ut som HTML
+echo $filter->doFilter($shortcodetest,'shortcode');
+?>
+
+<h3>Extrauppgift 3:</h3>
+<p>Använder SmartyPants Typographer:</p>
+<?php
+// Text to typo
+$typotest = <<< TYPO
+Detta är "dubbla citationstecken".
+
+Detta är 'enkla citationstecken'.
+
+Detta är ett -- tankestreck.
+
+Detta bör bli ett uteslutningstecken...
+TYPO;
+        
+// Konvertera och skriv ut
+echo $filter->smartyPantsTypographer($typotest);
+?>
+
+<h3>Extrauppgift 4:</h3>
+<p>Använder <a href="http://htmlpurifier.org/"><img
+src="http://htmlpurifier.org/live/art/powered.png"
+alt="Powered by HTML Purifier" border="0" /></a> :</p>
+<?php
+// Text to typo
+$puretest = "<b>Inline <del>context <div>Div-block</div> NOT allowed inside del-tags</del></b>";
+
+        
+// Konvertera och skriv ut
+echo $filter->purify($puretest);
+?>
+
+
 
 
 
