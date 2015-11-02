@@ -64,16 +64,25 @@ $urbax['favicon']    = 'favicon.ico';
  * Settings for the database.
  *
  */
-//define('DB_USER', 'root'); // The database username
-//define('DB_PASSWORD', ''); // The database password
-define('DB_USER', 'urvi15'); // The database username
-define('DB_PASSWORD', 'Py-5t1Q;'); // The database password
 
-//$urbax['database']['dsn']            = 'mysql:host=localhost;dbname=Movie;';
-$urbax['database']['dsn']            = 'mysql:host=blu-ray.student.bth.se;dbname=urvi15;';
+define('DB_USER', 'urvi15');          // The database username
+define('DB_PASSWORD', 'Py-5t1Q;');    // The database password
 $urbax['database']['username']       = DB_USER;
 $urbax['database']['password']       = DB_PASSWORD;
+$urbax['database']['dsn']            = 'mysql:host=blu-ray.student.bth.se;dbname=urvi15;';
 $urbax['database']['driver_options'] = array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'");
+
+//if windows WAMP-server
+if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') 
+{
+  $urbax['database']['username']  = 'root';
+  $urbax['database']['password']  = '';
+  $urbax['database']['dsn']       = 'mysql:host=localhost;dbname=Movie;';
+  
+}
+
+
+
 
 
 /**

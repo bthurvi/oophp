@@ -26,7 +26,8 @@ $menu = array(new CMenuItem('Tärningar','?p=dice'),
               new CMenuItem('CDatabase','?p=cdbovningar'),new CMenuItem('CMovieSearch','?p=generate'), 
               new CMenuItem('CUser -&gt;','?p=cstatus'), array( new CMenuItem('Status','?p=cstatus'), new CMenuItem('Logga in','?p=clogin'), new CMenuItem('Logga ut','?p=clogout') )  ),
               new CMenuItem('Lagra innehåll','?p=ctextfilter'),
-              array(new CMenuItem('CTextFilter','?p=ctextfilter')),
+              array(new CMenuItem('CTextFilter','?p=ctextfilter'),new CMenuItem('CContent ->','?p=contentreset'),array(new CMenuItem('Återställ','?p=contentreset'),
+                  new CMenuItem('Nytt innehåll','?p=contentadd'),new CMenuItem('Editera innehåll','?p=contentedit'))),
               new CMenuItem('Information','?p=desc'),
               array(new CMenuItem('Redovisningar','?p=desc'),new CMenuItem('Visa källkod','?p=code'),new CMenuItem('Utveckling -&gt;','?p'),array(new CMenuItem('Om mig','?p=about')))
             );
@@ -139,8 +140,20 @@ else
       $urbax['title'] = "Logga ut";
       break;
     case "ctextfilter": 
-      $file = "testfilter.php"; 
+      $file = "content/testfilter.php"; 
       $urbax['title'] = "Övning med CTextFilter";
+      break;
+    case "contentreset": 
+      $file = "content/content_reset.php"; 
+      $urbax['title'] = "Återställ tabeller";
+      break;
+    case "contentadd": 
+      $file = "content/content_add.php"; 
+      $urbax['title'] = "Lägg till innehåll";
+      break;
+    case "contentedit": 
+      $file = "content/content_edit.php"; 
+      $urbax['title'] = "Redigera innehåll";
       break;
     case "code": 
       $file = "showcode.php"; 
