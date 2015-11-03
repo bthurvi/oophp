@@ -47,8 +47,10 @@ class CContent
   
   public function add($title, $type, $pdate)
   {
-    $sql = 'INSERT INTO content (title,type, published) VALUES (?,?,?)';
-    $ok = $this->cdb->ExecuteQuery($sql, array($title,$type,$pdate));
+    $sql = 'INSERT INTO content (title,type, published, slug, author) VALUES (?,?,?,?,?)';
+    $slug = $this->slugify($title);
+    $author = $_SESSION['user']->acronym;
+    $ok = $this->cdb->ExecuteQuery($sql, array($title,$type,$pdate,$slug,$author));
     $this->cdb->SaveDebug();
     
     if($ok)
@@ -71,9 +73,14 @@ class CContent
       return false;
   }
   
-  public function delete()
+  public function delete($id)
   {
+     $sql = 'DELETE FROM content  WHERE id=?';
+    $params = array($id);
+    $ok = $this->cdb->ExecuteQuery($sql, $params);
+    $this->cdb->SaveDebug();
     
+      return $ok;
   }
   
   public function validContentID($id)
@@ -109,6 +116,19 @@ class CContent
       
       return $content;
     } 
-    
+  }
+  
+    /**
+   * Create a slug of a string, to be used as url.
+   *
+   * @param string $str the string to format as slug.
+   * @returns str the formatted slug. 
+   */
+  public function slugify($str) {
+    $str = mb_strtolower(trim($str));
+    $str = str_replace(array('å','ä','ö'), array('a','a','o'), $str);
+    $str = preg_replace('/[^a-z0-9-]/', '-', $str);
+    $str = trim(preg_replace('/-+/', '-', $str), '-');
+    return $str;
   }
 }

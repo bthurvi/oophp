@@ -3,8 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/oophp/kmom05/src/base/CTextFilter.php</file>
-            <file>file:/C:/wamp/www/oophp/kmom05/webroot/pages/testfilter.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom05/webroot/pages/content/content_edit.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom05/webroot/pages/content/content_delete.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom05/src/base/CDatabase.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom05/src/base/CContent.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom05/webroot/pages/content/content_add.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom05/webroot/sql/content.sql</file>
             <file>file:/C:/wamp/www/oophp/kmom05/webroot/pageparts/navigation.php</file>
         </group>
     </open-files>

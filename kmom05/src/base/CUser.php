@@ -73,7 +73,7 @@ class CUser
      if(isset($res[0])) {
       $_SESSION['user'] = $res[0];
        $this->acronym = $res[0]->acronym;
-      $this->name = $res[0]->name;
+       $this->name = $res[0]->name;
     }
 
  }    

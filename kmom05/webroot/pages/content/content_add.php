@@ -1,5 +1,7 @@
 <?php
 
+var_dump($_SESSION);
+
 // get parameters
 $create   = isset($_POST['create'])  ? true : false;
 $title  = isset($_POST['title']) ? strip_tags($_POST['title']) : null;

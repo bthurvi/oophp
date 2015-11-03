@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS Content;
 CREATE TABLE Content
 (
     id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    author CHAR(12),
     slug CHAR(80) UNIQUE,
     url CHAR(80) UNIQUE,
 
