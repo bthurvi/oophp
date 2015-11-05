@@ -45,12 +45,12 @@ class CContent
     return "<p>Databasen är återställd.</p><p>{$res}</p>";
   }
   
-  public function add($title, $type, $pdate)
+  public function add($title, $category, $type, $pdate)
   {
-    $sql = 'INSERT INTO content (title,type, published, slug, author) VALUES (?,?,?,?,?)';
+    $sql = "INSERT INTO content (title, category, type, published, created, slug, author, filter) VALUES (?,?,?,?,NOW(),?,?,'nl2br')";
     $slug = $this->slugify($title);
     $author = $_SESSION['user']->acronym;
-    $ok = $this->cdb->ExecuteQuery($sql, array($title,$type,$pdate,$slug,$author));
+    $ok = $this->cdb->ExecuteQuery($sql, array($title,$category,$type,$pdate,$slug,$author));
     $this->cdb->SaveDebug();
     
     if($ok)
@@ -62,7 +62,7 @@ class CContent
   
   public function update($slug, $url, $type, $tite, $data, $filter, $published, $id)
   {
-    $sql = 'UPDATE content SET slug=?,url=?,type=?,title=?,data=?,filter=?,published=?,updated=NOW()  WHERE id=?';
+    $sql = 'UPDATE content SET slug=?,url=?,type=?,title=?,data=?,filter=?,published=?,updated=NOW() WHERE id=?';
     $params = array($slug, $url, $type, $tite, $data, $filter, $published, $id);
     $ok = $this->cdb->ExecuteQuery($sql, $params);
     $this->cdb->SaveDebug();
@@ -75,7 +75,7 @@ class CContent
   
   public function delete($id)
   {
-     $sql = 'DELETE FROM content  WHERE id=?';
+     $sql = 'UPDATE content SET deleted=NOW() WHERE id=?';
     $params = array($id);
     $ok = $this->cdb->ExecuteQuery($sql, $params);
     $this->cdb->SaveDebug();

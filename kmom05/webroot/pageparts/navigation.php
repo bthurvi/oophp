@@ -27,7 +27,8 @@ $menu = array(new CMenuItem('Tärningar','?p=dice'),
               new CMenuItem('CUser -&gt;','?p=cstatus'), array( new CMenuItem('Status','?p=cstatus'), new CMenuItem('Logga in','?p=clogin'), new CMenuItem('Logga ut','?p=clogout') )  ),
               new CMenuItem('Lagra innehåll','?p=ctextfilter'),
               array(new CMenuItem('CTextFilter','?p=ctextfilter'),new CMenuItem('CContent ->','?p=contentreset'),array(new CMenuItem('Återställ','?p=contentreset'),
-                  new CMenuItem('Nytt innehåll','?p=contentadd'),new CMenuItem('Editera innehåll','?p=contentedit'),new CMenuItem('Radera','?p=contentdelete'))),
+                  new CMenuItem('Nytt innehåll','?p=contentadd'),new CMenuItem('Editera innehåll','?p=contentedit'),new CMenuItem('Radera','?p=contentdelete')),
+              new CMenuItem('CPage','?p=contentpage'),new CMenuItem('CBlogg','?p=contentblogg')),
               new CMenuItem('Information','?p=desc'),
               array(new CMenuItem('Redovisningar','?p=desc'),new CMenuItem('Visa källkod','?p=code'),new CMenuItem('Utveckling -&gt;','?p'),array(new CMenuItem('Om mig','?p=about')))
             );
@@ -158,6 +159,15 @@ else
     case "contentdelete": 
       $file = "content/content_delete.php"; 
       $urbax['title'] = "Radera innehåll";
+      break;
+    case "contentpage": 
+      $file = "content/page.php"; 
+      $urbax['title'] = "Visa page";
+      break;
+    case "contentblogg": 
+      $file = "content/blogg.php"; 
+      $urbax['title'] = "Visa blogg";
+       $urbax['stylesheets'][]="css/blogg.css";
       break;
     case "code": 
       $file = "showcode.php"; 

@@ -57,7 +57,7 @@ else //user is authorized
 
        if($updatedId = $cont->update($slug, $url, $type, $title, $data, $filter, $published, $id))
        {
-        echo  "Innehåll uppdaterat.<p> <a href='?p=contentedit&amp;id=$updatedId' class='aButton'>Visa</a>";
+        echo  "Innehåll uppdaterat.<p> <a href='?p=contentedit&amp;id=$updatedId' class='aButton'>Editera mer</a>";
        }
     }
     else

@@ -18,6 +18,7 @@ class CTextFilter
         // Define all valid filters with their callback function.
         $callbacks = array(
             'bbcode'    => 'bbcode2html',
+            'link'     => 'makeClickable',
             'clickable' => 'makeClickable',
             'markdown'  => 'markdown',
             'nl2br'     => 'nl2br',

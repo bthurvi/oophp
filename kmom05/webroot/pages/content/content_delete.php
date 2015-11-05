@@ -26,7 +26,7 @@ else //user is authorized
   if(!$cont->validContentId($id))
   { 
     $dbc = new CDatabase($urbax['database']);
-    $resultset = $dbc->ExecuteSelectQueryAndFetchAll('SELECT id, title FROM content');
+    $resultset = $dbc->ExecuteSelectQueryAndFetchAll('SELECT id, title FROM content WHERE deleted IS NULL');
 
     echo "<h2>Välj post att radera:</h2>";
 
