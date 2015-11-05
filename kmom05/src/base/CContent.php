@@ -47,10 +47,10 @@ class CContent
   
   public function add($title, $category, $type, $pdate)
   {
-    $sql = "INSERT INTO content (title, category, type, published, created, slug, author, filter) VALUES (?,?,?,?,NOW(),?,?,'nl2br')";
+    $sql = "INSERT INTO content (title, url, category, type, published, created, slug, author, filter) VALUES (?,?,?,?,?,NOW(),?,?,'nl2br')";
     $slug = $this->slugify($title);
     $author = $_SESSION['user']->acronym;
-    $ok = $this->cdb->ExecuteQuery($sql, array($title,$category,$type,$pdate,$slug,$author));
+    $ok = $this->cdb->ExecuteQuery($sql, array($title,$slug,$category,$type,$pdate,$slug,$author));
     $this->cdb->SaveDebug();
     
     if($ok)

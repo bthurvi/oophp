@@ -1,6 +1,8 @@
 <?php
 
 
+
+
 function setActive($items) {
   $ref = isset($_GET['p']) && isset($items[$_GET['p']]) ? $_GET['p'] : null;
   
@@ -9,6 +11,90 @@ function setActive($items) {
     $items[$ref]['class'] .= 'activeNav'; 
   }
   return $items;
+}
+
+
+function addBloggsAndPagesToNavbar()
+{
+  //connnect to database
+  global $urbax;
+  $db = new CDatabase($urbax['database']);
+
+  //defalut navigaion items
+  $arr = array(new CMenuItem('CTextFilter','?p=ctextfilter'),new CMenuItem('CContent ->','?p=contentreset'),array(new CMenuItem('Återställ','?p=contentreset'),
+                new CMenuItem('Nytt innehåll','?p=contentadd'),new CMenuItem('Editera innehåll','?p=contentedit'),new CMenuItem('Radera','?p=contentdelete')),
+                new CMenuItem('CPage','?p=contentpage'),new CMenuItem('CBlogg','?p=contentblogg'));
+  
+  
+  //fetch pages
+  $pages = $db->ExecuteSelectQueryAndFetchAll("SELECT title, url FROM content WHERE type='page'");
+  
+  //add pages to navigation
+  if(count($pages)>0)
+  {
+     $pagesNavItem = new CMenuItem('Webbsidor ->','');
+     $subPages = null;
+     
+     foreach ($pages as $navItem) 
+     {
+       //get text
+       $text = ucfirst($navItem->title);
+       
+       //and shorten it if needed...
+       if (strlen($text) > 20)
+         $text = substr($text, 0, 17) . '...';
+       
+       //get url
+       $url = $navItem->url;
+       
+       //add to array
+       $subPages[] = new CMenuItem($text, '?p=contentpage&amp;url='.$url);
+     }
+     
+     //add 'headline'
+     $arr[] = $pagesNavItem;
+     
+     //add subpages
+     $arr[] = $subPages;
+   
+  }
+  
+  //fetch blogposts
+  $posts = $db->ExecuteSelectQueryAndFetchAll("SELECT title, slug FROM content WHERE type='post'");
+  
+  //add pages to navigation
+  if(count($posts)>0)
+  {
+     $postsNavItem = new CMenuItem('Bloggposter ->','');
+     $subPages = null;
+     
+     foreach ($posts as $navItem) 
+     {
+       //get text
+       $text = ucfirst($navItem->title);
+       
+       //and shorten it if needed...
+       if (strlen($text) > 20)
+         $text = substr($text, 0, 17) . '...';
+       
+       //get slug
+       $slug = $navItem->slug;
+       
+       //add to array
+       $subPages[] = new CMenuItem($text, '?p=contentblogg&amp;slug='.$slug);
+     }
+     
+     //add 'headline'
+     $arr[] = $postsNavItem;
+     
+     //add subpages
+     $arr[] = $subPages;
+   
+  }
+ 
+  
+
+  return $arr;
 }
 
 
@@ -25,13 +111,14 @@ $menu = array(new CMenuItem('Tärningar','?p=dice'),
                    new CMenuItem('Ny film','?p=newmovie'), new CMenuItem('Radera film','?p=deletemovie'),new CMenuItem('Sök alla','?p=moviesearchall')),
               new CMenuItem('CDatabase','?p=cdbovningar'),new CMenuItem('CMovieSearch','?p=generate'), 
               new CMenuItem('CUser -&gt;','?p=cstatus'), array( new CMenuItem('Status','?p=cstatus'), new CMenuItem('Logga in','?p=clogin'), new CMenuItem('Logga ut','?p=clogout') )  ),
-              new CMenuItem('Lagra innehåll','?p=ctextfilter'),
-              array(new CMenuItem('CTextFilter','?p=ctextfilter'),new CMenuItem('CContent ->','?p=contentreset'),array(new CMenuItem('Återställ','?p=contentreset'),
-                  new CMenuItem('Nytt innehåll','?p=contentadd'),new CMenuItem('Editera innehåll','?p=contentedit'),new CMenuItem('Radera','?p=contentdelete')),
-              new CMenuItem('CPage','?p=contentpage'),new CMenuItem('CBlogg','?p=contentblogg')),
-              new CMenuItem('Information','?p=desc'),
-              array(new CMenuItem('Redovisningar','?p=desc'),new CMenuItem('Visa källkod','?p=code'),new CMenuItem('Utveckling -&gt;','?p'),array(new CMenuItem('Om mig','?p=about')))
-            );
+              new CMenuItem('Lagra innehåll','?p=ctextfilter'));
+
+    
+$menu[] = addBloggsAndPagesToNavbar(); //add database content (pages/blogposts)  to navbar
+
+$menu[] =     new CMenuItem('Information','?p=desc');
+$menu[] =     array(new CMenuItem('Redovisningar','?p=desc'),new CMenuItem('Visa källkod','?p=code'),new CMenuItem('Utveckling -&gt;','?p'),array(new CMenuItem('Om mig','?p=about') ) );
+            
 
 
 $htmlMenu = new CDynamicDropDownMenu($menu,"activeNav");
