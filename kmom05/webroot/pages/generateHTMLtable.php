@@ -24,6 +24,9 @@ $orderby  = isset($_GET['orderby']) ? strtolower($_GET['orderby']) : 'id';
 $order    = isset($_GET['order'])   ? strtolower($_GET['order'])   : 'asc';
 
 
+  
+
+
 // Check that incoming parameters are valid
 is_numeric($hits) or die('Check: Hits must be numeric.');
 is_numeric($page) or die('Check: Page must be numeric.');
@@ -41,4 +44,7 @@ $res =  CMovieSearch::ExecuteSelectQueryAndFetchAll($page, $hits, $title, $year1
 
 
 // Display resulting table
-echo CHTMLTable::generateHTMLtableResult($res['resultset'],'table',$hits,$page,$res['maxresults']);
+if(count($res['resultset'])>0)
+  echo CHTMLTable::generateHTMLtableResult($res['resultset'],'table',$hits,$page,$res['maxresults']);
+else
+  echo "Inga filmer matchar angivna sökkriterier";

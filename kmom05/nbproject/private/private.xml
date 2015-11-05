@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/wamp/www/oophp/kmom05/src/base/CBlogg.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom05/webroot/config.php</file>
             <file>file:/C:/wamp/www/oophp/kmom05/src/base/CPage.php</file>
-            <file>file:/C:/wamp/www/oophp/kmom05/src/base/CDatabase.php</file>
             <file>file:/C:/wamp/www/oophp/kmom05/webroot/pages/content/page.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom05/webroot/pages/content/content_add.php</file>
             <file>file:/C:/wamp/www/oophp/kmom05/src/base/CContent.php</file>
-            <file>file:/C:/wamp/www/oophp/kmom05/src/base/CTextFilter.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom05/webroot/pages/content/blogg.php</file>
             <file>file:/C:/wamp/www/oophp/kmom05/webroot/pageparts/navigation.php</file>
         </group>
     </open-files>

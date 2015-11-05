@@ -1,5 +1,85 @@
 <h1>Redovisningar</h1>
 
+<h4>Kmom05 - <a href="http://dbwebb.se/oophp/kmom05">Lagra innehåll i databasen</a></h4>
+
+
+<p>Nedanstående text skrev jag parallellt med att jag kodade. Det var enkelt för mig på det sättet - men texten blev relativt stolpig. 
+    Betrakta den gärna som mina minnesanteckningar: </p> 
+
+<p>Jag inledde med att justera en bugg ifrån förra momentet. Om en användare gav sökkriterier som innebar att inga filmer matchade fick man upp flera varningar och felmeddelanden.
+    Nu har jag justerat så att det istället blir en utskrift. Felet bestod i ett metodanrop med tomt resultset. Jag lade till en kontroll för att se om ett tomt resultatset returnerades från
+    databasen - i de fallen sker inget metodanrop utan endast en text som informerar om att inga resultat kunde hittas skrivs ut.</p>
+
+<p>När buggen väl var  fixad läste jag igenom instruktionen för aktuellt moment.</p>
+
+<p>Därefter gjorde jag  övningarna med CTextFilter. Det var bara ladda hem färdig kod och köra. Jag fick inga problem och gjorde därför även extrauppgifterna. Det gick snabbt - några timmar bara.</p>
+
+<p>Sedan gav jag mig i kast med att skapa en klass för innehåll i databasen, CContent. Men först behövde jag förstå vad jag skulle göra. 
+    Jag fick om läsa uppgifterna flera gånger för att inse vad uppgiften bestod i. 
+    Jag tolkade det som att jag skulle följa guiden fast göra en objektorienterad lösning. 
+    Det stod det inget om var behandling av POST/GET-variabler skulle ske - så jag tolkade det som att jag fick behandla dessa var jag ville. 
+    Jag lade dem  i sidkontrollerna för att hålla klassens kod renare.</p>
+
+<p>Därnäst skapade jag klassen CContent med metoderna: konstruktor, reset, add, uppdate och delete:</p> 
+  
+<p>Konstruktorn fick en options parameter (tyckte att klassen blev mer generell då). 
+    Den ansluter via CDatabase och parametrarna till databasen.</p> 
+
+<p>Metoden reset hanterar återställning av tabellerna content och users i databasen. 
+    Den är skriven så att den hanterar både inställningar både för lokal utveckling och för driftsmiljön. 
+    Jag har justerat både i config-filen och i metoden så att detta fungerar smidigt. </p>
+
+<p>Skrev sedan en sidkontroller för att lägga till innehåll (förutsatt att man är inloggad) genom att ange titel och typ av innehåll, dvs page eller post.</p>
+    
+<p>Fyller på med mer information gör man genom att editera/uppdatera. 
+    Det är en enklare lösning för mig som programmerare - men sannolikt besvärligare för brukaren. 
+    I ett produktionssystem (eller kanske till projektet i denna kurs) skulle jag ha valt att göra två olika sidkontroller,
+    en för att skapa blogposter och en för att skapa sidor, men just nu får det duga så här.</p>
+
+<p>Fixade sedan metoden add så att det fungerar att spara. 
+    Här var jag tvungen att minnas ihåg hur klassen CDatabase och prepared statements fungerar. 
+    Det var en bra repetition - tänk vad man glömmer detaljer snabbt.</p>
+
+<p>Nästa del jag gav mig i kast med var att editera. Där skapade jag en kontrollen av giltigt ID-värde genom en metod: validContentId i klassen CContent. 
+    Dessutom skullde det kontrolleras att användare var inloggad - det var som vanligt lite trixande innan logiken fungerade. Men det gick efter lite jobb.</p>
+
+<p>Så kopierade jag editera och gjorde om koden till en sida för att radera poster. Det gick enkelt, det mesta av koden var ju redan skriven.
+
+<p>Därnäst löste jag extrauppgift 1: Lade till en slugify-metod som anropas när användaren skapar nytt innehåll.</p>
+
+<p>Sedan extrauppgift 2: För att låta allt innehåll ha en ägare lade jag till fältet author i content-tabellen. 
+    Där sparas författarens akronym (vilket antas vara den inloggade användaren) när nytt innehåll skapas.. 
+    Akronymet är satt unikt i users-tabellen därför går det fint att använda som identifierare.</p>
+
+<p>Skapade sedan en sida, page.php som använder klassen CPage för att visa webbside-innehåll från databasen. 
+    Utifrån den givna exempelkoden gick det snabbt och enkelt. Bara att lägga in den i en klass och köra. 
+    Jag valde att låta klassen ha två egenskaper: den ena håller anslutningen till databasen och den andra har en instans av CTextfilter. Tyckte att det gav en enkel lösning.</p>
+
+<p>Sidkontrollern blogg.php och klassen CBlogg som jag skapade för att visa ett blogg-innehåll påminde mycket om föregående arbetsuppgift,  med page. 
+    Det gick i alla fall enkelt och smärtfritt. En reflektion: eftersom att klasserna CBlogg och CPage påminnner väldigt mycket om varandra - skulle det vara 
+    möjligt att göra en basklass som sedan CBlogg och CPage ärver egenskaper och metoder ifrån. Det skulle spara några rader kod. 
+    Men eftersom vi (ännu) bara har två typer av innehåll så tyckte jag inte att det var värt det jobbet. Om behov uppstår så gör jag det då.</p>  
+
+<p>Lade så till så att det visas vem som författade artikeln (Extrauppgift 1). Fixade även så att CConten kan hantera kategorier (Extrauppgift 2). </p>
+
+<p>Kodande slutligen så att att navbaren automatiskt infogar länkar till alla blogg och webbsidorsidor i databasen. 
+    - Jag valde att tolka extrauppgift 1 och extrauppgift 2 ifrån CPage och CBlogg på det sättet.</p>
+    
+<p>Här fick jag  fundera lite över hur jag skulle bygga den flerdimensionella arrayen. Men jag lyckades förvånansvärt snabbt (typ 3 timmar). 
+    Det är, i mitt tycke, härligt att se att menyn  automatiskt uppdateras när man lägger till nytt innehåll.</p> 
+
+<p>Lite stolt är jag allt över menyn. Det är väl kanske inte alldeles trivialt?. Egentligen borde jag skriva om navigationen till en klass, 
+    så att den blir  enklare att återanvända nästa gång. Men det får vi ta då. Jag tycker att jag i det här momentet har lärt mig en 
+    stimulerand lösning: kod som använder några klasser för att ladda databasinnehåll till en dynamisk navigiationsmeny. Mycket inspirerande. Kul!</p>
+
+<p>Källkoden till denna webbplats ligger ute på GitHub 
+    du hittar den <a href="https://github.com/bthurvi/oophp">här</a>.</p>
+
+<p>&nbsp;</p>
+<hr>
+
+
+
 <h4>Kmom04 - <a href="http://dbwebb.se/oophp/kmom04">PHP PDO och MySQL</a></h4>
 
 <p>Moment var relativt omfattande och innebar en hel del jobb. I alla fall om man, som jag, valt att att göra alla uppgifter. Totalt har jag:
