@@ -26,7 +26,13 @@ else
   {
      $cont = new CContent($urbax['database']); 
      if($newId = $cont->add($title,$category,$type,$pdate))
+     {
       echo  "Nytt innehåll sparat. <a href='?p=contentedit&amp;id=$newId' class='aButton'>Editera</a>";
+      
+     //use javascritp to redirect - forces the the nav menu to uppdate
+     echo "<script> setTimeout(function (){ window.location.href = '?p=contentedit'; }, 2000);</script>";
+  
+     }
   }
   else
   {

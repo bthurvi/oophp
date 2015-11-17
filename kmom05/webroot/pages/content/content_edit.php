@@ -28,7 +28,7 @@ else //user is authorized
   if(!$cont->validContentId($id))
   { 
     $dbc = new CDatabase($urbax['database']);
-    $resultset = $dbc->ExecuteSelectQueryAndFetchAll('SELECT id, title FROM Content');
+    $resultset = $dbc->ExecuteSelectQueryAndFetchAll('SELECT id, title FROM Content WHERE deleted IS NULL');
 
     echo "<h2>Välj post att redigera:</h2>";
 

@@ -27,7 +27,7 @@ function addBloggsAndPagesToNavbar()
   
   
   //fetch pages
-  $pages = $db->ExecuteSelectQueryAndFetchAll("SELECT title, url FROM Content WHERE type='page'");
+  $pages = $db->ExecuteSelectQueryAndFetchAll("SELECT title, url FROM Content WHERE type='page' AND deleted IS NULL");
   
   //add pages to navigation
   if(count($pages)>0)
@@ -60,7 +60,7 @@ function addBloggsAndPagesToNavbar()
   }
   
   //fetch blogposts
-  $posts = $db->ExecuteSelectQueryAndFetchAll("SELECT title, slug FROM Content WHERE type='post'");
+  $posts = $db->ExecuteSelectQueryAndFetchAll("SELECT title, slug FROM Content WHERE type='post' AND deleted IS NULL");
   
   //add pages to navigation
   if(count($posts)>0)

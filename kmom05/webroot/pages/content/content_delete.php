@@ -26,6 +26,9 @@ else //user is authorized
   if($cont->validContentId($id))
   {
      $cont->delete($id);
+     
+     //use javascritp to reload - forces the the nav menu to uppdate
+     echo "<script> setTimeout(function (){ window.location.href = '?p=contentdelete'; }, 2000);</script>";
   }
   
   //show table

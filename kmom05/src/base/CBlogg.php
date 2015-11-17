@@ -11,7 +11,7 @@ class CBlogg
     $textfilter = new CTextFilter();
     
     // Get content
-    $sql = "SELECT * FROM Content WHERE type = 'post' AND $slugSql AND published <= NOW() ORDER BY updated DESC;";
+    $sql = "SELECT * FROM Content WHERE type = 'post' AND $slugSql AND published <= NOW() AND deleted IS NULL ORDER BY updated DESC;";
     
     $res = $this->dbh->ExecuteSelectQueryAndFetchAll($sql, array($slug));
     

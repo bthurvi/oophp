@@ -12,7 +12,7 @@ class CPage
     $textfilter = new CTextFilter();
     
     // Get content
-    $sql = "SELECT * FROM Content WHERE type = 'page' AND $urlSql AND published <= NOW();";
+    $sql = "SELECT * FROM Content WHERE type = 'page' AND $urlSql AND published <= NOW() AND deleted IS NULL;";
     
     $res = $dbh->ExecuteSelectQueryAndFetchAll($sql, array($url));
 

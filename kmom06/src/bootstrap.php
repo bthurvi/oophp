@@ -74,13 +74,3 @@ function destroySession() {
 
 
 
-// -------------------------------------------------------------------------------------------
-//
-/**
- * Display log message.
- *
- * @param string $message the log message to display.
- */
-function verbose($message) {
-  echo "<p>$message</p>";
-}
