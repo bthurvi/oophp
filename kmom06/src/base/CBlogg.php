@@ -57,7 +57,7 @@ PAGECONT;
   private function getUser($akronym)
   {
    
-    $sqlUser = "SELECT * FROM user WHERE acronym=?";
+    $sqlUser = "SELECT * FROM User WHERE acronym=?";
     $param = array($akronym);
     $user = $this->dbh->ExecuteSelectQueryAndFetchAll($sqlUser, $param);
    

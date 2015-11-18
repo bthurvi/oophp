@@ -27,10 +27,18 @@ class CTextFilter
 
         // Make an array of the comma separated string $filters
         $filter = preg_replace('/\s/', '', explode(',', $filters));
-
+       
+        //remove all empty elements (if any)
+        $filter = array_filter($filter);
+        
+        //remove all falses filters
+        $validFilters = array_keys($callbacks); 
+        $filter = array_intersect($filter,$validFilters);
+        
+        
         // For each filter, call its function with the $text as parameter.
-        foreach ($filter as $key) {
-
+        foreach ($filter as $key) 
+        {
             if (isset($callbacks[$key])) {
                 $text = call_user_func_array(array($this, $callbacks[$key]), array($text));
             } else {
