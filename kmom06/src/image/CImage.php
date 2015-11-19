@@ -26,7 +26,7 @@ class CImage
 
 
   public function __construct($absolute_path_to_image_folder,$path_to_cachie_folder,$image_file,$instaniation_file_name=null, $quality=null, 
-          $newWidth=null, $newHeight=null) 
+          $newWidth=null, $newHeight=null,$cropToFit=null,$sharpen=null) 
   {  
     //save arguments
     $this->image_file=$image_file;
@@ -42,6 +42,8 @@ class CImage
     is_null($quality) or (is_numeric($quality) and $quality > 0 and $quality <= 100) or $this->errorMessage('Quality out of range');
     is_null($newWidth) or (is_numeric($newWidth) and $newWidth > 0 and $newWidth <= CImage::MAX_WIDTH) or $this->errorMessage('Width out of range');
     is_null($newHeight) or (is_numeric($newHeight) and $newHeight > 0 and $newHeight <= CImage::MAX_HEIGHT) or $this->errorMessage('Height out of range');
+    is_null($cropToFit) or ($cropToFit and $newWidth and $newHeight) or $this->errorMessage('Crop to fit needs both width and height to work');
+   
     
     // Build full path to image
     $this->pathToImage = realpath($absolute_path_to_image_folder . $image_file);
@@ -61,11 +63,20 @@ class CImage
     $this->mime = $this->imgInfo['mime'];
     list($this->width,$this->height,$this->type) = getimagesize($this->pathToImage);
     
-    //resize (if needed)
-    $this->image = $this->newWidthHeight($newWidth, $newHeight, $this->image);
+    //resize or crop image (if needed)
+    if ($cropToFit) {
+      $this->image = $this->cropImage($this->image, $newWidth, $newHeight);
+    } else {
+      $this->image = $this->newWidthHeight($this->image, $newWidth, $newHeight);
+    }
     
+    //sometimes sharpen the image
+    if($sharpen){
+      $this->image = $this->sharpenImage($this->image);
+    }
+
     //if old internal cashie file - create new one
-    $this->cacheFileName = $this->createCasheFilename($path_to_cachie_folder, $quality);
+    $this->cacheFileName = $this->createCasheFilename($path_to_cachie_folder, $quality, $sharpen);
     $imageModifiedTime = filemtime($this->pathToImage);
     $cacheModifiedTime = is_file($this->cacheFileName) ? filemtime($this->cacheFileName) : null;
     if($imageModifiedTime > $cacheModifiedTime)
@@ -76,11 +87,59 @@ class CImage
    
   }
   
-  private function newWidthHeight($newWidth=null,$newHeight=null, $image=null)
+
+  
+  
+  /**
+  * Sharpen image as http://php.net/manual/en/ref.image.php#56144
+  * http://loriweb.pair.com/8udf-sharpen.html
+  *
+  * @param resource $image the image to apply this filter on.
+  * @return resource $image as the processed image.
+  */
+  private function sharpenImage($image) 
   {
-     
+    $this->infoText .= "Sharpening the image<br/>";
+    
+    $matrix = array(
+      array(-1,-1,-1,),
+      array(-1,16,-1,),
+      array(-1,-1,-1,)
+    );
+    
+    $divisor = 8;
+    $offset = 0;
+    imageconvolution($image, $matrix, $divisor, $offset);
+    
+    return $image;
+  }
+  
+  private function cropImage($image, $newWidth=null, $newHeight=null)
+  {
+    $this->infoText .= "Cropping image.<br/>";
+    
     $aspectRatio = $this->width / $this->height;
- 
+    $targetRatio = $newWidth / $newHeight;
+    
+    $cropWidth   = $targetRatio > $aspectRatio ? $this->width : round($this->height * $targetRatio);
+    $cropHeight  = $targetRatio > $aspectRatio ? round($this->width  / $targetRatio) : $this->height;
+    
+    $cropX = round(($this->width - $cropWidth) / 2);  
+    $cropY = round(($this->height - $cropHeight) / 2);    
+    $imageResized = imagecreatetruecolor($newWidth, $newHeight);
+    imagecopyresampled($imageResized, $image, 0, 0, $cropX, $cropY, $newWidth, $newHeight, $cropWidth, $cropHeight);
+    
+    $this->width = $newWidth;
+    $this->height = $newHeight;
+    
+    return $imageResized;
+  }
+  
+  private function newWidthHeight($image, $newWidth=null,$newHeight=null)
+  {
+    
+    $this->infoText .= "Scaling image.<br/>";
+    $aspectRatio = $this->width / $this->height;
     
     if($newWidth && !$newHeight) 
     {
@@ -99,8 +158,8 @@ class CImage
       $ratioWidth  = $this->width  / $newWidth;
       $ratioHeight = $this->height / $newHeight;
       $ratio = ($ratioWidth > $ratioHeight) ? $ratioWidth : $ratioHeight;
-      $this->newWidth  = round($width  / $ratio);
-      $this->newHeight = round($height / $ratio);
+      $this->newWidth  = round($this->width  / $ratio);
+      $this->newHeight = round($this->height / $ratio);
       $this->infoText .= "New width & height is requested, keeping aspect ratio results in {$this->newWidth}x{$this->newHeight}.<br/>"; 
     }
     else 
@@ -123,13 +182,15 @@ class CImage
       return $image;
   }
   
-  private function createCasheFilename($cache_path, $quality)
+  private function createCasheFilename($cache_path, $quality=null, $cropToFit=null, $sharpen=NULL)
   {
     //
     // Create a filename for the cache
-    $quality_   = is_null($quality) ? null : "q{$quality}";
+    $quali   = is_null($quality) ? null : "q{$quality}";
+    $sharp       = is_null($sharpen) ? null : "_s";
     $filename = pathinfo($this->image_file, PATHINFO_FILENAME);
-    $cacheFileName = $cache_path . $filename. "{$this->width}x{$this->height}{$quality_}.jpg";
+    $crop     = is_null($cropToFit) ? null : "_cf";
+    $cacheFileName = $cache_path . $filename. "{$this->width}x{$this->height}{$quali}{$crop}{$sharp}.jpg";
     $cacheFileName = preg_replace('/^a-zA-Z0-9\.-_/', '', $cacheFileName);
     
     return $cacheFileName;
@@ -167,41 +228,7 @@ class CImage
      $this->infoText .= "Saved image as JPEG to cache using quality = $quality<br/>";
   }
  
-  
- /* private function saveToCache($quality,$newWidth,$newHeight)
-  {
-    $fileExtension  =  pathinfo($this->pathToImage,PATHINFO_EXTENSION);
-    
-    $info = "File extension is: $fileExtension<br/>";
-    
-    //open image
-    switch($fileExtension)
-    {  
-      case 'jpg':
-      case 'jpeg': 
-        $image = imagecreatefromjpeg($this->pathToImage);
-        $info .= "Opened the image as a JPEG image<br/>";
-        break;  
-
-      case 'png':  
-        $image = imagecreatefrompng($this->pathToImage); 
-       $info .= "Opened the image as a PNG image.<br/>";
-        break;  
-
-      default: $info .= "No support for this file extension.<br/>";    
-    }
-    
-    //resize (if needed)
-    $image = $this->newWidthHeight($newWidth, $newHeight, $image);
-    
-
-    //save image
-     imagejpeg($image, $this->cacheFileName, $quality);
-      $info .= "Saved image as JPEG to cache using quality = $quality<br/>";
-     
-     return $info;
-  }*/
-
+ 
   
   
   public function outputImage($rewriteCashe=false,$verbose=false)
