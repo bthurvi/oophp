@@ -51,18 +51,26 @@ class CImage
 
     // Validate security for image
     substr_compare($absolute_path_to_image_folder, $this->pathToImage, 0, strlen($absolute_path_to_image_folder)) == 0 
-    or $this->errorMessage('Security constraint: Source image must lie DIRECTLY under the image directory.');
-    
-    //open file
-    $this->image = $this->openImage($this->pathToImage);
-    
-    
-    // Get information on the image
+    or $this->errorMessage('Security constraint: Source image must lie DIRECTLY under the image directory.');    // Get information on the image
     $this->imgInfo  = getimagesize($this->pathToImage);
     !empty($this->imgInfo) or errorMessage("The file doesn't seem to be an image.");
     $this->mime = $this->imgInfo['mime'];
     list($this->width,$this->height,$this->type) = getimagesize($this->pathToImage);
     
+    
+     // Get information on the image
+    $this->imgInfo  = getimagesize($this->pathToImage);
+    !empty($this->imgInfo) or errorMessage("The file doesn't seem to be an image.");
+    $this->mime = $this->imgInfo['mime'];
+    list($this->width,$this->height,$this->type) = getimagesize($this->pathToImage);
+    
+    
+    
+    //open file
+    $this->image = $this->openImage($this->pathToImage);
+    
+    
+   
     //resize or crop image (if needed)
     if ($cropToFit) {
       $this->image = $this->cropImage($this->image, $newWidth, $newHeight);
@@ -87,6 +95,20 @@ class CImage
    
   }
   
+  /**
+  * Create new image and keep transparency
+  *
+  * @param resource $image the image to apply this filter on.
+  * @return resource $image as the processed image.
+  */
+  private function createImageKeepTransparency($width, $height) 
+  {
+     $img = imagecreatetruecolor($width, $height);
+     imagealphablending($img, false);
+     imagesavealpha($img, true);  
+     return $img;
+ }
+
 
   
   
@@ -126,7 +148,8 @@ class CImage
     
     $cropX = round(($this->width - $cropWidth) / 2);  
     $cropY = round(($this->height - $cropHeight) / 2);    
-    $imageResized = imagecreatetruecolor($newWidth, $newHeight);
+    //$imageResized = imagecreatetruecolor($newWidth, $newHeight);
+    $imageResized = $this->createImageKeepTransparency($newWidth, $newHeight);
     imagecopyresampled($imageResized, $image, 0, 0, $cropX, $cropY, $newWidth, $newHeight, $cropWidth, $cropHeight);
     
     $this->width = $newWidth;
@@ -138,7 +161,6 @@ class CImage
   private function newWidthHeight($image, $newWidth=null,$newHeight=null)
   {
     
-    $this->infoText .= "Scaling image.<br/>";
     $aspectRatio = $this->width / $this->height;
     
     if($newWidth && !$newHeight) 
@@ -170,16 +192,17 @@ class CImage
     }
     
     //create new size of image and return it
-    if(!($this->newWidth == $this->width && $this->newHeight == $this->height))
-    {
-      $imageResized = imagecreatetruecolor($this->newWidth, $this->newHeight);
+    if (!($this->newWidth == $this->width && $this->newHeight == $this->height)) {
+      //$imageResized = imagecreatetruecolor($this->newWidth, $this->newHeight);
+      $imageResized = $this->createImageKeepTransparency($this->newWidth, $this->newHeight);
       imagecopyresampled($imageResized, $image, 0, 0, 0, 0, $this->newWidth, $this->newHeight, $this->width, $this->height);
-      $this->width  = $this->newWidth;
+      $this->width = $this->newWidth;
       $this->height = $this->newHeight;
       return $imageResized;
-    }
-    else
+    } else {
+      $this->infoText .= "Returned same image.<br/>"; 
       return $image;
+    }
   }
   
   private function createCasheFilename($cache_path, $quality=null, $cropToFit=null, $sharpen=NULL)
@@ -189,8 +212,9 @@ class CImage
     $quali   = is_null($quality) ? null : "q{$quality}";
     $sharp       = is_null($sharpen) ? null : "_s";
     $filename = pathinfo($this->image_file, PATHINFO_FILENAME);
+    $fileExtension  =  pathinfo($this->image_file,PATHINFO_EXTENSION);
     $crop     = is_null($cropToFit) ? null : "_cf";
-    $cacheFileName = $cache_path . $filename. "{$this->width}x{$this->height}{$quali}{$crop}{$sharp}.jpg";
+    $cacheFileName = $cache_path . $filename. "{$this->width}x{$this->height}{$quali}{$crop}{$sharp}.{$fileExtension}";
     $cacheFileName = preg_replace('/^a-zA-Z0-9\.-_/', '', $cacheFileName);
     
     return $cacheFileName;
@@ -212,8 +236,8 @@ class CImage
         break;  
 
       case 'png':  
-        $image = imagecreatefrompng($pathToImage); 
-       $this->infoText .= "Opened the image as a PNG image.<br/>";
+        $image = imagecreatefrompng($pathToImage);  
+        $this->infoText .= "Opened the image as a PNG image.<br/>";
         break;  
 
       default: $this->infoText .= "No support for this file extension.<br/>";    
@@ -224,8 +248,26 @@ class CImage
   
   private function saveToCache($image,$cacheFileName,$quality=100)
   {
-     imagejpeg($image, $cacheFileName, $quality);
-     $this->infoText .= "Saved image as JPEG to cache using quality = $quality<br/>";
+    $saveAs  =  pathinfo($cacheFileName,PATHINFO_EXTENSION);
+    $this->infoText .= "Saving image to cache <br/>";
+    
+    switch($saveAs) 
+    {
+      case 'png':  
+        // Turn off alpha blending and set alpha flag
+        imagealphablending($image, false);
+        imagesavealpha($image, true);
+        imagepng($image, $cacheFileName);
+        $this->infoText .= "Saved image as PNG to cache <br/>";
+      break;
+      case 'jpg' :
+      case 'jpeg':
+        imagejpeg($image, $cacheFileName, $quality);
+        $this->infoText .= "Saved image as JPEG to cache using quality = $quality<br/>";
+      break;
+   
+    }
+     
   }
  
  
