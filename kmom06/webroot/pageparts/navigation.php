@@ -116,6 +116,9 @@ $menu = array(new CMenuItem('Tärningar','?p=dice'),
     
 $menu[] = addBloggsAndPagesToNavbar(); //add database content (pages/blogposts)  to navbar
 
+$menu[] =     new CMenuItem('Galleri','?p=gallery');
+$menu[] =     array(new CMenuItem('Bildgalleri','?p=gallery'));
+
 $menu[] =     new CMenuItem('Information','?p=desc');
 $menu[] =     array(new CMenuItem('Redovisningar','?p=desc'),new CMenuItem('Visa källkod','?p=code'),new CMenuItem('Utveckling -&gt;','?p'),array(new CMenuItem('Om mig','?p=about') ) );
             
@@ -264,6 +267,11 @@ else
     case "desc": 
       $file = "description.php";
       $urbax['title'] = "Redovisning";
+      break;
+    case "gallery": 
+      $file = "gallery.php";
+      $urbax['title'] = "Bildgalleri";
+      $urbax['stylesheets'][]="css/gallery.css";
       break;
     case "calendar": 
       $file = "manadens_babe.php";

@@ -26,7 +26,7 @@ class CImage
 
 
   public function __construct($absolute_path_to_image_folder,$path_to_cachie_folder,$image_file,$instaniation_file_name=null, $quality=null, 
-          $newWidth=null, $newHeight=null,$cropToFit=null,$sharpen=null) 
+          $newWidth=null, $newHeight=null,$cropToFit=null,$sharpen=null,$blackwhite=null, $sepia=null) 
   {  
     //save arguments
     $this->image_file=$image_file;
@@ -82,9 +82,25 @@ class CImage
     if($sharpen){
       $this->image = $this->sharpenImage($this->image);
     }
+    
+    //sometimes make the image grayscale
+    if($blackwhite)
+    {
+      imagefilter($this->image,IMG_FILTER_GRAYSCALE);
+    }
+    
+    //sometimes make the image sepia
+    if($sepia)
+    {
+      imagefilter($this->image,IMG_FILTER_GRAYSCALE);
+      imagefilter($this->image,IMG_FILTER_BRIGHTNESS,-10);
+      imagefilter($this->image,IMG_FILTER_CONTRAST,-20);
+      imagefilter($this->image,IMG_FILTER_COLORIZE,120,60,0,0);
+      $this->image = $this->sharpenImage($this->image);
+    }
 
     //if old internal cashie file - create new one
-    $this->cacheFileName = $this->createCasheFilename($path_to_cachie_folder, $quality, $sharpen);
+    $this->cacheFileName = $this->createCasheFilename($path_to_cachie_folder, $quality, $sharpen, $blackwhite, $sepia);
     $imageModifiedTime = filemtime($this->pathToImage);
     $cacheModifiedTime = is_file($this->cacheFileName) ? filemtime($this->cacheFileName) : null;
     if($imageModifiedTime > $cacheModifiedTime)
@@ -205,7 +221,7 @@ class CImage
     }
   }
   
-  private function createCasheFilename($cache_path, $quality=null, $cropToFit=null, $sharpen=NULL)
+  private function createCasheFilename($cache_path, $quality=null, $cropToFit=null, $sharpen=NULL, $blackwhite=null, $sepia=null)
   {
     //
     // Create a filename for the cache
@@ -214,7 +230,9 @@ class CImage
     $filename = pathinfo($this->image_file, PATHINFO_FILENAME);
     $fileExtension  =  pathinfo($this->image_file,PATHINFO_EXTENSION);
     $crop     = is_null($cropToFit) ? null : "_cf";
-    $cacheFileName = $cache_path . $filename. "{$this->width}x{$this->height}{$quali}{$crop}{$sharp}.{$fileExtension}";
+    $blackw     = is_null($blackwhite) ? null : "_bw";
+    $sep     = is_null($sepia) ? null : "_sep";
+    $cacheFileName = $cache_path . $filename. "{$this->width}x{$this->height}{$quali}{$crop}{$sharp}{$blackw}{$sep}.{$fileExtension}";
     $cacheFileName = preg_replace('/^a-zA-Z0-9\.-_/', '', $cacheFileName);
     
     return $cacheFileName;
@@ -239,6 +257,12 @@ class CImage
         $image = imagecreatefrompng($pathToImage);  
         $this->infoText .= "Opened the image as a PNG image.<br/>";
         break;  
+      
+      case 'gif':
+        $image = imagecreatefromgif($pathToImage);  
+        $this->infoText .= "Opened the image as a GIF image.<br/>";
+        break;
+         
 
       default: $this->infoText .= "No support for this file extension.<br/>";    
     }
@@ -259,11 +283,17 @@ class CImage
         imagesavealpha($image, true);
         imagepng($image, $cacheFileName);
         $this->infoText .= "Saved image as PNG to cache <br/>";
-      break;
+        break;
       case 'jpg' :
       case 'jpeg':
         imagejpeg($image, $cacheFileName, $quality);
         $this->infoText .= "Saved image as JPEG to cache using quality = $quality<br/>";
+        break;
+      case 'gif':
+
+        imagegif($image, $cacheFileName);
+        $this->infoText .= "Saved image as GIF to cache <br/>";
+        break;
       break;
    
     }

@@ -82,9 +82,6 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
 }
 
 
-
-
-
 /**
  * Settings for JavaScript.
  *
@@ -104,3 +101,11 @@ $urbax['javascript_include'][] = 'js/slideshow.js';
  */
 $urbax['google_analytics'] = 'UA-22093351-1'; // Set to null to disable google analyti
        
+
+
+/**
+ * Settings for gallery
+ */
+// Define the basedir for the gallery
+define('GALLERY_PATH', __DIR__ . DIRECTORY_SEPARATOR . 'img');
+define('GALLERY_BASEURL', '');

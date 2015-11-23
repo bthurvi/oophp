@@ -22,6 +22,7 @@ styles for header part of page
     height: 180px;
     border-top: 1px solid #222;
     margin-top:-1px;
+    background-size: 100%;
 }
 
 #header #logo img{ height: 85px;}
@@ -78,7 +79,7 @@ main content
 
 #main{
     margin: 40px;
-    min-height:580px;
+    min-height:620px;
     position: relative;
     padding-bottom: 18px;
 }

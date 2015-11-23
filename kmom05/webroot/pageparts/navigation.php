@@ -116,6 +116,7 @@ $menu = array(new CMenuItem('Tärningar','?p=dice'),
     
 $menu[] = addBloggsAndPagesToNavbar(); //add database content (pages/blogposts)  to navbar
 
+
 $menu[] =     new CMenuItem('Information','?p=desc');
 $menu[] =     array(new CMenuItem('Redovisningar','?p=desc'),new CMenuItem('Visa källkod','?p=code'),new CMenuItem('Utveckling -&gt;','?p'),array(new CMenuItem('Om mig','?p=about') ) );
             
