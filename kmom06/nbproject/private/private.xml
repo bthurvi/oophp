@@ -2,6 +2,15 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/wamp/www/oophp/kmom06/webroot/config.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom06/src/base/CGallery.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom06/webroot/css/gallery.css</file>
+            <file>file:/C:/wamp/www/oophp/kmom06/webroot/pages/gallery.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom06/webroot/css/new.css</file>
+            <file>file:/C:/wamp/www/oophp/kmom06/webroot/pageparts/navigation.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom06/src/image/CImage.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom06/webroot/pages/img.php</file>
+        </group>
     </open-files>
 </project-private>

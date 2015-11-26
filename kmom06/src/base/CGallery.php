@@ -11,6 +11,19 @@ class CGallery {
   private $basePath=null;
   private $path = null;
   
+  public function createAndReturnGallery($basePath,$pathToGallery)
+  {
+    $this->setBasePath($basePath);
+    $this->setImageGalleryPath($pathToGallery); 
+    
+    $html_code= "<h1>Bildgalleri</h1>";
+            
+    $html_code .= $this->createBreadcrumb($pathToGallery);
+    $html_code .= $this->display();
+    
+    return $html_code;
+  }
+  
    /**
    * Function for setting the base path
    * @param string $newBasePath the path to the  ROOT DIRECTORY (top level of wich files/images that can bee shown.

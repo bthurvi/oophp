@@ -1,9 +1,45 @@
 <h1>Redovisningar</h1>
 
+<h4>Kmom06 - <a href="http://dbwebb.se/oophp/kmom06">Bildbearbetning och galleri</a></h4>
+
+<p>Jag inledde detta moment genom att provade att använda den färdiga CImage klassen från github - men jag kom fram till att det var det för mycket onödig kod som skulle med. Därför valde jag istället att bygga klassen steg för steg enligt guiden. Det tog  lite tid att sätta sig in i mos kod, nästan så att jag tycker att det hade blivit snabbare om jag kodat allt från grunden. Å andra sidanhade jag sannolikt inte implementerat all funktionalitet som Mikael hade lagt in. Kanske var det därför bra att jag följde guiden.</p> 
+
+<p>Jag ställde en fråga i forumet om cache:n skulle hantera flera filformat eller endast jpeg (som det står i guiden). Mos svar blev: “Håll det enkelt och att spara som jpeg räcker för att klara uppgiften.” Se http://dbwebb.se/forum/viewtopic.php?f=37&t=4818&p=40026#p40026.
+    Lite senare i arbetet valde jag ändå att tillföra stöd för png och gif (eftersom det stod som extrauppgifter).</p>
+
+<p>Beträffande avsnittet om cachning fann jag det lite otydligt skrivet. Men efter lite funderande förstod jag att det handlade om två cachenivåer: vår egen mapp och webbläsarens cache. I de fall när webbläsaren redan har rätt fil så behöver vi ingte göra något (bara returnera 403). När webbläsaren inte har rätt fil men vi har det i vår cache så skall den levereras från cachien. I de fall när varken webbläsaren eller cache-mappen innehåller bilden, då först skall vi skapa den! Implementeringen av interna chachien gick bra. Det jag fick jobba en del med var att få webbläsarchachningen korrekt jämfört med lokal cache, men efter en del testning fick jag det att fungera.</p> 
+
+<p>Skala bilden gick ganska enkelt. Jag behövde bara skapa några metoder och byta lite variabelnamn. Beskära och göra bilden skarpare gick ännu enklare. Det fungerade nästan på en gång. Där lade jag även till stöd för transparenta bilder.</p>
+
+<p>Jag lade även till stöd för att generera svartvita och sepia-bilder (extrauppgifter).
+    Se tex: <br/>
+    <a href="pages/img.php?src=uv.png&amp;blackwhite">img.php?src=uv.png&amp;blackwhite</a><br/>   
+   och<br/>
+   <a href="pages/img.php?src=uv.png&amp;sepia">img.php?amp;src=uv.png&amp;sepia</a>.<br/>
+   <br/>
+</p> 
+
+<p>Att skapa ett bildgalleri fungerade rätt smidigt - inga större problem faktiskt. (Personligen är jag mer nöjd med kodstrukturen i klassen CGallery än i klassen CImage.) </p>
+
+<p>Jag har hanterat bilder lite sedan tidigare (skapat thumbnails och så). Jag tycker det kändes bra att jobba med PHP GD.</p>
+
+<p>img.php upplever jag som en ganska smidig komponent att ha i verktygslådan, det känns som en grej som jag kan komma att ha nytta av.</p>
+
+<p>Mitt anax känns bra. Det är viss städning jag behöver göra. Dessutom skulle jag som jag nämt tidigare vilja dela upp koden i mvc (ser fram emot nästa kurs). Det jag mest saknar i Anax är bättre funktionalitet för användarhantering. Skulle vilja att det fanns färdigt i CUser-modulen:  att skapa användare, bekräfta användare, sortera användare, radera användare osv.</p>
+
+<p>De två nyttigaste kunskaper som jag tycker att jag har fått med mig i detta kursmoment är cachning och skicka headers (304/200).</p> 
+
+<p>Källkoden till denna webbplats ligger ute på GitHub 
+    du hittar den <a href="https://github.com/bthurvi/oophp">här</a>.</p>
+
+<p>&nbsp;</p>
+<hr>
+
+
+
 <h4>Kmom05 - <a href="http://dbwebb.se/oophp/kmom05">Lagra innehåll i databasen</a></h4>
 
 <p>Med alla moduler i anax känns det bra. Jag börjar få en känsla för hur man kan strukturera sin kod i klasser och moduler. Däremot saknar jag fortfarande uppdelningen i mvc (jag tycker det känns fel med massor av presentationskod inne i klasserna).  Urbax, dvs min version av anax, tycker jag känns kompentent och bra. Det enda som jag funderat på, som kanske saknas, är en modul för användarhantering. Där man kunde skapa/radera en  användare, och redigera dess profil. I övrigt är jag rätt glad för anax. Speciellt nöjd är jag med innehållshanteringen och den dynamiska navigationsmenyn, <b>som med automatik skapar nya menyalternativ för alla de webbsidor och bloggposter som lagras i databasen!</b> </p>
-
 
 
 <p>Nedanstående text skrev jag parallellt med att jag kodade. Det var enkelt för mig på det sättet - men texten blev relativt stolpig. 
