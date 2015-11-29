@@ -1,0 +1,203 @@
+
+/* 
+    Created on : 2015-okt-17, 07:35:01
+    Author     : urbvik
+*/
+
+body {
+  color: #222;
+  font-family: 'Open Sans',arial, sans-serif;
+  font-weight: 300;
+  padding: 0;
+  background-image: url('../img/backdrop.jpg');
+  background-size: 110%;
+  background-repeat: repeat-x;
+  background-color:#040300;
+  margin: 0;
+}
+
+/*
+styles for header part of page
+*/
+#header{color: #FFA12C; font-size: 2em;}
+#header img{ height: 85px; margin-left: 20px; margin-right: 8px;  float: left;}
+#header #text{ padding-top: 18px; letter-spacing: -2px;}
+#header #text span{ font-weight: bold; color: #FAF7E3;}
+
+
+
+
+
+
+
+ /*
+ Styles for dynamic navigation dropdown menu
+ */
+#nav{ font-family: arial,sans-serif; font-size:0.8em; font-weight:300;  background: #000; border-bottom:1px solid #373530;}
+#nav a{text-decoration: none;  color:#DAA769}
+#nav ul{list-style-type: none; margin:0; padding: 0;}
+#nav>ul>li{display: inline-block;  padding: 6px 0px; }
+#nav>ul>li>a{padding: 6px 12px; font-size: 1.2em; border-left:2px solid #111; }
+#nav>ul>li>ul{background: #000; position: absolute; margin-top: 5px; margin-left:1px;  z-index:9999; border: 1px solid #222;}
+#nav>ul>li>ul>li{position: relative;}
+#nav>ul>li>ul>li>a{display:block; width: 120px; padding: 6px 12px;}
+#nav>ul>li>ul>li>ul{position: absolute; margin-top:-1px; margin-left:144px; top:0; white-space: nowrap; background:#000; border: 1px solid #222;}
+#nav>ul>li>ul>li>ul>li>a{display: block; width:160px; padding: 6px 12px;}
+
+/*hide and show*/
+#nav>ul>li>ul{display: none;}
+#nav>ul>li>ul>li>ul{display: none;}
+#nav a:hover{ background: #FFA12C; color: black;}
+#nav a:active{ color:#888;}
+#nav li:hover>ul{display: block;}
+
+.activeNav>a{text-decoration: underline;}
+
+
+/*
+main content
+*/
+
+#main{
+    margin: 40px 25px;
+    min-height:700px;
+    background-color: rgba(0,0,0,0.93);
+    padding:20px;
+    border: 3px solid rgba(140, 88, 33, 0.93);
+    border-radius: 5px;
+    color: #eee;
+    -webkit-box-shadow: 2px 2px 20px 10px rgba(0,0,0,0.7);
+    box-shadow: 2px 2px 20px 10px rgba(0,0,0,0.7);
+}
+
+#main h1{
+    margin-top: 0;
+    color: #FAF7E3;
+}
+
+/*
+footer styles
+*/
+#footer
+{
+    padding: 10px 25px;
+    background: #040300;
+    color: #AE916E;
+    font-size: 10px;
+    min-height: 40px;
+    border-top: 1px solid #222;
+}
+
+#footer footer a{
+     color: #FBA030;
+     text-decoration: none;
+}
+
+/*
+place element to left
+*/
+.left{
+    float: left;
+    margin-right: 30px;
+}
+
+/*
+styling for tables
+*/
+.table  
+{ 
+        width: 100%; 
+        border-collapse: collapse; 
+        padding-bottom: 100px;
+        color: #A59B8E;
+        background: #12100E;
+}
+/* Zebra striping */
+.table tr:nth-of-type(odd) { 
+        background: #22201F; 
+}
+.table th { 
+        background: #945F2D;
+        color: #000; 
+        font-weight: bold; 
+}
+
+/*hilight row */
+.table tr:hover{
+    background: #383431;
+     cursor:default;
+}
+.table td, th { 
+        padding: 6px; 
+        border: 1px solid #5B4830; 
+        text-align: left; 
+}
+
+
+/*
+Styling for buttons
+*/
+input[type="submit"], .aButton
+{
+    background: #333;
+    color: #ccc;
+    border: 1px solid #222;
+    border-radius: 2px;
+    padding: 3px 5px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+}
+input[type="submit"]:hover, .aButton:hover
+{
+    background: #E26924;
+}
+input[type="submit"]:active, .aButton:active
+{
+    color:#888;
+}
+
+/*
+sort buttons
+*/
+.sortButton
+{
+    background: #444;
+    color: white;
+    border: 1px solid #666;
+    border-radius: 2px;
+    padding: 3px 5px;
+    text-decoration: none;
+    font-size: 10px;
+    font-weight: 400;
+    margin-right: 3px;
+}
+.sortButton:hover
+{
+    background: #E26924;
+}
+.sortButton:active
+{
+    color:#888;
+}
+
+/*
+paginationhits 
+*/
+#paginationhits{
+  position: absolute;
+    top: 11px;
+    right: 0px;
+}
+
+/* search panel */
+.searchpanel
+{
+   padding:10px; 
+   border: 1px solid #aaa; 
+   background: #EDEDED; 
+   border-radius: 3px; 
+   margin-bottom:8px;
+ }
+
+

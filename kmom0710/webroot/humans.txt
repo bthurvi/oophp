@@ -1,0 +1,7 @@
+Urbax is a PHP-bolierplate/framework for small websites.
+Urbax was built by Urban Vikdahl as a part of a web programming course
+I read autum 2015.
+
+It was based on the design principles  by Mikael Roos 
+(me@mikaelroos.se) as part of teaching web programming 
+and published in june 2013 as an article at http://dbwebb.se/kunskap (swedish). 

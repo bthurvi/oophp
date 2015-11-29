@@ -1,0 +1,38 @@
+
+/* 
+    Created on : 2015-nov-04
+    Author     : urbvik
+*/
+
+h1{
+    margin: 10px;
+}
+
+.blogpost{
+    border:1px solid #777;
+    margin-bottom: 5px;
+    border-radius: 2px;
+    background: #fcfcfc;
+}
+
+.blogpost h2{
+    margin:0;
+    background: #333;
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+
+.blogpost p{
+    padding:  0 10px 10px 10px;
+}
+
+.blogpost a{
+    text-decoration: none;
+    color: #DF5508;
+    font-size: 16px;
+}
+
+.info{
+    margin-left: 10px;
+    font-size: 10px;
+}
