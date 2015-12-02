@@ -58,6 +58,7 @@ $urbax['title_append'] = ' | rental movies';
  */
 $urbax['stylesheets'] = array('css/rm.css');
 $urbax['stylesheets'][]="http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,300,600";
+$urbax['stylesheets'][]="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css";
 $urbax['favicon']    = 'favicon.ico';
 
 /**
@@ -93,7 +94,8 @@ $urbax['javascript_include'] = array();
 //$urbax['javascript_include'] = array('js/main.js'); // To add extra javascript files
 //$urbax['javascript_include'][] = 'js/main.js';
 //$urbax['javascript_include'][] = 'js/other.js';
-$urbax['javascript_include'][] = 'js/slideshow.js';
+//$urbax['javascript_include'][] = 'js/slideshow.js';
+$urbax['javascript_include'][] = 'js/rm.js';
 
 /**
  * Google analytics.

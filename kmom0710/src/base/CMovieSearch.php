@@ -43,7 +43,7 @@ eod;
     $genres = null;
     foreach($res as $val) 
     {
-        $genres .= "<a class='aButton' href='?p=$p&amp;genre={$val->name}'>{$val->name}</a> ";  
+        $genres .= "<a class='blueButton' href='?p=$p&amp;genre={$val->name}'>{$val->name}</a> ";  
     }
     
     return $genres;
@@ -54,7 +54,7 @@ eod;
     // Prepare the query based on incoming arguments
     $sqlOrig = '
       SELECT 
-        M.id as id,  M.image as bild , M.title as titel, M.year as År, GROUP_CONCAT(G.name) AS genre
+           M.id as id, M.title as titel, M.image as bild ,M.plot as handling, GROUP_CONCAT(G.name) AS genre, M.rentalprice as pris
       FROM Movie AS M
         LEFT OUTER JOIN Movie2Genre AS M2G
           ON M.id = M2G.idMovie
@@ -64,7 +64,7 @@ eod;
     $where    = null;
     $groupby  = ' GROUP BY M.id';
     $limit    = null;
-    $sort     = " ORDER BY $orderby $order";
+    $sort     = " ORDER BY ".$orderby ." ".$order;
     $params   = array();
 
     // Select by title
@@ -105,6 +105,7 @@ eod;
     // Execute query with pagination
     $sql = $sqlOrig . $where . $groupby . $sort . $limit;
     $res = $databasehandle->ExecuteSelectQueryAndFetchAll($sql,$params);
+    
     
     // Build array and return BOTH results
     $return['maxresults'] = $max;

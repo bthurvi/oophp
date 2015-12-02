@@ -9,11 +9,16 @@ body {
   font-family: 'Open Sans',arial, sans-serif;
   font-weight: 300;
   padding: 0;
+  margin: 0;
+}
+
+#wrapper{
   background-image: url('../img/backdrop.jpg');
   background-size: 110%;
+  overflow:hidden;
   background-repeat: repeat-x;
   background-color:#040300;
-  margin: 0;
+  position:relative;
 }
 
 /*
@@ -21,8 +26,9 @@ styles for header part of page
 */
 #header{color: #FFA12C; font-size: 2em;}
 #header img{ height: 85px; margin-left: 20px; margin-right: 8px;  float: left;}
-#header #text{ padding-top: 18px; letter-spacing: -2px;}
+#header #text{ padding-top: 8px; letter-spacing: -2px;}
 #header #text span{ font-weight: bold; color: #FAF7E3;}
+#header #subtitle{ font-size: 14px; color:#C7D1CE; line-height: 9px;}
 
 
 
@@ -33,7 +39,10 @@ styles for header part of page
  /*
  Styles for dynamic navigation dropdown menu
  */
-#nav{ font-family: arial,sans-serif; font-size:0.8em; font-weight:300;  background: #000; border-bottom:1px solid #373530;}
+#nav{ font-family: arial,sans-serif; font-size:0.8em; 
+      font-weight:300;  background: #000; border-bottom:1px solid #373530;
+      border-top:1px solid #556368;
+}
 #nav a{text-decoration: none;  color:#DAA769}
 #nav ul{list-style-type: none; margin:0; padding: 0;}
 #nav>ul>li{display: inline-block;  padding: 6px 0px; }
@@ -59,8 +68,9 @@ main content
 */
 
 #main{
+    position: relative;
     margin: 40px 25px;
-    min-height:700px;
+    min-height:660px;
     background-color: rgba(0,0,0,0.93);
     padding:20px;
     border: 3px solid rgba(140, 88, 33, 0.93);
@@ -108,24 +118,44 @@ styling for tables
 { 
         width: 100%; 
         border-collapse: collapse; 
-        padding-bottom: 100px;
+        margin-bottom: 50px;
         color: #A59B8E;
         background: #12100E;
+}
+
+.table>tbody>tr>td>a{
+    color:#C38F4E;
+    text-decoration: none;
 }
 /* Zebra striping */
 .table tr:nth-of-type(odd) { 
         background: #22201F; 
 }
 .table th { 
-        background: #945F2D;
+        //background: #653C14;
         color: #000; 
-        font-weight: bold; 
+        font-weight: bold;
+ 
+        background: rgba(100,56,17,1);
+background: -moz-linear-gradient(top, rgba(100,56,17,1) 0%, rgba(201,133,60,1) 52%, rgba(181,134,53,1) 59%, rgba(100,56,17,1) 100%);
+background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(100,56,17,1)), color-stop(52%, rgba(201,133,60,1)), color-stop(59%, rgba(181,134,53,1)), color-stop(100%, rgba(100,56,17,1)));
+background: -webkit-linear-gradient(top, rgba(100,56,17,1) 0%, rgba(201,133,60,1) 52%, rgba(181,134,53,1) 59%, rgba(100,56,17,1) 100%);
+background: -o-linear-gradient(top, rgba(100,56,17,1) 0%, rgba(201,133,60,1) 52%, rgba(181,134,53,1) 59%, rgba(100,56,17,1) 100%);
+background: -ms-linear-gradient(top, rgba(100,56,17,1) 0%, rgba(201,133,60,1) 52%, rgba(181,134,53,1) 59%, rgba(100,56,17,1) 100%);
+background: linear-gradient(to bottom, rgba(100,56,17,1) 0%, rgba(201,133,60,1) 52%, rgba(181,134,53,1) 59%, rgba(100,56,17,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#643811', endColorstr='#643811', GradientType=0 );
+}
+
+/*color price*/
+.table td:nth-of-type(5)
+{
+    color:#CFB18C;
 }
 
 /*hilight row */
 .table tr:hover{
     background: #383431;
-     cursor:default;
+    cursor:pointer;
 }
 .table td, th { 
         padding: 6px; 
@@ -150,12 +180,34 @@ input[type="submit"], .aButton
 }
 input[type="submit"]:hover, .aButton:hover
 {
-    background: #E26924;
+    background: #BE6B03;
+    color: black;
 }
 input[type="submit"]:active, .aButton:active
 {
     color:#888;
 }
+
+.blueButton{
+    background: #001017;
+    color: #B3BDBA;
+    border-radius: 2px;
+    padding: 3px 5px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.blueButton:hover
+{
+    background: #021C29;
+   
+}
+.blueButton:active
+{
+    color:#888;
+}
+
 
 /*
 sort buttons
@@ -164,7 +216,7 @@ sort buttons
 {
     background: #444;
     color: white;
-    border: 1px solid #666;
+    border: 1px solid #222;
     border-radius: 2px;
     padding: 3px 5px;
     text-decoration: none;
@@ -174,7 +226,8 @@ sort buttons
 }
 .sortButton:hover
 {
-    background: #E26924;
+    background: #BE6B03;
+    color: black;
 }
 .sortButton:active
 {
@@ -186,8 +239,9 @@ paginationhits
 */
 #paginationhits{
   position: absolute;
-    top: 11px;
-    right: 0px;
+    top: 18px;
+    right: 20px;
+    color: #C7D1CE;
 }
 
 /* search panel */
@@ -195,9 +249,85 @@ paginationhits
 {
    padding:10px; 
    border: 1px solid #aaa; 
-   background: #EDEDED; 
+   background: rgba(43, 47, 49, 0.52);
    border-radius: 3px; 
    margin-bottom:8px;
  }
+ 
+ .postNavigationButtons{
+     margin: 20px;
+     position: absolute; 
+     bottom:0px; 
+     width:100%; 
+     text-align: center;
+ }
+ 
+ #login,#login p,#login h1,#login h2{
+     margin:0;
+ }
+ 
+ #login input[type='submit']{
+    border: 1px solid #556368;
+    color: #CED8D4;
+    background: #00090D;
+ }
+ #login input[type='submit']:hover{
+     cursor:pointer;
+     background: #012332;
+ }
+ 
+ #login{
+    padding:20px;
+    z-index:20;
+    transition-property: all;
+    transition-duration: 700ms;
+    transition-timing-function: cubic-bezier(.1,0.1,.1,0.9);  
+    background: #010E14;
+    color: #DEF3EE;
+ }
+ 
+ 
+ 
+ #logininfo{
+     right: 30px;
+     z-index: 10;
+
+     position: absolute;
+     cursor: pointer;
+     border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    color: #CED8D4;
+    background: #010E14;
+    padding: 2px 10px;
+    
+    border-bottom: 1px solid #556368;
+    border-left: 1px solid #556368;
+    border-right: 1px solid #556368;
+    
+ }
+ 
+ 
+ .closed{
+     padding:0 !important;
+     max-height: 1px;
+ }
+ 
+ #logininfo i { 
+    color: #FCF3E8;
+    -webkit-transition:all 300ms ease-in 0s;
+    -moz-transition: all 300ms ease-in 0s;
+    -o-transition: all 300ms ease-in 0s;
+  transition: all 300ms ease-in 0s;
+ }
+ 
+ .rotated i{
+      -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+ }
+
+
 
 

@@ -18,27 +18,33 @@ class CHTMLTable
 		
      //create table headers
      $row = $res[0];
-		 $rad="<tr><th>Rad</th>";
+		 $rad="<tr>"; 
 		 foreach ($row as $key => $value)
      {
         $sortbtns ='';
-       if(!in_array($key, array('bild','genre'))) //add sort buttons for all columns - but EXCLUDE bild and genre (not so general but easy to remove...)
+       if(!in_array($key, array('bild','genre','handling'))) //add sort buttons for all columns - but EXCLUDE bild and genre (not so general but easy to remove...)
         $sortbtns = self::orderby($key);
         
-        
-		    $rad .= "<th>" .ucfirst($key) .$sortbtns ."</th>";
+        if($key!='id')
+		    $rad .= "<th>" .ucfirst($key) ." ".$sortbtns ."</th>";
      }
 		 $html .= $rad . "</tr>";
 
 		 //fill table cells with data
      foreach ($res as $nr => $row) 
 		 {
-		    $rad="<td>$nr</td>";
+		    $rad=''; 
 		    $html .= "<tr>";
+        $id=0;
 		    foreach ($row as $key => $value)
         {
           if(substr($value,0,3)=='img')
             $rad .= "<td><img src='$value' width='80' height='40' alt='en bild'/></td>";
+          else if($key=='id'){
+            $id = $value;
+          }
+          else if($key=='titel')
+            $rad .= "<td><a href='?p=movie&amp;id=$id'>$value</a></td>";
           else
             $rad .= "<td>$value</td>";
         }
@@ -49,7 +55,7 @@ class CHTMLTable
 		$html .= "</table>";
     
     //add hits buttons
-    $html .= self::getHitsPerPage(array(1,2,3,4,5));
+    $html .= self::getHitsPerPage(array(3,5,10));
     
     //add page navigation buttons
     $max = ceil($maxresults / $hits);
@@ -124,7 +130,7 @@ class CHTMLTable
     private static function getPageNavigation($hits, $page, $max, $min=1)
     {
       
-      $nav = "<div style='position: absolute; bottom:0px; width:100%; text-align: center;'>";
+      $nav = "<div class='postNavigationButtons'>";
       $nav .= "<a class='aButton' href='" . self::getQueryString(array('page' => $min)) . "'>&lt;&lt;</a> ";
       $nav .= "<a class='aButton' href='" . self::getQueryString(array('page' => ($page > $min ? $page - 1 : $min) )) . "'>&lt;</a> ";
 

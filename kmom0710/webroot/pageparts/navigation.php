@@ -99,7 +99,10 @@ function addBloggsAndPagesToNavbar()
 
 
 //menu to display
-$menu = array(new CMenuItem('Tärningar','?p=dice'), 
+
+$menu = array(new CMenuItem('Start','?p=about'),new CMenuItem('Filmer','?p=movies'),new CMenuItem('En film','?p=movie'));
+
+/*$menu = array(new CMenuItem('Tärningar','?p=dice'), 
               array(new CMenuItem('Kasta en tärning','?p=dice'),new CMenuItem('Tärningsspelet 100','?p=dicegame')),
               new CMenuItem('Bildspel','?p=slideshow'),
               new CMenuItem('Kalender','?p=calendar'),
@@ -122,11 +125,13 @@ $menu[] =     array(new CMenuItem('Bildgalleri','?p=gallery'));
 $menu[] =     new CMenuItem('Information','?p=desc');
 $menu[] =     array(new CMenuItem('Redovisningar','?p=desc'),new CMenuItem('Visa källkod','?p=code'),new CMenuItem('Utveckling -&gt;','?p'),array(new CMenuItem('Om mig','?p=about') ) );
             
-
+*/
 
 $htmlMenu = new CDynamicDropDownMenu($menu,"activeNav");
 if(isset($_GET['p']))
-	$htmlMenu->HilighALLtMenuItemsBasedOnGetParam('p');  
+	$htmlMenu->HilighALLtMenuItemsBasedOnGetParam('p');
+
+
 $urbax['nav'] =	 $htmlMenu->GetMenu();
 
 
@@ -137,7 +142,7 @@ else
 {
   switch($_GET['p'])
   {
-    case "about": 
+    /*case "about": 
       $file = "aboutme.php";
       $urbax['title'] = "Om mig";
       break;
@@ -277,8 +282,21 @@ else
       $file = "manadens_babe.php";
       $urbax['title'] = "Kalender";
       $urbax['stylesheets'][]="css/calendar.css";
+      break;*/
+    case "about": 
+      $file = "aboutme.php";
+      $urbax['title'] = "Om mig";
       break;
-    default : header("location:?p=about");
+    case "movies":
+      $file = "rm/movies.php"; 
+      $urbax['title'] = "Filmer";
+      break;
+    case "movie":
+      $file = "rm/movie.php"; 
+      $urbax['title'] = "Visar en film";
+      break;
+    default : 
+      header("location:?p=about");
   }
   $urbax['content'] = "pages/$file";
 }

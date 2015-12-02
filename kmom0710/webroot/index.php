@@ -7,6 +7,7 @@
 include(__DIR__.'/config.php'); 
 
 // Set array values (in pagepart-files) before rendering
+include "pageparts/behindpage.php";
 include "pageparts/header.php";
 include "pageparts/footer.php";
 include "pageparts/navigation.php";

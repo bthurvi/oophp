@@ -12,6 +12,7 @@
 </head>
 
 <body>
+  <div id="behindpage"><?=$behindpage?></div>
   <div id='wrapper'>
     <div id='nav'><?=$nav?></div>
     <div id='header'><?=$header?></div>
