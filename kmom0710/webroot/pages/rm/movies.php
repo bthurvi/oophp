@@ -1,4 +1,4 @@
-<h1 style='margin: 0;'>Sök efter filmer</h1>
+<h1 style='margin: 0; margin-bottom:10px;'>Filmsökning</h1>
 
 <?php
 
