@@ -4,8 +4,11 @@ $params[] = isset($_GET['id']) ? $_GET['id'] : 1;
 // Connect to a MySQL database using PHP PDO
 $db = new CDatabase($urbax['database']);
 
-$query = "SELECT * FROM movie WHERE id=?";
+$query = "SELECT GROUP_CONCAT(images.image)as images,title,director,length,year,plot,subtext,speech,quality,format,rentalprice,imdblink,youtubetrailer FROM movie INNER JOIN movie2image INNER JOIN images ON movie.id=movie2image.movie_id AND images.id=movie2image.image_id WHERE movie.id=?;";
+
+
 $res = $db->ExecuteSelectQueryAndFetchAll($query, $params);
+
 
 if(count($res)==1)
   $res=$res[0];
@@ -40,14 +43,22 @@ else
     <h2>Handling:</h2>
     <p><?=$res->plot;?></p>
 </div>
-<h2>Stillbilder:<h2>
-<div class="movieimages">
-  <img src="<?=$res->image;?>" alt="bild från filmen">
-  <img src="<?=$res->image;?>" alt="bild från filmen">
-  <img src="<?=$res->image;?>" alt="bild från filmen">
-  <img src="<?=$res->image;?>" alt="bild från filmen">
-  <img src="<?=$res->image;?>" alt="bild från filmen">
-</div>
+
+<?php 
+    if(!is_null($res->images))
+    {
+      echo "<h2>Stillbilder:<h2>";
+      echo "<div class='movieimages'>";
+      
+      $images = explode(',',$res->images);
+      
+      foreach($images as $image)
+        echo "<img src='$image' alt='bild från filmen'>";
+      
+      echo "</div>";
+    }
+?>
+
 </div>
 
 
