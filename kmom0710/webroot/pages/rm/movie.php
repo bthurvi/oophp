@@ -20,7 +20,7 @@ else
 <div id="movie">
     <h2 id="trailer">Trailer:</h2>
 <div class="trailer">
-  <iframe src="https://www.youtube.com/embed/<?=$res->youtubetrailer;?>?showinfo=0" frameborder="0" allowfullscreen></iframe>
+  <iframe src="https://www.youtube.com/embed/<?=$res->youtubetrailer;?>?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
   <h1 class="movietitle"><?=$res->title;?> <span class="movieyear">(<?=$res->year;?>)</span>
   </h1>
 </div>
@@ -53,10 +53,26 @@ else
       $images = explode(',',$res->images);
       
       foreach($images as $image)
-        echo "<img src='$image' alt='bild från filmen'>";
+      {
+        $file=basename($image);
+        echo "<a href='pages/img.php?src=movie/$file'>";
+        $src = "src='pages/img.php?src=movie/$file";
+        $src .= "&amp;";
+        $src .= "width=330";
+        $src .= "&amp;";
+        $src .= "height=200";
+        $src .= "&amp;";
+        $src .= "crop-to-fit'";
+              
+        echo "<img $src alt='bild från filmen'>";
+        echo "</a>";
+      }
       
       echo "</div>";
     }
+    
+    
+    
 ?>
 
 </div>

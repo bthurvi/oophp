@@ -39,7 +39,16 @@ class CHTMLTable
 		    foreach ($row as $key => $value)
         {
           if(substr($value,0,3)=='img')
-            $rad .= "<td><img src='$value' width='80' height='40' alt='en bild'/></td>";
+          {
+             $file=basename($value);
+            $rad .= "<td><img img src='pages/img.php?src=movie/$file";
+            $rad .= "&amp;";
+            $rad .= "width=100";
+            $rad .= "&amp;";
+            $rad .= "height=50";
+            $rad .= "&amp;";
+            $rad .= "crop-to-fit' alt='en bild'/></td>"; 
+          }
           else if($key=='id'){
             $id = $value;
           }
