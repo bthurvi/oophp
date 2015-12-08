@@ -100,7 +100,17 @@ function addBloggsAndPagesToNavbar()
 
 //menu to display
 
-$menu = array(new CMenuItem('Start','?p=about'),new CMenuItem('Filmer','?p=movies'),new CMenuItem('En film','?p=movie'));
+$menu = array(new CMenuItem('Start','?p=about'),new CMenuItem('Filmer','?p=movies'));
+
+if($user->IsAuthenticated())
+{
+  $menu[] = new CMenuItem('Filmadministration','');
+  $menu[] = array(
+            new CMenuItem('Ny film','?p=newmovie'),
+            new CMenuItem('Uppdatera','?p=updatemovie'),
+            new CMenuItem('Radera film','?p=deletemovie')
+      );
+}
 
 /*$menu = array(new CMenuItem('Tärningar','?p=dice'), 
               array(new CMenuItem('Kasta en tärning','?p=dice'),new CMenuItem('Tärningsspelet 100','?p=dicegame')),
@@ -294,6 +304,18 @@ else
     case "movie":
       $file = "rm/movie.php"; 
       $urbax['title'] = "Visar en film";
+      break;
+    case "updatemovie":
+      $file = "rm/updatemovie.php"; 
+      $urbax['title'] = "Uppdatera filminformation";
+      break;
+    case "deletemovie":
+      $file = "rm/deletemovie.php"; 
+      $urbax['title'] = "Radera film";
+      break;
+    case "newmovie":
+      $file = "rm/newmovie.php"; 
+      $urbax['title'] = "Skapa film";
       break;
     default : 
       header("location:?p=about");

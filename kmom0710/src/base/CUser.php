@@ -75,6 +75,10 @@ class CUser
        $this->acronym = $res[0]->acronym;
        $this->name = $res[0]->name;
     }
+    else
+    {
+      return "Felaktigt användarnamn eller lösenord";
+    }
 
  }    
 
