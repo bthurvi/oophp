@@ -364,6 +364,17 @@ paginationhits
  }
  
 
+ #movieinfoformrow1,#movieinfoformrow3 { width: 98.4%;}
+ #movieinfoformrow1 div{ display:inline-block;width: 22%; margin-right: 3%;}
+ #movieinfoformrow3 div{ display:inline-block;width: 11.33%; margin-right: 3%;}
+ #movieinfoformrow1 div:last-of-type{ margin:0;}
+ #movieinfoformrow3 div:last-of-type{ margin:0;}
+ #movieinfoformrow1 div input{ width:100%;}
+ #movieinfoformrow3 div select{ width:100%;}
+ #movieinfoformrow3 div input{ width:100%;}
+ #movieinfoform textarea{ width: 96%; margin:0 auto; height: 300px;}
+ 
+
 
  
  

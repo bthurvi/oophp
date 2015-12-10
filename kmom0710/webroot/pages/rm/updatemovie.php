@@ -6,9 +6,20 @@
   // Get parameters 
 $id     = isset($_POST['id'])    ? strip_tags($_POST['id']) : (isset($_GET['id']) ? strip_tags($_GET['id']) : null);
 $title  = isset($_POST['title']) ? strip_tags($_POST['title']) : null;
+$director  = isset($_POST['director']) ? strip_tags($_POST['director']) : null;
+$length  = isset($_POST['length']) ? strip_tags($_POST['length']) : null;
+$plot  = isset($_POST['plot']) ? strip_tags($_POST['plot']) : null;
 $year   = isset($_POST['year'])  ? strip_tags($_POST['year'])  : null;
+$subtext   = isset($_POST['subtext'])  ? strip_tags($_POST['subtext'])  : null;
+$speech   = isset($_POST['speech'])  ? strip_tags($_POST['speech'])  : null;
+$format   = isset($_POST['format'])  ? strip_tags($_POST['format'])  : null;
+$quality   = isset($_POST['quality'])  ? strip_tags($_POST['quality'])  : null;
+$imdblink  = isset($_POST['imdblink'])  ? strip_tags($_POST['imdblink'])  : null;
+$youtubetrailer   = isset($_POST['youtubetrailer'])  ? strip_tags($_POST['youtubetrailer'])  : null;
+
 $image  = isset($_POST['image']) ? strip_tags($_POST['image']) : null;
 $genre  = isset($_POST['genre']) ? $_POST['genre'] : array();
+
 $save   = isset($_POST['save'])  ? true : false;
 $acronym = isset($_SESSION['user']) ? $_SESSION['user']->acronym : null;
 
@@ -49,9 +60,12 @@ EOD;
 
     if($save && isset($title) && isset($year))
     {
-    $sql = 'UPDATE Movie SET title = ?,year = ?WHERE id = ?';
-    $params = array($title, $year, $id);
+    $sql = 'UPDATE Movie SET title=?,director=?,length=?,year=?,plot=?,subtext=?,speech=?,format=?,quality=?, imdblink=?, youtubetrailer=? WHERE id=?';
+    $params = array($title,$director,$length,$year,$plot,$subtext,$speech,$format,$quality,$imdblink,$youtubetrailer,$id);
 
+    var_dump($_POST);
+    echo $sql;
+    var_dump($params);
 
     $db->ExecuteQuery($sql, $params);
 
@@ -59,33 +73,73 @@ EOD;
     }
     else
     {
-    //output edit form
-    var_dump($movie);
+      //output edit form
+    $categories = $db->ExecuteSelectQueryAndFetchAll("SELECT * FROM genre");  
+    
     echo <<<EEE
-    <form method=post>
-   <div style="max-width: 500px; border: 1px solid #777; border-radius: 3px; padding: 10px 20px;">
+    <form method=post id="movieinfoform">
     <h1 style="margin-top: 0;">Ange filminformation</h1>
+    <div id='movieinfoformrow1'>
     <input type='hidden' name='id' value='$movie->id'/>
-    <p><label>Titel:<br/><input type='text' name='title' value='$movie->title'/></label></p>
-    <p><label>Ressigör:<br/><input type='text' name='director' value='$movie->director'/></label></p>
-    <p><label>Längd:<br/><input type='number' name='lenght' value='$movie->length'/></label></p>
-    <p><label>Handling:<br/><textarea name='lenght'/>$movie->plot</textarea></p>
-    <p><label>Textning:<br/>
-      <select>
-            <option value='SV'>SV</option>
-            <option value='EN'>EN</option>
-            <option value='FR'>FR</option>
-            <option value='IT'>IT</option>
-            <option value='ES'>ES</option>
-      </select> 
-      </label></p>
-    <p><label>Textning:<br/><input type='text' name='year' value='$movie->subtext'/></label></p>
-    <p><label>År:<br/><input type='number' name='year' value='$movie->year'/></label></p>
-    <p><label>Bild:<br/><input type='text' name='image' value='$movie->image'/></label></p>
+     <div>
+      <p><label>Titel:<br/><input type='text' name='title' value='$movie->title'/></label></p>
+    </div>
+    <div>
+      <p><label>Hyrespris:<br/><input type='number' name='rentalprice' value='$movie->rentalprice'/></label></p>
+    </div>
+    <div>
+      <p><label>Ressigör:<br/><input type='text' name='director' value='$movie->director'/></label></p>
+    </div>
+    <div>
+    <p><label>Längd:<br/><input type='number' name='length' value='$movie->length'/></label></p>
+    </div>
+    </div>
+ <p><label>Handling:<br/><textarea name='plot'/>$movie->plot</textarea></label></p>
+    <div id="movieinfoformrow3">
+      <div>
+      <p><label>År:<br/><input type='number' name='year' value='$movie->year'/></label></p>
+      </div>
+EEE;
+    echo "<div><p><label>Textning:<br/>"
+    .CHtmlUi::generateSelectList(array('SV','EN','FR','IT','ES'),'subtext',$movie->subtext);
+     
+    echo "</div><div><p><label>Tal:<br/>"
+    .CHtmlUi::generateSelectList(array('SV','EN','FR','IT','ES'),'speech',$movie->speech);
+     
+    echo "</div><div><p><label>Format:<br/>"
+    .CHtmlUi::generateSelectList(array('DVD','VHS','BLR'),'format',$movie->format);
+     
+    echo "</div><div><p><label>Kvalité:<br/>"
+    .CHtmlUi::generateSelectList(array(10,20,30,40,50,50,70,80,90,100),'quality',intval($movie->quality));
+     
+     echo <<< EEE
+    </div><div>
+    <p><label>IMDB-länk:<br/><input type='text' name='imdblink' value='$movie->imdblink'/></label></p>
+    </div>
+    <div>
+    <p><label>Youtube-trailer:<br/><input type='text' name='youtubetrailer' value='$movie->youtubetrailer'/></label></p>
+    </div>
+    </div>
+    <div>
+      Kategori (en eller flera):
+    <div style='padding:10px 0;'>
+EEE;
+     foreach ($categories as $cate) 
+     {
+       echo "<div style='display:inline-block; width: 130px;'>";
+       echo "<label><input type='checkbox' name='category' value=$cate->id>";
+       echo "<span class='aButton'>$cate->name</span>";
+       echo "</label></div>";
+     }
+    
+     echo <<< EEE
+     </div>
+    </div>
+ <p><label>Bild:<br/><input type='text' name='image' value='$movie->image'/></label></p>
     <p><input type='submit' name='save' value='Spara'/> <input type='reset' class='aButton' value='Återställ'/></p>
     <p><a class='aButton' href='?p=updatemovie'>Visa alla</a></p>
     <output></output>
-    </div>
+    
   </form>
 EEE;
     }
