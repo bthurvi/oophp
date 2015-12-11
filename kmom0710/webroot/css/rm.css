@@ -384,13 +384,7 @@ paginationhits
  .chtogglebox{display:inline-block; width:10px; height:10px; background: #000; 
              border: 1px solid #333; border-radius:3px; margin:0 5px;}
  .chtoggle input{ display: none;}
- .chtoggle input:checked + .chtogglebox{
-     background: #ffc532;
-background: -moz-radial-gradient(center, ellipse cover,  hsla(43,100%,60%,1) 0%, hsla(35,76%,47%,1) 100%);
-background: -webkit-radial-gradient(center, ellipse cover,  hsla(43,100%,60%,1) 0%,hsla(35,76%,47%,1) 100%);
-background: radial-gradient(ellipse at center,  hsla(43,100%,60%,1) 0%,hsla(35,76%,47%,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffc532', endColorstr='#d3871d',GradientType=1 );
-}
+ .chtoggle input:checked + .chtogglebox{background: #C5791B;}
 
 .checkedbox{ background: #222; }
 

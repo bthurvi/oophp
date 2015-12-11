@@ -77,11 +77,31 @@ EOD;
     $sql = 'UPDATE Movie SET title=?,director=?,length=?,year=?,plot=?,subtext=?,speech=?,format=?,quality=?, imdblink=?, youtubetrailer=? WHERE id=?';
     $params = array($title,$director,$length,$year,$plot,$subtext,$speech,$format,$quality,$imdblink,$youtubetrailer,$id);
 
-    var_dump($_POST);
-    echo $sql;
-    var_dump($params);
 
     $db->ExecuteQuery($sql, $params);
+    
+    
+    $sql2 = "DELETE FROM movie2genre WHERE idMovie = ?";
+    $params = array($movie->id);
+    $db->ExecuteQuery($sql2, $params);
+    
+    
+    $sql3 = "INSERT INTO movie2genre(idMovie,idGenre) VALUES ";
+   
+    $cats = isset($_POST['category'])?$_POST['category']: die("Minst en kategori måste vara vald!");
+    $params = null;
+    foreach ($cats as $cat) 
+    {
+      $params[] = $movie->id;
+      $params[] = $cat;
+      $sql3 .= "(?,?), ";
+    }
+    $sql3 = rtrim($sql3, ' ');
+    $sql3 = rtrim($sql3, ',');
+    $sql3 .=';'; 
+    
+    $db->ExecuteQuery($sql3, $params);
+    
 
     echo  "Informationen sparad. <a href='?p=updatemovie' class='aButton'>Visa alla</a>";
     }
@@ -142,13 +162,15 @@ EEE;
      foreach ($categories as $cate) 
      {
        $css = null;
+       $checked = null;
        if(in_array($cate->name, explode(',',$movie->genre)))
        {
-         $css = 'checkedbox';
+         $css = "checkedbox";
+         $checked = "checked='checked'";
        }
        echo "<div style='display:inline-block; margin-right:10px;'>";
        
-       echo "<label class='chtoggle $css'><input type='checkbox' name='category' value=$cate->id>";
+       echo "<label class='chtoggle $css'><input type='checkbox' $checked name='category[]' value=$cate->id>";
        echo "<span class='chtogglebox'></span>";
        
        
