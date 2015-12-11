@@ -42,8 +42,20 @@ EOD;
   if($id!=null) // EDIT mode
   {
     //do we have a valid id?
-    $sql = "SELECT * FROM Movie";
+    $sql = "SELECT M.id as id, M.title as title, M.rentalprice as rentalprice,
+      M.director as director, M.length as length, M.plot as plot,
+      M.year as year, M.subtext as subtext, M.imdblink as imdblink,
+      M.youtubetrailer as youtubetrailer, M.image as image,
+      M.quality as quality, M.speech as speech, M.format as format,
+      GROUP_CONCAT(G.name) AS genre FROM Movie AS M
+      LEFT OUTER JOIN Movie2Genre AS M2G
+          ON M.id = M2G.idMovie
+        INNER JOIN Genre AS G
+          ON M2G.idGenre = G.id
+          GROUP BY M.id";
     $res = $db->ExecuteSelectQueryAndFetchAll($sql);
+    
+   
 
     $movie=null;
     foreach ($res as $mov) 
@@ -56,6 +68,8 @@ EOD;
 
     if(!$movie)
         die("CHECK: invalid id");
+    
+      
 
 
     if($save && isset($title) && isset($year))
@@ -124,11 +138,21 @@ EEE;
       Kategori (en eller flera):
     <div style='padding:10px 0;'>
 EEE;
+     
      foreach ($categories as $cate) 
      {
-       echo "<div style='display:inline-block; width: 130px;'>";
-       echo "<label><input type='checkbox' name='category' value=$cate->id>";
-       echo "<span class='aButton'>$cate->name</span>";
+       $css = null;
+       if(in_array($cate->name, explode(',',$movie->genre)))
+       {
+         $css = 'checkedbox';
+       }
+       echo "<div style='display:inline-block; margin-right:10px;'>";
+       
+       echo "<label class='chtoggle $css'><input type='checkbox' name='category' value=$cate->id>";
+       echo "<span class='chtogglebox'></span>";
+       
+       
+       echo "<span>$cate->name</span>";
        echo "</label></div>";
      }
     

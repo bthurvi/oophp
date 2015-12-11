@@ -13,10 +13,14 @@ function showLogin()
     //document.getElementById('logininfo').innerHTML = "<i class='fa fa-angle-down'></i> &nbsp; Inloggad som: <b>Bo Bratt</b> ";
 }
 
-$('tr').click( function() {
-   
-    window.location  = $(this).find('a').attr('href');
-   
+$('tr').click( function() { 
+    window.location  = $(this).find('a').attr('href'); 
 });
+
+$(".chtoggle").mousedown(function() 
+{
+    $(this).toggleClass("checkedbox");  
+});
+       
 
 
