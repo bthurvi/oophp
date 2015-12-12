@@ -3,6 +3,9 @@
     Created on : 2015-okt-17, 07:35:01
     Author     : urbvik
 */
+html{
+    background: #040300;
+}
 
 body {
   color: #222;
@@ -389,7 +392,8 @@ paginationhits
 .checkedbox{ background: #222; }
 
  
- 
+//.hascat{ background: blue !important;}
+//.nocat{ background: red !important; }
 
 
 

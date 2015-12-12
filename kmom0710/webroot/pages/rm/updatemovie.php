@@ -168,9 +168,19 @@ EEE;
          $css = "checkedbox";
          $checked = "checked='checked'";
        }
+       
+       if($cate->id == 1)
+       {
+         $class = "nocat";
+       }
+       else
+       {
+         $class = "hascat";
+       }
+       
        echo "<div style='display:inline-block; margin-right:10px;'>";
        
-       echo "<label class='chtoggle $css'><input type='checkbox' $checked name='category[]' value=$cate->id>";
+       echo "<label class='chtoggle $css $class'><input type='checkbox' $checked name='category[]' value=$cate->id>";
        echo "<span class='chtogglebox'></span>";
        
        

@@ -19,8 +19,24 @@ $('tr').click( function() {
 
 $(".chtoggle").mousedown(function() 
 {
-    $(this).toggleClass("checkedbox");  
+    btn = $(this);
+    
+    btn.toggleClass("checkedbox");  
+    
+    
+    if(btn.hasClass("nocat"))
+    {
+       $(".hascat").removeClass("checkedbox");
+       $(".hascat input").prop('checked', false);
+    }
+    if(btn.hasClass("hascat"))
+    {
+       $(".nocat").removeClass("checkedbox");
+       $(".nocat input").prop('checked', false);
+    }
 });
+
+
        
 
 

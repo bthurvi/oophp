@@ -24,7 +24,13 @@ else
   // Check if form was submitted
   if($create) {
     $sql = 'INSERT INTO Movie (title,year) VALUES (?,?)';
-    $db->ExecuteQuery($sql, array($title,$year));
+    $params = array($title,$year);
+    $db->ExecuteQuery($sql,$params);
+    $db->SaveDebug();
+    
+    $sql2 = 'INSERT INTO movie2genre(idMovie,idGenre) VALUES (?,?)';
+    $params2 = array($db->LastInsertId(),1);
+    $db->ExecuteQuery($sql2,$params2);
     $db->SaveDebug();
     
     echo  "Ny film sparad. <a href='?p=updatemovie' class='aButton'>Editera</a>";
