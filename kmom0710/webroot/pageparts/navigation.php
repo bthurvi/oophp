@@ -110,6 +110,7 @@ if($user->IsAuthenticated())
             new CMenuItem('Uppdatera','?p=updatemovie'),
             new CMenuItem('Radera film','?p=deletemovie')
       );
+  $menu[] = new CMenuItem('Koppla bilder',"?p=imageselect&amp;path=movie");
 }
 
 /*$menu = array(new CMenuItem('Tärningar','?p=dice'), 
@@ -316,6 +317,11 @@ else
     case "newmovie":
       $file = "rm/newmovie.php"; 
       $urbax['title'] = "Skapa film";
+      break;
+    case "imageselect":
+      $file = "rm/selectimage.php"; 
+      $urbax['title'] = "Koppla bilder till film";
+       $urbax['stylesheets'][]="css/rmselectimage.css";
       break;
     default : 
       header("location:?p=about");

@@ -36,6 +36,31 @@ $(".chtoggle").mousedown(function()
     }
 });
 
+//display upload button only after user has selected a file
+ $("#fileToUpload").change(function() 
+ {
+     var path = $(this).val();
+     
+     if(path)
+     {
+        
+        var fileNameIndex = path.lastIndexOf("/") + 1;
+        
+        //windows...
+        var fileNameIndex = path.lastIndexOf("\\") + 1;
+        var filename = path.substr(fileNameIndex);
+       
+        $('#fileToUploadLabel').toggleClass('displayNone');
+        $("#fileUpploadButton").val("Ladda upp " + filename + " !");
+        $('#fileUpploadButton').toggleClass('displayNone');
+    }
+    
+ });
+
+
+
+
+
 
        
 
