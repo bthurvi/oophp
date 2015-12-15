@@ -18,28 +18,26 @@ class Cselectimage {
     $this->setBasePath($basePath);
     $this->setImageGalleryPath($pathToGallery); 
     
-    $html_code  = "<h1>$this->title</h1>";
+    $html_code  = "<form method='post'><h1>Bilder till: $this->title</h1>";
     $html_code .= "<p>Markera de bilder som hör samman med filmen.</p>";
             
     //$html_code .= $this->createBreadcrumb($pathToGallery);
-    $html_code .= $this->display();
+    $html_code .= $this->display()."<input type='submit' value='Spara'></form>";
     
-    $html_code .= $this->getFileUploadDiv();
+    $html_code .= "<div>" . $this->getFileUploadForm($_SERVER['QUERY_STRING']) . "</div>";
     
     
     return $html_code;
   }
   
-  private function getFileUploadDiv()
+  private function getFileUploadForm($action)
   {
     return <<<EOD
-    <div>
-      <form action="upload.php" method="post" enctype="multipart/form-data">
+      <form action="?$action" method="post" id="fileUploadForm" enctype="multipart/form-data">
         <input type="file" name="fileToUpload" class="displayNone" id="fileToUpload">
-        <label for="fileToUpload" class="aButton" id="fileToUploadLabel"><i class="fa fa-upload"></i> Lägg till bild</label>  
+        <label for="fileToUpload" class="aButton" id="fileToUploadLabel"><i class="fa fa-upload"></i> Ladda upp ny bild!</label>  
         <input type="submit" class="displayNone" value="Ladda upp!" name="submit" id="fileUpploadButton"> 
       </form>
-    </div>
 EOD;
   }
   
@@ -138,7 +136,7 @@ private function readAllItemsInDir($path, $validImages = array('png', 'jpg', 'jp
       $caption = substr($caption, 0, 10) . '…' . substr($caption, -5);
     }
  
-    $gallery .= "<li><a href='?p=gallery&amp;path={$href}' title='{$fullCaption}'><figure class='figure overview'>{$item}<figcaption>{$caption}</figcaption></figure></a></li>\n";
+    $gallery .= "<li><label><input type='checkbox' class='' value='' name='selectedimages[]'<figure class='figure overview'>{$item}<figcaption>{$caption}</figcaption></figure></label></li>\n";
   }
   $gallery .= "</ul>\n";
  

@@ -137,8 +137,17 @@ h1{
 }
 
 /*
+* Mark selected
+*/
+.markAsSelected{
+    background: #555;
+}
+
+
+/*
 * Styling for file upload
 */
 .displayNone{
     display: none;
 }
+

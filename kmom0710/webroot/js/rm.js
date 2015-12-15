@@ -40,20 +40,18 @@ $(".chtoggle").mousedown(function()
  $("#fileToUpload").change(function() 
  {
      var path = $(this).val();
+     var fileExtensionStart = path.lastIndexOf(".") + 1;
+     var fileExtension = path.substr(fileExtensionStart);
      
-     if(path)
-     {
-        
-        var fileNameIndex = path.lastIndexOf("/") + 1;
-        
-        //windows...
-        var fileNameIndex = path.lastIndexOf("\\") + 1;
-        var filename = path.substr(fileNameIndex);
-       
-        $('#fileToUploadLabel').toggleClass('displayNone');
-        $("#fileUpploadButton").val("Ladda upp " + filename + " !");
-        $('#fileUpploadButton').toggleClass('displayNone');
+     
+     if(fileExtension=='jpg' || fileExtension=='jpeg' || fileExtension=='png')
+     { 
+        //sweetAlert("Submitting form");
+        $('#fileUpploadButton').click();
     }
+    else
+        sweetAlert("Ursäkta men...", "endast jpg- och png-filer är tillåtna att ladda upp.");
+        
     
  });
 

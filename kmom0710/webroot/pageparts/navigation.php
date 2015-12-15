@@ -322,6 +322,8 @@ else
       $file = "rm/selectimage.php"; 
       $urbax['title'] = "Koppla bilder till film";
        $urbax['stylesheets'][]="css/rmselectimage.css";
+       $urbax['stylesheets'][]="css/sweetalert.css";
+       $urbax['javascript_include'][] = 'js/sweetalert.min.js';
       break;
     default : 
       header("location:?p=about");
