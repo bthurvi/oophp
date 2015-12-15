@@ -46,14 +46,15 @@ $(".chtoggle").mousedown(function()
      
      if(fileExtension=='jpg' || fileExtension=='jpeg' || fileExtension=='png')
      { 
-        //sweetAlert("Submitting form");
         $('#fileUpploadButton').click();
     }
     else
         sweetAlert("Ursäkta men...", "endast jpg- och png-filer är tillåtna att ladda upp.");
-        
-    
  });
+ 
+ $('ul.gallery li').mousedown(function(){$(this).toggleClass('markAsSelected');});
+ 
+ 
 
 
 

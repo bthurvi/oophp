@@ -36,7 +36,8 @@ ul.gallery li figure figcaption {
 }
  
 ul.gallery li:hover  {
-  background-color: #ccc;
+  //background-color: #C3C3C3;
+  border-color: white;
 }
  
 ul.gallery li:hover figcaption {
@@ -140,10 +141,8 @@ h1{
 * Mark selected
 */
 .markAsSelected{
-    background: #555;
+    background: #C3C3C3;
 }
-
-
 /*
 * Styling for file upload
 */

@@ -12,6 +12,27 @@ class Cselectimage {
   private $path = null;
   private $title;
   private $id;
+  private $dbh;
+  private $connectedImages = array();
+  
+  public function __construct($urbax, $movieid) 
+  {
+    $this->dbh = new CDatabase($urbax['database']);
+    
+    //check that movie_id exist in database
+    if(!$this->validMovieId($movieid))
+      die("invalid movieID");
+    
+    //get the images that are connected to the movie
+    $sql = "Select image from images where id in (Select image_id from movie2image where movie_id=?)";
+    $params = array($this->id);
+    $res = $this->dbh->ExecuteSelectQueryAndFetchAll($sql,$params);
+    
+    //convert obect array to string array
+    foreach ($res as $r) 
+      $this->connectedImages[]=$r->image;
+  
+  }
   
   public function createAndReturnGallery($basePath,$pathToGallery)
   {
@@ -135,8 +156,17 @@ private function readAllItemsInDir($path, $validImages = array('png', 'jpg', 'jp
     if(strlen($caption) > 18) {
       $caption = substr($caption, 0, 10) . '…' . substr($caption, -5);
     }
+    
+    $mark='';
+    $checked = '';
+    if(in_array("img/movie/".basename($file),$this->connectedImages))
+    {  
+      $mark = "markAsSelected";
+      $checked = "checked='checked'";
+    }
+    
  
-    $gallery .= "<li><label><input type='checkbox' class='' value='' name='selectedimages[]'<figure class='figure overview'>{$item}<figcaption>{$caption}</figcaption></figure></label></li>\n";
+    $gallery .= "<li class='{$mark}'><label><input type='checkbox' $checked value='" . basename($file) ."' name='selectedimages[]' class='displayNone'><figure class='figure overview'>{$item}<figcaption>{$caption}</figcaption></figure></label></li>\n";
   }
   $gallery .= "</ul>\n";
  
@@ -223,18 +253,16 @@ EOD;
     return $breadcrumb;
 }
 
-public function validMovieId($urbax,$movieid=null)
+public function validMovieId($movieid=null)
 {
   if($movieid==null)
     return false;
   else
   {
-    $dbh = new CDatabase($urbax['database']);
-    
     $sql = "SELECT id,title from movie where id=?";
     $params = array($movieid);
     
-    $res = $dbh->ExecuteSelectQueryAndFetchAll($sql, $params);
+    $res = $this->dbh->ExecuteSelectQueryAndFetchAll($sql, $params);
     
     if(count($res)==1)
     {
@@ -245,6 +273,11 @@ public function validMovieId($urbax,$movieid=null)
     else
       return false;
   }
+}
+
+private function getMovieImages()
+{
+  
 }
   
   

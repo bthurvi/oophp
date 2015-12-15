@@ -1,11 +1,12 @@
 <?php
-//var_dump($_POST);
+var_dump($_POST);
 
 // Get incoming parameters
 $movieid = isset($_GET['movieid']) ? $_GET['movieid'] : null;
-$imgs = new Cselectimage();
+$imgs = new Cselectimage($urbax, $movieid);
 
-if($imgs->validMovieId($urbax,$movieid))
+
+if($imgs->validMovieId($movieid))
 {
   //get base directory
   $path = isset($_GET['path']) ? $_GET['path'] : null;
@@ -20,7 +21,7 @@ if($imgs->validMovieId($urbax,$movieid))
 }
 else 
 {
-   echo "Parametern movieid saknas!";
+   echo "Parametern movieid saknas eller är ogiltig!";
 }
 ?>
 
