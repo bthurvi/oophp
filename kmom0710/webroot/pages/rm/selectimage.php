@@ -1,5 +1,4 @@
 <?php
-var_dump($_POST);
 
 // Get incoming parameters
 $movieid = isset($_GET['movieid']) ? $_GET['movieid'] : null;

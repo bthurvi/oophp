@@ -21,17 +21,72 @@ class Cselectimage {
     
     //check that movie_id exist in database
     if(!$this->validMovieId($movieid))
-      die("invalid movieID");
+      die("invalid movieID");    
+    
+    //uppdate database
+    if(isset($_POST['saveMovies2Images']))
+      $this->saveMoviesToImages();
     
     //get the images that are connected to the movie
-    $sql = "Select image from images where id in (Select image_id from movie2image where movie_id=?)";
+    $sql = "SELECT image FROM images WHERE id IN (SELECT image_id FROM movie2image WHERE movie_id=?)";
     $params = array($this->id);
     $res = $this->dbh->ExecuteSelectQueryAndFetchAll($sql,$params);
     
     //convert obect array to string array
     foreach ($res as $r) 
       $this->connectedImages[]=$r->image;
+    
+    
+    
+  }
   
+  private function saveMoviesToImages()
+  { 
+    //delete old entries
+    
+    $sql = "DELETE FROM movie2image WHERE movie_id=?";       
+    $params = array($this->id);
+    $this->dbh->ExecuteSelectQueryAndFetchAll($sql,$params);
+    
+    
+    //insert new entries
+    $ids = $this->getImageIds($_POST['selectedimages']);
+    
+    $sql2 = "INSERT INTO movie2image(movie_id,image_id) VALUES ";
+   
+    $params = null;
+    foreach ($ids as $id) 
+    {
+      $params[] = $this->id;
+      $params[] = $id;
+      $sql2 .= "(?,?), ";
+    }
+    $sql2 = rtrim($sql2, ' ');
+    $sql2 = rtrim($sql2, ',');
+   
+    $this->dbh->ExecuteQuery($sql2, $params);
+    
+  
+  }
+  
+  private function getImageIds($imgNames)
+  {
+    $imgpaths = array();
+    foreach ($imgNames as $imgName) 
+    {
+      $imgpaths[]="'img/movie/$imgName'";
+    }
+    $imagesPathString = implode(',', $imgpaths);
+    
+    $sql = "SELECT id from images WHERE image IN($imagesPathString)";
+    $res = $this->dbh->ExecuteSelectQueryAndFetchAll($sql);
+    
+    $return = array();
+    foreach ($res as $r) {
+      $return[] = $r->id;
+    }
+    
+    return $return;
   }
   
   public function createAndReturnGallery($basePath,$pathToGallery)
@@ -43,7 +98,7 @@ class Cselectimage {
     $html_code .= "<p>Markera de bilder som hör samman med filmen.</p>";
             
     //$html_code .= $this->createBreadcrumb($pathToGallery);
-    $html_code .= $this->display()."<input type='submit' value='Spara'></form>";
+    $html_code .= $this->display()."<input type='submit' value='Spara' name='saveMovies2Images'></form>";
     
     $html_code .= "<div>" . $this->getFileUploadForm($_SERVER['QUERY_STRING']) . "</div>";
     
