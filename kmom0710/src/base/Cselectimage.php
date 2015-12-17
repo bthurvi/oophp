@@ -29,7 +29,7 @@ class Cselectimage {
     
     //upload new image
     if(isset($_POST['submitNewImage']))
-      $this->uploadFeedback = $this->uploadNewImage(true);
+      $this->uploadFeedback = $this->uploadNewImage();
     
     //save image relation to movie
     if(isset($_POST['saveMovies2Images']))
@@ -72,13 +72,14 @@ class Cselectimage {
     //copy file and store in database
     if(move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $targetFile))
     {
-      echo "Image information shoud be stored in database...";
-      //return "Bild sparad!";
+      $sql = "INSERT INTO images(image) VALUES(?)";
+      $params = array("img/movie/$filename");
+      $this->dbh->ExecuteQuery($sql, $params);
     }        
     
     //inform user that old file was overwritten
     if($this->fileExists($targetFile))
-      return "Oops, Det fanns en fil med samma namn - den är nu överskriven...";
+      return "Oops! Det fanns redan en fil med detta namn. Den är nu överskriven...";
     
   }
   
@@ -187,11 +188,11 @@ class Cselectimage {
     $this->setBasePath($basePath);
     $this->setImageGalleryPath($pathToGallery); 
     
-    $html_code  = "<form method='post'><h1>Bilder till: $this->title</h1>";
+    $html_code  = "<form method='post'><h1 id='selectImageH1'><span>Bilder till </span>$this->title<span>:</span></h1>";
     $html_code .= "<p>Markera de bilder som hör samman med filmen.</p>";
             
     //$html_code .= $this->createBreadcrumb($pathToGallery);
-    $html_code .= $this->display()."<input type='submit' value='Spara' name='saveMovies2Images'></form>";
+    $html_code .= $this->display()."<div id='saveMovies2ImagesDiv'><input type='submit' value='Spara' name='saveMovies2Images'></div></form>";
     
     $html_code .= "<div>" . $this->getFileUploadForm($_SERVER['QUERY_STRING']) . "</div>";
     

@@ -391,9 +391,33 @@ paginationhits
 
 .checkedbox{ background: #222; }
 
- 
-//.hascat{ background: blue !important;}
-//.nocat{ background: red !important; }
+
+#fileUploadForm{
+    border-top: 1px solid white;
+    margin-top: 10px;
+    text-align: center;
+    padding-top: 30px;
+}
+
+#saveMovies2ImagesDiv input:hover{
+    cursor:pointer;
+    background: rgb(250, 161, 48);
+}
+#saveMovies2ImagesDiv input:active{
+    background: #F7C688;
+}
+#saveMovies2ImagesDiv input
+{
+    background: #BE6B03;
+    color:black;
+}
+
+#saveMovies2ImagesDiv{
+    padding:20px 0; 
+    text-align: right;
+}
+
+
 
 
 
