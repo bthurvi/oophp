@@ -14,16 +14,24 @@ class Cselectimage {
   private $id;
   private $dbh;
   private $connectedImages = array();
+  private $uploadFeedback;
   
   public function __construct($urbax, $movieid) 
   {
+    //var_dump($_POST);
+    
     $this->dbh = new CDatabase($urbax['database']);
     
     //check that movie_id exist in database
     if(!$this->validMovieId($movieid))
-      die("invalid movieID");    
+      die("invalid movieID"); 
     
-    //uppdate database
+    
+    //upload new image
+    if(isset($_POST['submitNewImage']))
+      $this->uploadFeedback = $this->uploadNewImage(true);
+    
+    //save image relation to movie
     if(isset($_POST['saveMovies2Images']))
       $this->saveMoviesToImages();
     
@@ -34,11 +42,96 @@ class Cselectimage {
     
     //convert obect array to string array
     foreach ($res as $r) 
-      $this->connectedImages[]=$r->image;
-    
-    
+      $this->connectedImages[]=$r->image;  
     
   }
+  
+  private function uploadNewImage($debug=false)
+  {
+    $filename = $_FILES["fileToUpload"]["name"];
+    $targetFile = $_SERVER['DOCUMENT_ROOT'] ."oophp/kmom0710/webroot/img/movie/$filename";
+    $imageFileType = pathinfo($targetFile,PATHINFO_EXTENSION);
+    $maxUploadSize = $this->fileUploadMaxSize();
+    
+    if($debug)
+    {
+      echo "<p>Laddar upp filen $filename.";
+      echo "<p>Målfil $targetFile.";
+      echo "<p>MaxSize $maxUploadSize.";
+    }
+    
+     
+    //only allow certain file formats
+    if($imageFileType!="jpg" && $imageFileType!="png" && $imageFileType!="jpeg" ) 
+      return "Ursäkta! Endast JPG, JPEG & PNG filer är tillåtna.";
+    
+    // Check if file is to big
+    if ($_FILES["fileToUpload"]["size"] > $maxUploadSize) 
+      return "Ursäkta! Din fil är för stor för att kunna laddas upp.";
+    
+    //copy file and store in database
+    if(move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $targetFile))
+    {
+      echo "Image information shoud be stored in database...";
+      //return "Bild sparad!";
+    }        
+    
+    //inform user that old file was overwritten
+    if($this->fileExists($targetFile))
+      return "Oops, Det fanns en fil med samma namn - den är nu överskriven...";
+    
+  }
+  
+  private function fileExists($targetFile)
+  {
+    // Check if file already exists
+    if (file_exists($targetFile)) 
+      return true;
+    else
+      return false;
+  }
+  
+  // Returns a file size limit in bytes based on the PHP upload_max_filesize
+    // and post_max_size
+   private function fileUploadMaxSize() 
+   {
+      static $max_size = -1;
+
+      if ($max_size < 0) {
+        // Start with post_max_size.
+        $max_size = $this->parseSize(ini_get('post_max_size'));
+
+        // If upload_max_size is less, then reduce. Except if upload_max_size is
+        // zero, which indicates no limit.
+        $upload_max = $this->parseSize(ini_get('upload_max_filesize'));
+        if ($upload_max > 0 && $upload_max < $max_size) {
+          $max_size = $upload_max;
+        }
+      }
+      return $max_size;
+   }
+
+    private function parseSize($size) 
+    {
+      $unit = preg_replace('/[^bkmgtpezy]/i', '', $size); 
+      // Remove the non-unit characters from the size.
+      
+      $size = preg_replace('/[^0-9\.]/', '', $size); 
+      // Remove the non-numeric characters from the size.
+      
+      if ($unit) 
+      {
+        // Find the position of the unit in the ordered string which is the 
+        // power of magnitude to multiply a kilobyte by.
+        return round($size * pow(1024, stripos('bkmgtpezy', $unit[0])));
+      }
+      else 
+      {
+        return round($size);
+      }
+  }
+  
+  
   
   private function saveMoviesToImages()
   { 
@@ -108,13 +201,18 @@ class Cselectimage {
   
   private function getFileUploadForm($action)
   {
-    return <<<EOD
+    $res = <<<EOD
       <form action="?$action" method="post" id="fileUploadForm" enctype="multipart/form-data">
         <input type="file" name="fileToUpload" class="displayNone" id="fileToUpload">
         <label for="fileToUpload" class="aButton" id="fileToUploadLabel"><i class="fa fa-upload"></i> Ladda upp ny bild!</label>  
-        <input type="submit" class="displayNone" value="Ladda upp!" name="submit" id="fileUpploadButton"> 
+        <input type="submit" class="displayNone" value="Ladda upp!" name="submitNewImage" id="fileUpploadButton"> 
       </form>
 EOD;
+    
+    if(isset($this->uploadFeedback))
+      $res .= "<p>$this->uploadFeedback</p>";
+      
+      return $res;
   }
   
    /**
