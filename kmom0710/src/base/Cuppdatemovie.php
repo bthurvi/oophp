@@ -46,11 +46,11 @@ EOD;
 
   if($id!=null) // EDIT mode
   {
-    //do we have a valid id?
+    
     $sql = "SELECT M.id as id, M.title as title, M.rentalprice as rentalprice,
       M.director as director, M.length as length, M.plot as plot,
       M.year as year, M.subtext as subtext, M.imdblink as imdblink,
-      M.youtubetrailer as youtubetrailer, M.image as image,
+      M.youtubetrailer as youtubetrailer,
       M.quality as quality, M.speech as speech, M.format as format,
       GROUP_CONCAT(G.name) AS genre FROM Movie AS M
       LEFT OUTER JOIN Movie2Genre AS M2G
@@ -211,8 +211,17 @@ EEE;
 
     echo "<table class='table'>
       <tr><th></th><th>Titel</th><th>Bild</th><th>År</th><th width='10%'>Skapad</th></tr>";
+    
+    //
 
-     $sql = "SELECT id,title,image,year, creationdate as tid FROM Movie ORDER BY tid DESC";
+    $sql = "SELECT M.id as id,M.title as title, I.image as image, year,creationdate as tid 
+            FROM Movie AS M
+            INNER JOIN movie2image AS M2I
+            ON M2I.movie_id = M.id
+            INNER JOIN images AS I
+            ON M2I.image_id = I.id
+            GROUP BY M.id
+            ORDER BY tid DESC";
     $res = $db->ExecuteSelectQueryAndFetchAll($sql);
 
     foreach ($res as $i=>$row) 

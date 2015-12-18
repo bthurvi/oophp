@@ -54,12 +54,16 @@ eod;
     // Prepare the query based on incoming arguments
     $sqlOrig = "
       SELECT 
-           M.id as id, M.title as titel, M.image as bild ,CONCAT(SUBSTRING(M.plot,1,80),'...') as handling, GROUP_CONCAT(G.name) AS genre, M.rentalprice as pris
+           M.id as id, M.title as titel, I.image as bild,CONCAT(SUBSTRING(M.plot,1,80),'...') as handling, GROUP_CONCAT(DISTINCT G.name) AS genre, M.rentalprice as pris
       FROM Movie AS M
-        LEFT OUTER JOIN Movie2Genre AS M2G
+        LEFT OUTER JOIN movie2Genre AS M2G
           ON M.id = M2G.idMovie
         INNER JOIN Genre AS G
           ON M2G.idGenre = G.id
+        INNER JOIN movie2image AS M2I
+          ON M2I.movie_id = M.id
+        INNER JOIN images AS I
+          ON M2I.image_id = I.id
     ";
     $where    = null;
     $groupby  = ' GROUP BY M.id';
