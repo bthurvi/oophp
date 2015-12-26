@@ -23,15 +23,21 @@ else
 {
   // Check if form was submitted
   if($create) {
-    $sql = 'INSERT INTO Movie (title,year) VALUES (?,?)';
+    $sql = 'INSERT INTO oophp0710_movie (title,year) VALUES (?,?)';
     $params = array($title,$year);
     $db->ExecuteQuery($sql,$params);
     $db->SaveDebug();
     
-    $sql2 = 'INSERT INTO movie2genre(idMovie,idGenre) VALUES (?,?)';
-    $params2 = array($db->LastInsertId(),1);
+    $sql2 = 'INSERT INTO oophp0710_movie2genre(idMovie,idGenre) VALUES (?,?)';
+    $lastInsertId = $db->LastInsertId();
+    $params2 = array($lastInsertId,1);
     $db->ExecuteQuery($sql2,$params2);
     $db->SaveDebug();
+    
+    $sql3 = 'INSERT INTO oophp0710_movie2image(movie_id,image_id) VALUES (?,?)';
+    $params3 = array($lastInsertId,1);
+    $db->ExecuteQuery($sql3,$params3);
+    $db->SaveDebug(); 
     
     echo  "Ny film sparad. <a href='?p=updatemovie' class='aButton'>Editera</a>";
   }

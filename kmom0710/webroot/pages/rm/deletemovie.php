@@ -29,7 +29,7 @@ else
   if($id!=null) // DELETE mode
   {
     //do we have a valid id?
-    $sql = "SELECT * FROM Movie";
+    $sql = "SELECT * FROM oophp0710_movie";
     $res = $db->ExecuteSelectQueryAndFetchAll($sql);
 
     $movie=null;
@@ -44,11 +44,15 @@ else
     if(!$movie)
         die("CHECK: invalid id");
 
-    $sql = 'DELETE FROM Movie2Genre WHERE idMovie = ?';
+    $sql = 'DELETE FROM oophp0710_movie2Genre WHERE idMovie = ?';
     $db->ExecuteQuery($sql, array($id));
     $db->SaveDebug("Det raderades " . $db->RowCount() . " rader från databasen.");
+    
+    $sql2 = 'DELETE FROM oophp0710_movie2image WHERE movie_id = ?';
+    $db->ExecuteQuery($sql2, array($id));
+    $db->SaveDebug("Det raderades " . $db->RowCount() . " rader från databasen.");
 
-    $sql = 'DELETE FROM Movie WHERE id = ? LIMIT 1';
+    $sql = 'DELETE FROM oophp0710_movie WHERE id = ? LIMIT 1';
     $db->ExecuteQuery($sql, array($id));
     $db->SaveDebug("Det raderades " . $db->RowCount() . " rader från databasen.");
 
@@ -59,9 +63,9 @@ else
   echo "<h1 class='center'>Välj film att radera</h1>";
 
   echo "<table class='table'>
-    <tr><th></th><th>Titel</th><th>Bild</th><th>År</th><th width='10%'>Skapad</th></tr>";
+    <tr><th></th><th>Titel</th><th>År</th><th width='10%'>Skapad</th></tr>";
 
-   $sql = "SELECT id,title,image,year, creationdate as tid FROM Movie ORDER BY tid DESC";
+   $sql = "SELECT id,title,year, creationdate as tid FROM oophp0710_movie ORDER BY tid DESC";
   $res = $db->ExecuteSelectQueryAndFetchAll($sql);
 
   foreach ($res as $i=>$row) 
@@ -69,7 +73,6 @@ else
     echo "<tr>"
     . "<td width='5%' style='text-align:center;'><a class='aButton' href='?p=deletemovie&amp;id={$row->id}'>radera</a></td>"
     . "<td><strong>{$row->title}</strong></td>"
-    . "<td><img src='{$row->image}' alt='bild på film' width='100' height='50'></td>"
     . "<td>{$row->year}</td>"
     . "<td>{$row->tid}</td>"
     . "</tr>";

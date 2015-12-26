@@ -34,8 +34,8 @@ eod;
     // Get all genres that are active
     $sql = '
       SELECT DISTINCT G.name
-      FROM Genre AS G
-        INNER JOIN Movie2Genre AS M2G
+      FROM oophp0710_genre AS G
+        INNER JOIN oophp0710_movie2genre AS M2G
           ON G.id = M2G.idGenre
     ';
     $res = $databasehandle->ExecuteSelectQueryAndFetchAll($sql);
@@ -55,14 +55,14 @@ eod;
     $sqlOrig = "
       SELECT 
            M.id as id, M.title as titel, I.image as bild,CONCAT(SUBSTRING(M.plot,1,80),'...') as handling, GROUP_CONCAT(DISTINCT G.name) AS genre, M.rentalprice as pris
-      FROM Movie AS M
-        LEFT OUTER JOIN movie2Genre AS M2G
+      FROM oophp0710_movie AS M
+        LEFT OUTER JOIN oophp0710_movie2genre AS M2G
           ON M.id = M2G.idMovie
-        INNER JOIN Genre AS G
+        INNER JOIN oophp0710_genre AS G
           ON M2G.idGenre = G.id
-        INNER JOIN movie2image AS M2I
+        INNER JOIN oophp0710_movie2image AS M2I
           ON M2I.movie_id = M.id
-        INNER JOIN images AS I
+        INNER JOIN oophp0710_images AS I
           ON M2I.image_id = I.id
     ";
     $where    = null;

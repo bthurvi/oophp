@@ -1,5 +1,6 @@
 <?php
-  Cuppdatemovie::uppdatemovie($urbax);
+  $cupp = new Cuppdatemovie();
+  $cupp->uppdatemovie($urbax);
 ?>
 
 

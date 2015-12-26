@@ -2,11 +2,6 @@
 
 <?php
 
-// Jag valde att inte skapa en klass av denna kod eftersom att det i sådana fall skulle blivit en väldigt specifik klass.
-// Jag ställde mig tveksam till att en sådan klass någonsin skulle bli aktuell att använda igen (dvs återanvändbar).
-// Eftersom jag inte riktigt kunde se nyttan med en sådan klass så struntade jag i att göra  det (lilla) jobb som skulle
-// krävts för att skapa klassen...
-
 
 
 // Connect to a MySQL database using PHP PDO

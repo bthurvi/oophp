@@ -29,7 +29,7 @@ $urbax['behindpage']=<<<EDO
           </form>
         </div>
         <div id="logininfo" onclick='showLogin()'><i class="fa fa-angle-down"></i> 
-         &nbsp;Inloggad som <b>$name</b></div>    
+         &nbsp;Inloggad som <strong>$name</strong></div>    
 EDO;
 }
 else

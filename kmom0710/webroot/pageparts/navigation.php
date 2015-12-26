@@ -110,7 +110,7 @@ if($user->IsAuthenticated())
             new CMenuItem('Uppdatera','?p=updatemovie'),
             new CMenuItem('Radera film','?p=deletemovie')
       );
-  $menu[] = new CMenuItem('Koppla bilder',"?p=imageselect&amp;path=movie");
+  //$menu[] = new CMenuItem('Koppla bilder',"?p=imageselect&amp;path=movie");
 }
 
 /*$menu = array(new CMenuItem('Tärningar','?p=dice'), 

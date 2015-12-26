@@ -63,7 +63,7 @@ class CUser
  public function Login($user, $password)
  {  
      //build query and array
-    $sql = "SELECT acronym, name FROM User WHERE acronym = ? AND password = md5(concat(?, salt))";
+    $sql = "SELECT acronym, name FROM oophp0710_user WHERE acronym = ? AND password = md5(concat(?, salt))";
     $params = array($user, $password);
 
     //run query

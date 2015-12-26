@@ -4,7 +4,7 @@ $params[] = isset($_GET['id']) ? $_GET['id'] : 1;
 // Connect to a MySQL database using PHP PDO
 $db = new CDatabase($urbax['database']);
 
-$query = "SELECT GROUP_CONCAT(images.image)as images,title,director,length,year,plot,subtext,speech,quality,format,rentalprice,imdblink,youtubetrailer FROM movie INNER JOIN movie2image INNER JOIN images ON movie.id=movie2image.movie_id AND images.id=movie2image.image_id WHERE movie.id=?;";
+$query = "SELECT GROUP_CONCAT(oophp0710_images.image)as images,title,director,length,year,plot,subtext,speech,quality,format,rentalprice,imdblink,youtubetrailer FROM oophp0710_movie INNER JOIN oophp0710_movie2image INNER JOIN oophp0710_images ON oophp0710_movie.id=oophp0710_movie2image.movie_id AND oophp0710_images.id=oophp0710_movie2image.image_id WHERE oophp0710_movie.id=?;";
 
 
 $res = $db->ExecuteSelectQueryAndFetchAll($query, $params);

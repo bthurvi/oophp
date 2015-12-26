@@ -36,7 +36,6 @@ ul.gallery li figure figcaption {
 }
  
 ul.gallery li:hover  {
-  //background-color: #C3C3C3;
   border-color: white;
 }
  

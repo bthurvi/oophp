@@ -27,7 +27,7 @@ body {
 /*
 styles for header part of page
 */
-#header{color: #FFA12C; font-size: 2em;}
+#header{color: #FFA12C; font-size: 2em; margin-top: 15px;}
 #header img{ height: 85px; margin-left: 20px; margin-right: 8px;  float: left;}
 #header #text{ padding-top: 8px; letter-spacing: -2px;}
 #header #text span{ font-weight: bold; color: #FAF7E3;}
@@ -73,15 +73,11 @@ main content
 #main{
     border-top: 1px solid rgba(55, 53, 48, 0.47);
     position: relative;
-    margin-top: 40px;// 0px 0;
+    margin-top: 40px;
     min-height:660px;
     background-color: rgba(0,0,0,0.85);
     padding:20px;
-    //border: 3px solid rgba(140, 88, 33, 0.93);
-    //border-radius: 5px;
     color: #eee;
-    //-webkit-box-shadow: 2px 2px 20px 10px rgba(0,0,0,0.7);
-    //box-shadow: 2px 2px 20px 10px rgba(0,0,0,0.7);
 }
 
 #main h1{
@@ -136,7 +132,7 @@ styling for tables
         background: #22201F; 
 }
 .table th { 
-        //background: #653C14;
+       
         color: #000; 
         font-weight: bold;
  
@@ -147,7 +143,6 @@ background: -webkit-linear-gradient(top, rgba(100,56,17,1) 0%, rgba(201,133,60,1
 background: -o-linear-gradient(top, rgba(100,56,17,1) 0%, rgba(201,133,60,1) 52%, rgba(181,134,53,1) 59%, rgba(100,56,17,1) 100%);
 background: -ms-linear-gradient(top, rgba(100,56,17,1) 0%, rgba(201,133,60,1) 52%, rgba(181,134,53,1) 59%, rgba(100,56,17,1) 100%);
 background: linear-gradient(to bottom, rgba(100,56,17,1) 0%, rgba(201,133,60,1) 52%, rgba(181,134,53,1) 59%, rgba(100,56,17,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#643811', endColorstr='#643811', GradientType=0 );
 }
 
 /*color price*/
@@ -406,15 +401,22 @@ paginationhits
 #saveMovies2ImagesDiv input:active{
     background: #F7C688;
 }
-#saveMovies2ImagesDiv input
+#saveMovies2ImagesDiv input, #gotoConnectImage2Movie
 {
     background: #BE6B03;
     color:black;
 }
 
 #saveMovies2ImagesDiv{
-    padding:20px 0; 
-    text-align: right;
+    padding:0; 
+    margin: 20px 0;
+    height:26px; 
+    overflow: hidden;
+}
+
+.uppdateNavigationButtons{ height:26px; overflow: hidden;}
+.uppdateNavigationButtons *{
+   height: 30px;
 }
 
 

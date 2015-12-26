@@ -1,7 +1,7 @@
 <?php
 
 class Cuppdatemovie {
-  public static function uppdatemovie($urbax)
+  public  function uppdatemovie($urbax)
   {
   
   $db = new CDatabase($urbax['database']);
@@ -25,6 +25,7 @@ $youtubetrailer   = isset($_POST['youtubetrailer'])  ? strip_tags($_POST['youtub
 $image  = isset($_POST['image']) ? strip_tags($_POST['image']) : null;
 $genre  = isset($_POST['genre']) ? $_POST['genre'] : array();
 
+$nextpage   = isset($_POST['nextpage'])  ? true : false;
 $save   = isset($_POST['save'])  ? true : false;
 $acronym = isset($_SESSION['user']) ? $_SESSION['user']->acronym : null;
 
@@ -52,15 +53,14 @@ EOD;
       M.year as year, M.subtext as subtext, M.imdblink as imdblink,
       M.youtubetrailer as youtubetrailer,
       M.quality as quality, M.speech as speech, M.format as format,
-      GROUP_CONCAT(G.name) AS genre FROM Movie AS M
-      LEFT OUTER JOIN Movie2Genre AS M2G
+      GROUP_CONCAT(G.name) AS genre FROM oophp0710_movie AS M
+      LEFT OUTER JOIN oophp0710_movie2genre AS M2G
           ON M.id = M2G.idMovie
-        INNER JOIN Genre AS G
+        INNER JOIN oophp0710_genre AS G
           ON M2G.idGenre = G.id
           GROUP BY M.id";
     $res = $db->ExecuteSelectQueryAndFetchAll($sql);
     
-   
 
     $movie=null;
     foreach ($res as $mov) 
@@ -74,46 +74,26 @@ EOD;
     if(!$movie)
         die("CHECK: invalid id");
     
+    if($nextpage)
+    {
+      //first save data
+      $this->saveToDB($title, $director, $length, $year, $plot, $subtext, $speech, $format, $quality, $imdblink, $youtubetrailer, $id, $db, $movie);
       
-
+      //then redirect to image-select-page
+      //header("Location:?p=imageselect&path=movie&movieid=$id");
+      $page = "?p=imageselect&path=movie&movieid=$id";
+      echo "<script> location.replace('$page'); </script>"; 
+    }
+    
 
     if($save && isset($title) && isset($year))
     {
-    $sql = 'UPDATE Movie SET title=?,director=?,length=?,year=?,plot=?,subtext=?,speech=?,format=?,quality=?, imdblink=?, youtubetrailer=? WHERE id=?';
-    $params = array($title,$director,$length,$year,$plot,$subtext,$speech,$format,$quality,$imdblink,$youtubetrailer,$id);
-
-
-    $db->ExecuteQuery($sql, $params);
-    
-    
-    $sql2 = "DELETE FROM movie2genre WHERE idMovie = ?";
-    $params = array($movie->id);
-    $db->ExecuteQuery($sql2, $params);
-    
-    
-    $sql3 = "INSERT INTO movie2genre(idMovie,idGenre) VALUES ";
-   
-    $cats = isset($_POST['category'])?$_POST['category']: die("Minst en kategori måste vara vald!");
-    $params = null;
-    foreach ($cats as $cat) 
-    {
-      $params[] = $movie->id;
-      $params[] = $cat;
-      $sql3 .= "(?,?), ";
-    }
-    $sql3 = rtrim($sql3, ' ');
-    $sql3 = rtrim($sql3, ',');
-    $sql3 .=';'; 
-    
-    $db->ExecuteQuery($sql3, $params);
-    
-
-    echo  "Informationen sparad. <a href='?p=updatemovie' class='aButton'>Visa alla</a>";
+      $this->saveToDB($title, $director, $length, $year, $plot, $subtext, $speech, $format, $quality, $imdblink, $youtubetrailer, $id, $db,$movie);  
     }
     else
     {
       //output edit form
-    $categories = $db->ExecuteSelectQueryAndFetchAll("SELECT * FROM genre");  
+    $categories = $db->ExecuteSelectQueryAndFetchAll("SELECT * FROM oophp0710_genre");  
     
     echo <<<EEE
     <form method=post id="movieinfoform">
@@ -196,11 +176,14 @@ EEE;
      echo <<< EEE
      </div>
     </div>
- <p><label>Bild(er):<br/><input type='text' name='image' value='$movie->image'/></label></p>
-    <p><input type='submit' name='save' value='Spara'/> <input type='reset' class='aButton' value='Återställ'/></p>
-    <p><a class='aButton' href='?p=updatemovie'>Visa alla</a></p>
-    <output></output>
-    
+ 
+    <p class='uppdateNavigationButtons'>
+      <input type='submit' name='save' value='Spara'/> 
+      <input type='reset' class='aButton' value='Återställ'/>
+      <a class='aButton' href='?p=updatemovie'>Avbryt</a>
+      <input type='submit' class='aButton' style='float:right;' name='nextpage' id='gotoConnectImage2Movie' value='Koppla bilder till film'> 
+    </p>
+   
   </form>
 EEE;
     }
@@ -215,10 +198,10 @@ EEE;
     //
 
     $sql = "SELECT M.id as id,M.title as title, I.image as image, year,creationdate as tid 
-            FROM Movie AS M
-            INNER JOIN movie2image AS M2I
+            FROM oophp0710_movie AS M
+            INNER JOIN oophp0710_movie2image AS M2I
             ON M2I.movie_id = M.id
-            INNER JOIN images AS I
+            INNER JOIN oophp0710_images AS I
             ON M2I.image_id = I.id
             GROUP BY M.id
             ORDER BY tid DESC";
@@ -237,9 +220,40 @@ EEE;
 
     echo "</table>";
   }
-}
+}   
+  }
+  
+  private function saveToDB($title,$director,$length,$year,$plot,$subtext,$speech,$format,$quality,$imdblink,$youtubetrailer,$id,$db,$movie)
+  {
+    $sql = 'UPDATE oophp0710_movie SET title=?,director=?,length=?,year=?,plot=?,subtext=?,speech=?,format=?,quality=?, imdblink=?, youtubetrailer=? WHERE id=?';
+    $params = array($title,$director,$length,$year,$plot,$subtext,$speech,$format,$quality,$imdblink,$youtubetrailer,$id);
 
-   
+
+    $db->ExecuteQuery($sql, $params);
     
+    
+    $sql2 = "DELETE FROM oophp0710_movie2genre WHERE idMovie = ?";
+    $params = array($movie->id);
+    $db->ExecuteQuery($sql2, $params);
+    
+    
+    $sql3 = "INSERT INTO oophp0710_movie2genre(idMovie,idGenre) VALUES ";
+   
+    $cats = isset($_POST['category'])?$_POST['category']: die("Minst en kategori måste vara vald!");
+    $params = null;
+    foreach ($cats as $cat) 
+    {
+      $params[] = $movie->id;
+      $params[] = $cat;
+      $sql3 .= "(?,?), ";
+    }
+    $sql3 = rtrim($sql3, ' ');
+    $sql3 = rtrim($sql3, ',');
+    $sql3 .=';'; 
+    
+    $db->ExecuteQuery($sql3, $params);
+    
+
+    echo  "Informationen sparad. <a href='?p=updatemovie' class='aButton'>Visa alla</a>";
   }
 }

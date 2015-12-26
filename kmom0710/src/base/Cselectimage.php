@@ -36,7 +36,7 @@ class Cselectimage {
       $this->saveMoviesToImages();
     
     //get the images that are connected to the movie
-    $sql = "SELECT image FROM images WHERE id IN (SELECT image_id FROM movie2image WHERE movie_id=?)";
+    $sql = "SELECT image FROM oophp0710_images WHERE id IN (SELECT image_id FROM oophp0710_movie2image WHERE movie_id=?)";
     $params = array($this->id);
     $res = $this->dbh->ExecuteSelectQueryAndFetchAll($sql,$params);
     
@@ -49,7 +49,7 @@ class Cselectimage {
   private function uploadNewImage($debug=false)
   {
     $filename = $_FILES["fileToUpload"]["name"];
-    $targetFile = $_SERVER['DOCUMENT_ROOT'] ."oophp/kmom0710/webroot/img/movie/$filename";
+    $targetFile = URBAX_INSTALL_PATH."/webroot/img/movie/$filename";
     $imageFileType = pathinfo($targetFile,PATHINFO_EXTENSION);
     $maxUploadSize = $this->fileUploadMaxSize();
     
@@ -72,7 +72,7 @@ class Cselectimage {
     //copy file and store in database
     if(move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $targetFile))
     {
-      $sql = "INSERT INTO images(image) VALUES(?)";
+      $sql = "INSERT INTO oophp0710_images(image) VALUES(?)";
       $params = array("img/movie/$filename");
       $this->dbh->ExecuteQuery($sql, $params);
     }        
@@ -138,7 +138,7 @@ class Cselectimage {
   { 
     //delete old entries
     
-    $sql = "DELETE FROM movie2image WHERE movie_id=?";       
+    $sql = "DELETE FROM oophp0710_movie2image WHERE movie_id=?";       
     $params = array($this->id);
     $this->dbh->ExecuteSelectQueryAndFetchAll($sql,$params);
     
@@ -146,7 +146,7 @@ class Cselectimage {
     //insert new entries
     $ids = $this->getImageIds($_POST['selectedimages']);
     
-    $sql2 = "INSERT INTO movie2image(movie_id,image_id) VALUES ";
+    $sql2 = "INSERT INTO oophp0710_movie2image(movie_id,image_id) VALUES ";
    
     $params = null;
     foreach ($ids as $id) 
@@ -172,7 +172,7 @@ class Cselectimage {
     }
     $imagesPathString = implode(',', $imgpaths);
     
-    $sql = "SELECT id from images WHERE image IN($imagesPathString)";
+    $sql = "SELECT id from oophp0710_images WHERE image IN($imagesPathString)";
     $res = $this->dbh->ExecuteSelectQueryAndFetchAll($sql);
     
     $return = array();
@@ -192,7 +192,14 @@ class Cselectimage {
     $html_code .= "<p>Markera de bilder som hör samman med filmen.</p>";
             
     //$html_code .= $this->createBreadcrumb($pathToGallery);
-    $html_code .= $this->display()."<div id='saveMovies2ImagesDiv'><input type='submit' value='Spara' name='saveMovies2Images'></div></form>";
+    $html_code .= $this->display()."<div id='saveMovies2ImagesDiv'>"  
+            ."<a class='aButton' href='?p=updatemovie'>Avbryt</a>"
+            . "<input type='submit' value='Spara' style='float:right;' name='saveMovies2Images'>"
+            . "</div></form>";
+    
+    
+      
+     
     
     $html_code .= "<div>" . $this->getFileUploadForm($_SERVER['QUERY_STRING']) . "</div>";
     
@@ -413,10 +420,11 @@ public function validMovieId($movieid=null)
     return false;
   else
   {
-    $sql = "SELECT id,title from movie where id=?";
+    $sql = "SELECT id,title from oophp0710_movie where id=?";
     $params = array($movieid);
     
     $res = $this->dbh->ExecuteSelectQueryAndFetchAll($sql, $params);
+    
     
     if(count($res)==1)
     {

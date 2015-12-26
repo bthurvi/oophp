@@ -41,7 +41,7 @@ class CHTMLTable
           if(substr($value,0,3)=='img')
           {
              $file=basename($value);
-            $rad .= "<td><img img src='pages/img.php?src=movie/$file";
+            $rad .= "<td><img src='pages/img.php?src=movie/$file";
             $rad .= "&amp;";
             $rad .= "width=100";
             $rad .= "&amp;";
