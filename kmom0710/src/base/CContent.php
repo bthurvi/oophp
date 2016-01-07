@@ -47,7 +47,7 @@ class CContent
   
   public function add($title, $category, $type, $pdate)
   {
-    $sql = "INSERT INTO Content (title, url, category, type, published, created, slug, author, filter) VALUES (?,?,?,?,?,NOW(),?,?,'nl2br')";
+    $sql = "INSERT INTO oophp0710_content (title, url, category, type, published, created, slug, author, filter) VALUES (?,?,?,?,?,NOW(),?,?,'nl2br')";
     $slug = $this->slugify($title);
     $author = $_SESSION['user']->acronym;
     $ok = $this->cdb->ExecuteQuery($sql, array($title,$slug,$category,$type,$pdate,$slug,$author));
@@ -62,7 +62,7 @@ class CContent
   
   public function update($slug, $url, $type, $tite, $data, $filter, $published, $id)
   {
-    $sql = 'UPDATE Content SET slug=?,url=?,type=?,title=?,data=?,filter=?,published=?,updated=NOW() WHERE id=?';
+    $sql = 'UPDATE oophp0710_content SET slug=?,url=?,type=?,title=?,data=?,filter=?,published=?,updated=NOW() WHERE id=?';
     $params = array($slug, $url, $type, $tite, $data, $filter, $published, $id);
     $ok = $this->cdb->ExecuteQuery($sql, $params);
     $this->cdb->SaveDebug();
@@ -75,7 +75,7 @@ class CContent
   
   public function delete($id)
   {
-     $sql = 'UPDATE Content SET deleted=NOW() WHERE id=?';
+     $sql = 'UPDATE oophp0710_content SET deleted=NOW() WHERE id=?';
     $params = array($id);
     $ok = $this->cdb->ExecuteQuery($sql, $params);
     $this->cdb->SaveDebug();
@@ -85,7 +85,7 @@ class CContent
   
   public function validContentID($id)
   {
-    $sql = 'SELECT id from Content';
+    $sql = 'SELECT id from oophp0710_content';
     $ids = $this->cdb->ExecuteSelectQueryAndFetchAll($sql);
     $this->cdb->SaveDebug();
     
@@ -110,7 +110,7 @@ class CContent
       return "Invalid id";
     else
     {
-      $sql = 'SELECT * from Content WHERE id=?';
+      $sql = 'SELECT * from oophp0710_content WHERE id=?';
       $content = $this->cdb->ExecuteSelectQueryAndFetchAll($sql,array($id));
       $this->cdb->SaveDebug();
       

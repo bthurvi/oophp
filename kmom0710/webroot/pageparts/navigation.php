@@ -100,15 +100,21 @@ function addBloggsAndPagesToNavbar()
 
 //menu to display
 
-$menu = array(new CMenuItem('Start','?p=about'),new CMenuItem('Filmer','?p=movies'));
+$menu = array(new CMenuItem('Start','?p=about'),
+              new CMenuItem('Filmer','?p=movies'),
+              new CMenuItem('Nyheter','?p=blogg')
+    );
 
 if($user->IsAuthenticated())
 {
-  $menu[] = new CMenuItem('Filmadministration','');
+  $menu[] = new CMenuItem('Administration','');
   $menu[] = array(
             new CMenuItem('Ny film','?p=newmovie'),
-            new CMenuItem('Uppdatera','?p=updatemovie'),
-            new CMenuItem('Radera film','?p=deletemovie')
+            new CMenuItem('Uppdatera film','?p=updatemovie'),
+            new CMenuItem('Radera film','?p=deletemovie'),
+            new CMenuItem('Nytt innehåll','?p=addcontent'),
+            new CMenuItem('Uppdatera innehåll','?p=uppdatecontent'),
+            new CMenuItem('Radera innehåll','?p=deletecontent')
       );
   //$menu[] = new CMenuItem('Koppla bilder',"?p=imageselect&amp;path=movie");
 }
@@ -254,18 +260,6 @@ else
       $file = "content/content_reset.php"; 
       $urbax['title'] = "Återställ tabeller";
       break;
-    case "contentadd": 
-      $file = "content/content_add.php"; 
-      $urbax['title'] = "Lägg till innehåll";
-      break;
-    case "contentedit": 
-      $file = "content/content_edit.php"; 
-      $urbax['title'] = "Redigera innehåll";
-      break;
-    case "contentdelete": 
-      $file = "content/content_delete.php"; 
-      $urbax['title'] = "Radera innehåll";
-      break;
     case "contentpage": 
       $file = "content/page.php"; 
       $urbax['title'] = "Visa page";
@@ -302,6 +296,10 @@ else
       $file = "rm/movies.php"; 
       $urbax['title'] = "Filmer";
       break;
+    case "blogg": 
+      $file = "rm/blogg.php"; 
+      $urbax['title'] = "Nyheter";
+      break;
     case "movie":
       $file = "rm/movie.php"; 
       $urbax['title'] = "Visar en film";
@@ -317,6 +315,18 @@ else
     case "newmovie":
       $file = "rm/newmovie.php"; 
       $urbax['title'] = "Skapa film";
+      break;
+     case "uppdatecontent": 
+      $file = "rm/uppdatecontent.php"; 
+      $urbax['title'] = "Redigera innehåll";
+      break;
+    case "addcontent": 
+      $file = "rm/addcontent.php"; 
+      $urbax['title'] = "Lägg till innehåll";
+      break;
+    case "deletecontent": 
+      $file = "rm/deletecontent.php"; 
+      $urbax['title'] = "Radera innehåll";
       break;
     case "imageselect":
       $file = "rm/selectimage.php"; 

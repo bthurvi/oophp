@@ -419,6 +419,40 @@ paginationhits
    height: 30px;
 }
 
+/*
+*CSS for blogg-page
+*/
+
+.blogpost{
+    border:1px solid #5B4830;
+    margin-bottom: 5px;
+    border-radius: 2px;
+    background: #12100E;
+    opacity: 0.9;
+}
+
+.blogpost h2{
+    margin:0;
+    background: #22201F;
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+
+.blogpost p{
+    padding:  0 10px 10px 10px;
+}
+
+.blogpost a{
+    text-decoration: none;
+    color: #FFA12C;
+    font-size: 16px;
+}
+
+.info{
+    margin-left: 10px;
+    font-size: 10px;
+}
+
 
 
 
