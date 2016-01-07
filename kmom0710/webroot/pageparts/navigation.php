@@ -100,7 +100,7 @@ function addBloggsAndPagesToNavbar()
 
 //menu to display
 
-$menu = array(new CMenuItem('Start','?p=about'),
+$menu = array(new CMenuItem('Start','?p=start'),
               new CMenuItem('Filmer','?p=movies'),
               new CMenuItem('Nyheter','?p=blogg')
     );
@@ -154,7 +154,7 @@ $urbax['nav'] =	 $htmlMenu->GetMenu();
 
 //content to show
 if(!isset($_GET['p']))
-  header("location:?p=about");
+  header("location:?p=start");
 else
 {
   switch($_GET['p'])
@@ -288,9 +288,10 @@ else
       $urbax['title'] = "Kalender";
       $urbax['stylesheets'][]="css/calendar.css";
       break;*/
-    case "about": 
-      $file = "aboutme.php";
-      $urbax['title'] = "Om mig";
+    case "start": 
+      $file = "rm/start.php";
+      $urbax['title'] = "Startsida";
+      $urbax['stylesheets'][]="css/rmstart.css";
       break;
     case "movies":
       $file = "rm/movies.php"; 
