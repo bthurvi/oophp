@@ -29,7 +29,7 @@ class CMovieSearch
 eod;
   }
   
-  private static function getGenres($databasehandle,$p)
+  public static function getGenres($databasehandle,$p)
   {
     // Get all genres that are active
     $sql = '

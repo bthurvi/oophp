@@ -16,14 +16,16 @@ html, body{
 #main{ height: 75%; overflow: hidden;}
 
 .categories{
-    background: blue;
-    width: 20%;
+    background: rgba(50,50,50,0.5);
+    width: 18%;
     height: 100%;
+    padding: 10px;
     position: absolute;
 }
 
+.categories a{ display: block; margin-bottom: 2px;}
+
 .start{
-    background: #A5DC86;
     width: 79.5%;
     height: 100%;
     margin-left: 21%;
@@ -35,10 +37,18 @@ html, body{
     background:  orange;
     height: 100px;
 }
+
+.newFilms{
+    padding:10px;
+}
+.heading{
+    font-size: 20px;
+    margin-bottom: 15px;
+}
 .cols3{
     display: inline-block;
     width: 33%;
-    background:  #777;
+    text-align: center;
     height: 100px;
 }
 
