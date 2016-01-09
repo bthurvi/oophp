@@ -33,9 +33,10 @@ html, body{
 
 .cols2{
     display: inline-block;
-    width: 49.8%;
-    background:  orange;
-    height: 100px;
+    width: 48%;
+    height: 200px;
+    padding:10px;
+    text-align: center;
 }
 
 .newFilms{
@@ -44,6 +45,7 @@ html, body{
 .heading{
     font-size: 20px;
     margin-bottom: 15px;
+    text-align: left;
 }
 .cols3{
     display: inline-block;
@@ -53,5 +55,6 @@ html, body{
 }
 
 .latestBlogs{
-    background: green;
+    padding:10px;
+   
 }
