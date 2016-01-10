@@ -13,6 +13,7 @@ class CUser
  private $db;
  private $acronym;
  private $name;
+ public $status=null;
  
  private static $instance = null;
  
@@ -77,7 +78,7 @@ class CUser
     }
     else
     {
-      return "Felaktigt användarnamn eller lösenord";
+      $this->status = "<span style='color:red;'>Felaktigt användarnamn eller lösenord.</span>";
     }
 
  }    

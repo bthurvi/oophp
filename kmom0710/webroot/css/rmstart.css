@@ -16,9 +16,11 @@ html, body{
 #main{ height: 75%; overflow: hidden;}
 
 .categories{
-    background: rgba(50,50,50,0.5);
+    border: 1px solid #aaa;
+    background: rgba(43, 47, 49, 0.52);
+    border-radius: 3px;
     width: 18%;
-    height: 100%;
+    height: 93.5%;
     padding: 10px;
     position: absolute;
 }
@@ -33,14 +35,24 @@ html, body{
 
 .cols2{
     display: inline-block;
-    width: 48%;
+    width: 47.5%;
     height: 200px;
     padding:10px;
+    padding-bottom: 30px;
     text-align: center;
+    margin-left: 10px;
+    border: 1px solid #5B4830;
+    border-radius: 2px;
+    background: rgba(43, 47, 49, 0.2);
 }
 
 .newFilms{
+    margin:10px;
     padding:10px;
+    border: 1px solid #5B4830;
+    border-radius: 2px;
+    text-align: center;
+    background: rgba(43, 47, 49, 0.2);
 }
 .heading{
     font-size: 20px;
@@ -49,12 +61,26 @@ html, body{
 }
 .cols3{
     display: inline-block;
-    width: 33%;
+    width: 30%;
+    margin-left: 10px;
     text-align: center;
-    height: 100px;
+    height: 180px;
+    padding-top: 10px;
 }
+
+
 
 .latestBlogs{
     padding:10px;
-   
+    border: 1px solid #5B4830;
+    border-radius: 2px;
+    margin:10px;
 }
+
+.blogpost p{ margin: 10px 3px;}
+
+
+.cols2 a{text-decoration:none; color:#888;}
+.cols2 a:hover{color: #ccc;}
+.cols3 a{text-decoration:none; color:#888;}
+.cols3 a:hover{color: #ccc;}

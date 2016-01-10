@@ -32,6 +32,22 @@ $urbax['behindpage']=<<<EDO
          &nbsp;Inloggad som <strong>$name</strong></div>    
 EDO;
 }
+else if($user->status)
+{
+  $urbax['behindpage']=<<<EDO
+        <div id="login">
+        <form method='post'>
+         Användarnamn: <input type="text" name='acronym'> 
+         Lösenord:   <input type="password" name='password'>
+         &nbsp;&nbsp; <input type='submit' name='login' value='Logga in'/>
+         <span style='font-size:12px;'> &nbsp;&nbsp; (Befintliga user/pass: <b>admin/admin</b>
+           &amp; <b>doe/doe</b>)</span> {$user->status}
+       </form>
+       </div>
+        <div id="logininfo" onclick='showLogin()'><i class="fa fa-angle-down"></i> 
+         &nbsp;Logga in</div>
+EDO;
+}
 else
 {
   $urbax['behindpage']=<<<EDO
@@ -41,7 +57,7 @@ else
          Lösenord:   <input type="password" name='password'>
          &nbsp;&nbsp; <input type='submit' name='login' value='Logga in'/>
          <span style='font-size:12px;'> &nbsp;&nbsp; (Befintliga user/pass: <b>admin/admin</b>
-           &amp; <b>doe/doe</b>)</span>
+           &amp; <b>doe/doe</b>)</span> 
        </form>
        </div>
         <div id="logininfo" onclick='showLogin()'><i class="fa fa-angle-down"></i> 

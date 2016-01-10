@@ -25,7 +25,7 @@ $user->Init($urbax['database']);
 // If login form is posted - try to login
 if($acro && $pass)
 {
-  echo $user->Login($acro, $pass);
+  $user->Login($acro, $pass);
 }
 //If logout form is posted - try to logout
 if($logout=='Logga ut')

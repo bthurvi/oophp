@@ -73,28 +73,33 @@ class CStart
                     <div>
                         <div class="cols2" style='float:left;'>
                           <div class="heading">Mest populära film:</div>
+                          <a href="?p=movie&amp;id={$this->popular[0]->id}">
                           <img src='pages/img.php?src={$movieImg[3]}&amp;width=400&amp;height=150&amp;crop-to-fit' alt='en bild'/><br/>
-                          {$this->popular[0]->titel}
+                          {$this->popular[0]->titel}</a>
                         </div>
                         <div class="cols2">
                           <div class="heading">Senast hyrda film:</div>
+                          <a href="?p=movie&amp;id={$this->lastRent[0]->id}">
                           <img src='pages/img.php?src={$movieImg[4]}&amp;width=400&amp;height=150&amp;crop-to-fit' alt='en bild'/><br/>
-                          {$this->lastRent[0]->titel}
+                          {$this->lastRent[0]->titel}</a>
                         </div>
                     </div>
                     <div class="newFilms">
                         <div class="heading">Nyaste filmerna:</div>
                        <div class="cols3">
+                          <a href="?p=movie&amp;id={$this->latest3movies[0]->id}">
                           <img src='pages/img.php?src={$movieImg[0]}&amp;width=400&amp;height=150&amp;crop-to-fit' alt='en bild'/><br/>
-                          {$this->latest3movies[0]->titel}
+                          {$this->latest3movies[0]->titel}</a>
                        </div>
                        <div class="cols3">
+                          <a href="?p=movie&amp;id={$this->latest3movies[1]->id}">
                           <img src='pages/img.php?src={$movieImg[1]}&amp;width=400&amp;height=150&amp;crop-to-fit' alt='en bild'/><br/>
-                          {$this->latest3movies[1]->titel}
+                          {$this->latest3movies[1]->titel}</a>
                        </div>
                        <div class="cols3">
+                          <a href="?p=movie&amp;id={$this->latest3movies[2]->id}">
                           <img src='pages/img.php?src={$movieImg[2]}&amp;width=400&amp;height=150&amp;crop-to-fit' alt='en bild'/><br/>
-                          {$this->latest3movies[2]->titel}
+                          {$this->latest3movies[2]->titel}</a>
                        </div>
                     </div>
                     <div class="latestBlogs">
