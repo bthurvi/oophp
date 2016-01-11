@@ -102,7 +102,10 @@ function addBloggsAndPagesToNavbar()
 
 $menu = array(new CMenuItem('Start','?p=start'),
               new CMenuItem('Filmer','?p=movies'),
-              new CMenuItem('Nyheter','?p=blogg')
+              new CMenuItem('Nyheter','?p=blogg'),
+              new CMenuItem('Kalender','?p=calendar'),
+              new CMenuItem('Tävling','?p=game'),
+              new CMenuItem('Om RM','?p=about')
     );
 
 if($user->IsAuthenticated())
@@ -282,16 +285,25 @@ else
       $file = "gallery.php";
       $urbax['title'] = "Bildgalleri";
       $urbax['stylesheets'][]="css/gallery.css";
+      break;*/
+    case "game": 
+      $file = "rm/dicegame.php"; 
+      $urbax['title'] = "Spel";
+      $urbax['stylesheets'][]="css/dicegame.css";
       break;
     case "calendar": 
-      $file = "manadens_babe.php";
+      $file = "rm/kalender.php";
       $urbax['title'] = "Kalender";
       $urbax['stylesheets'][]="css/calendar.css";
-      break;*/
+      break;
     case "start": 
       $file = "rm/start.php";
       $urbax['title'] = "Startsida";
       $urbax['stylesheets'][]="css/rmstart.css";
+      break;
+    case "about": 
+      $file = "rm/about.php";
+      $urbax['title'] = "Om RM";
       break;
     case "movies":
       $file = "rm/movies.php"; 

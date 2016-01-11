@@ -46,7 +46,7 @@ class CCalendar
              . "ovan. <a target='_blank' href='http://victor.se/bjorn/holidays.php'>Källa.</a> </p></div>";
    }
    
-   public function show()
+   public function show($dbSettings)
    {
      //nuvarande månad
      $d="20".$this->year."-".$this->monthNr."-01";
@@ -60,15 +60,24 @@ class CCalendar
      $prevdate=date_sub($date, date_interval_create_from_date_string('2 months'));
      $prev="y=".date_format($prevdate,"y")."&amp;m=".date_format($prevdate,"n");
      
-     
+     $monthmovie = $this->getMonthMovie($this->getMonthNr(),$dbSettings);
+     $monthmovie = $monthmovie[0];
      
      $html=<<<EOT
      <header>
      <a class="left navsquare" href="?p=calendar&amp;{$prev}">&#10094;</a>
      <a class="right navsquare" href="?p=calendar&amp;{$next}">&#10095;</a>
-     <h2 class="strokeme">{$this->month} 20{$this->year}</h2>
-     <img class="header" src="img/calendar/{$this->getMonthImage()}" 
-     alt="image of the month"></header>
+     <h2 class="strokeme">{$this->month} 20{$this->year}
+     <br/>
+     <span>{$monthmovie->titel} </span>
+       </h2>
+  
+     <!--<img class="header" src="img/calendar/{$this->getMonthImage()}" 
+     alt="image of the month">-->
+     
+     <iframe class="header" src="https://www.youtube.com/embed/{$monthmovie->film}?rel=0&amp;showinfo=0&amp;autoplay=1" frameborder="0" allowfullscreen></iframe>
+       
+    </header>
      
 
     <section>	
@@ -147,6 +156,23 @@ EOT;
    public function getMonth(){return $this->month;}
    public function getMonthNr(){return $this->monthNr;}
    public function getMonthImage(){return strtolower(substr($this->month,0,3)) . ".jpg";}
+   
+  private function getMonthMovie($id,$dbSettings){
+    
+     $sql = "SELECT M.title as titel, M.youtubetrailer as film
+      FROM oophp0710_movie AS M
+        WHERE M.monthmovie=?
+        LIMIT 1";
+     
+     $param = array($id);
+     
+     $dbh = new CDatabase($dbSettings);
+     
+     $res = $dbh->ExecuteSelectQueryAndFetchAll($sql,$param);
+     
+    
+    return $res;
+  }
    
 
   

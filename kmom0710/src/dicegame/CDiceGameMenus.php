@@ -15,20 +15,20 @@ public static function chosePlayersMenu()
   return <<<EOT
 <div>
   <form method="post">
-    <h3>Välj antal spelare</h3>
+    <h3>Tävla mot fyra datorspelare (AI) om att först nå 100 poäng. Vinn en videofilm!</h3>
     <span class="lablewidth100">Människor:</span>
     <label><input type="radio" name="humans" value="1" checked>1 </label> 
-    <label><input type="radio" name="humans" value="2">2 </label> 
+    <!--<label><input type="radio" name="humans" value="2">2 </label> 
     <label><input type="radio" name="humans" value="3">3 </label> 
     <label><input type="radio" name="humans" value="4">4 </label> 
-    <label><input type="radio" name="humans" value="5">5 </label> 
+    <label><input type="radio" name="humans" value="5">5 </label>--> 
     <br/>
     <span class="lablewidth100">Datorspelare (AI):</span>
-    <label><input type="radio" name="ai" value="0" checked>0 </label> 
-    <label><input type="radio" name="ai" value="1">1 </label> 
-    <label><input type="radio" name="ai" value="2">2 </label> 
-    <label><input type="radio" name="ai" value="3">3 </label> 
-    <label><input type="radio" name="ai" value="4">4 </label>
+    <!--<label><input type="radio" name="ai" value="0" >0 </label>
+    <label><input type="radio" name="ai" value="1" >1 </label> 
+    <!--<label><input type="radio" name="ai" value="2">2 </label> 
+    <label><input type="radio" name="ai" value="3">3 </label> -->
+    <label><input type="radio" name="ai" value="4" checked>4 </label>
     <p>
     <input type="hidden" name="cont" value="fortsätta spela">
     <input type="submit" value="Nästa &#10095;" />
@@ -45,14 +45,15 @@ public static function enterNamesForHumansMenu($nrOfHumans)
    $html = <<<EOT
 <div>
   <form method="post">
-    <h3>Ange namn</h3>
-    <label>
+    <h3>Ange e-postadress dit eventuell vinst skall skickas</h3>
+      <label>
 EOT;
    
    for($i=0; $i<$nrOfHumans; $i++)
    {
-    $html .= '<span class="lablewidth100">Spelare '.($i+1).':</span>';
-    $html .= '<input type="text" name="playernames[]" autofocus required>';
+    $html .= '<span class="lablewidth100">E-post :</span>';
+    $html .= '<input type="email" name="playernames[]" autofocus required>';
+    //$html .= '<input type="text" name="playernames[]" autofocus required>';
     $html .= "<br/>";
    }
    
@@ -70,7 +71,7 @@ EOS;
   
 }
 
-public static function gameBoard($game, $winner=false)
+public static function gameBoard($game, $winner=false, $dbsettings)
 {
   $html = <<<EOA
 <h1>Tärningsspelet 100</h1>
@@ -78,8 +79,12 @@ public static function gameBoard($game, $winner=false)
     <h2>Poängställning</h2>
 EOA;
   
+  $theWinner = null;
   foreach ($game->getPlayers() as $key => $player)
   {
+    if($player->getScore()>=100)
+      $theWinner = $player;
+    
     $html .= "<div>";
     $html .= "<span id='indicator' class='";
     
@@ -114,6 +119,18 @@ $html .= <<<EOA
 EOA;
 if($winner)
 {
+  if($theWinner->getType()=='spelare')
+  {
+    //save in database
+    $dbh = new CDatabase($dbsettings);
+
+    $sql = "INSERT INTO oophp0710_vinners(mail,points) VALUES(?,?)";
+    $params = array($theWinner->getName(),$theWinner->getScore());
+
+    $dbh->ExecuteQuery($sql, $params);
+    
+    $html .= "Ditt vinst är nu sparad i databasen. Innom kort kommer du att kontaktas via e-post.";
+  }
 $html .= <<<EOA
     <div>Vill du <input type="submit" value="starta ett nytt spel" name="restart">?</div>
 EOA;

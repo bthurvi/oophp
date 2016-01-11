@@ -27,11 +27,14 @@ header h2{ position: absolute; width: 80%;
            font-weight: 300;
            margin-top:6vw;
            letter-spacing: -6px;
+           line-height: 70px;
 }
 
+header h2 span{ font-size: 40px; letter-spacing: 0; color: #FFA12C;}
 
-.navsquare{color:black; padding: 5px; 
-          border: 1px solid black; border-radius:3px; 
+
+.navsquare{color:#555; padding: 5px; 
+          border: 1px solid #555; border-radius:3px; 
           text-decoration: none; 
           margin-top: 11vw;}
 .navsquare:hover{ background: #eee;}
@@ -82,6 +85,7 @@ section table tr{
     font-size: 0.7em;
     width: 25px;
     padding: 0 1em;
+    color: #333;
 }
 
 .notThisMonth{
@@ -98,6 +102,7 @@ section table tr{
 
 .loline{
     line-height: 3em !important;
+    color: #333;
 }
 
 .sunday{

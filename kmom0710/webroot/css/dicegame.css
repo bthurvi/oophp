@@ -17,6 +17,7 @@ section label span{ font-weight: bold;}
     padding: 5px;
     overflow-y: scroll;
     height: 170px;
+    color:black;
 }
 
 #indicator{

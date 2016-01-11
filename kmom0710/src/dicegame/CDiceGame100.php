@@ -28,7 +28,7 @@ class CDiceGame100
    $this->dice=new C6Dice();
   }
   
-  public function runGame($post)
+  public function runGame($post,$dbsettings)
   {
     $this->processInput($post);
     
@@ -41,10 +41,10 @@ class CDiceGame100
         echo CDiceGameMenus::enterNamesForHumansMenu($this->humans);
         break;  
       case CDiceGame100::$gameRunning:
-        echo CDiceGameMenus::gameBoard($this);
+        echo CDiceGameMenus::gameBoard($this,false,$dbsettings);
         break;  
       case CDiceGame100::$haveWinner:
-        echo CDiceGameMenus::gameBoard($this,true);
+        echo CDiceGameMenus::gameBoard($this,true,$dbsettings);
         break;  
     }
   }
@@ -65,6 +65,7 @@ class CDiceGame100
     }
     return false;
   }
+  
   
   
   private function processInput($post)

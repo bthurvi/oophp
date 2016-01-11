@@ -14,7 +14,7 @@ class C3Player extends CPlayer
   {
     $this->nrOfRolls++;
     
-    echo "<p>" . $this->name . " har rolls: " . $this->nrOfRolls;
+    //echo "<p>" . $this->name . " har rolls: " . $this->nrOfRolls;
     
     //this AI allways tries to roll three times and then stops
     if($this->nrOfRolls<=3)
