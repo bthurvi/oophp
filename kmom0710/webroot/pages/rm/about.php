@@ -1,3 +1,8 @@
+<div>
+    <a class="bread" href="?p=start">Start >> </a>
+    <a class="bread" href="?p=about"> om RM </a>
+</div>
+
 <article>
     <img src="img/store.jpg" alt="Bild från videobutik" class="left" style="border-radius:2px; border:1px solid #ccc; opacity:0.4;">
     <h2> Om Rental Movies </h2>

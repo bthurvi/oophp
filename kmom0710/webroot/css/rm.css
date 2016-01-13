@@ -454,6 +454,14 @@ paginationhits
 }
 
 
+.bread{
+    text-decoration: none;
+    color: #ccc;
+}
+
+.bread:hover{ color: #eee;}
+
+
 
 
 

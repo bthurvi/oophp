@@ -3,9 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/oophp/kmom0710/webroot/pageparts/navigation.php</file>
-            <file>file:/C:/wamp/www/oophp/kmom0710/webroot/pages/rm/start.php</file>
-            <file>file:/C:/wamp/www/oophp/kmom0710/webroot/css/rmstart.css</file>
+            <file>file:/C:/wamp/www/oophp/kmom0710/webroot/css/dicegame.css</file>
+            <file>file:/C:/wamp/www/oophp/kmom0710/src/base/CDatabase.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom0710/src/dicegame/C15PointPlayer.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom0710/src/dicegame/C3Player.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom0710/src/dicegame/CDiceGameMenus.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom0710/webroot/pages/rm/dicegame.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom0710/src/dicegame/CDiceGame100.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom0710/src/base/CStart.php</file>
         </group>
     </open-files>
 </project-private>

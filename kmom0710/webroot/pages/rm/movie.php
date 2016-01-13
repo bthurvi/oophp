@@ -17,6 +17,11 @@ else
 
 
 ?>
+<div>
+    <a class="bread" href="?p=start">Start >> </a>
+    <a class="bread" href="?p=movies">filmsökning >> </a>
+    <a class="bread" href="?p=movies&amp;id=<?=$_GET['id'];?>"><?php echo lcfirst($res->title);?> </a>
+</div>
 <div id="movie">
     <h2 id="trailer">Trailer:</h2>
 <div class="trailer">

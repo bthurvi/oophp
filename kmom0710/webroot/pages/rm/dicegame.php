@@ -1,3 +1,7 @@
+<div>
+    <a class="bread" href="?p=start">Start >> </a>
+    <a class="bread" href="?p=game"> tävling </a>
+</div>
 <?php
 
 //restart game

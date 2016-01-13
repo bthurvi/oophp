@@ -1,3 +1,7 @@
+<div>
+    <a class="bread" href="?p=start">Start >> </a>
+    <a class="bread" href="?p=movies">filmsökning </a>
+</div>
 <h1 style='margin: 0; margin-bottom:10px;'>Filmsökning</h1>
 
 <?php

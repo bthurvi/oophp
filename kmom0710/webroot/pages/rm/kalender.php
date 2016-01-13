@@ -1,3 +1,8 @@
+<div>
+    <a class="bread" href="?p=start">Start >> </a>
+    <a class="bread" href="?p=calendar">kalender </a>
+</div>
+
 <?php
 setlocale(LC_TIME,"sv","sv_SE");
 
