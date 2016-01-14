@@ -105,7 +105,8 @@ $menu = array(new CMenuItem('Start','?p=start'),
               new CMenuItem('Nyheter','?p=blogg'),
               new CMenuItem('Kalender','?p=calendar'),
               new CMenuItem('Tävling','?p=game'),
-              new CMenuItem('Om RM','?p=about')
+              new CMenuItem('Om RM','?p=about'),
+              new CMenuItem('Profil','?p=profile')
     );
 
 if($user->IsAuthenticated())
@@ -304,6 +305,10 @@ else
     case "about": 
       $file = "rm/about.php";
       $urbax['title'] = "Om RM";
+      break;
+    case "profile": 
+      $file = "rm/profile.php";
+      $urbax['title'] = "Profil";
       break;
     case "movies":
       $file = "rm/movies.php"; 

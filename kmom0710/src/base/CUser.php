@@ -13,6 +13,12 @@ class CUser
  private $db;
  private $acronym;
  private $name;
+ private $role;
+ 
+ private $IsAuthenticated = null;
+ private $IsAdmin = null;
+ 
+ 
  public $status=null;
  
  private static $instance = null;
@@ -21,6 +27,41 @@ class CUser
  public static function Instance()
  { 
    return is_null(self::$instance) ? self::$instance = new self : self::$instance;
+ }
+ 
+ public function isUsernameAvaliable($name)
+ {
+   $sql = "SELECT acronym FROM oophp0710_user WHERE acronym=?";
+   $params = array($name);
+   
+    $res = $this->db->ExecuteSelectQueryAndFetchAll($sql,$params);
+    
+    if(count($res)<1)
+      return true;
+    else
+      return false;
+ }
+ 
+ public function addUser($username,$password)
+ {
+   $sql = "INSERT INTO oophp0710_user (role,acronym, name, salt) VALUES ('usr',?,?, unix_timestamp())";
+   $params = array($username,$username);
+   $this->db->ExecuteQuery($sql,$params);
+   
+   $sql = "UPDATE oophp0710_user SET password = md5(concat(?, salt)) WHERE acronym = ?";
+   $params = array($password,$username);
+   $this->db->ExecuteQuery($sql,$params);
+   
+   
+   $sql = "SELECT id FROM oophp0710_user WHERE acronym = ?";
+   $params = array($username);
+   $this->db->ExecuteQuery($sql,$params);
+   $res = $this->db->ExecuteSelectQueryAndFetchAll($sql,$params);
+    
+    if(count($res)==1)
+      return true;
+    else
+      return false;
  }
 
 
@@ -57,6 +98,10 @@ class CUser
     $this->db = new CDatabase($dbConSetArr);
     
  }
+ 
+ 
+
+
   
  /*
   * logs in - if user and passs is correct
@@ -64,7 +109,7 @@ class CUser
  public function Login($user, $password)
  {  
      //build query and array
-    $sql = "SELECT acronym, name FROM oophp0710_user WHERE acronym = ? AND password = md5(concat(?, salt))";
+    $sql = "SELECT role,acronym,name,intrests,music,books,favoritemovie FROM oophp0710_user WHERE acronym = ? AND password = md5(concat(?, salt))";
     $params = array($user, $password);
 
     //run query
@@ -75,6 +120,7 @@ class CUser
       $_SESSION['user'] = $res[0];
        $this->acronym = $res[0]->acronym;
        $this->name = $res[0]->name;
+       $this->role = $res[0]->role;
     }
     else
     {
@@ -107,6 +153,23 @@ class CUser
     
     return $this->IsAuthenticated;
  } 
+ 
+ // returns true or false
+ public function IsAdmin()
+ {
+   $role = isset($_SESSION['user']) ? $_SESSION['user']->role : null;
+
+    if($role=="adm") 
+    {
+      $this->IsAdmin = true;
+    }
+    else 
+    {
+      $this->IsAdmin = false;
+    }
+    
+    return $this->IsAdmin;
+ }
 
  /*
   * retrun user acronym

@@ -461,7 +461,29 @@ paginationhits
 
 .bread:hover{ color: #eee;}
 
+.infodiv{
+    background: black;
+    border: 1px solid #555;
+    border-radius: 3px;
+    padding: 5px;
+    margin-top: 2px;
+    font-size: 18px;
+    font-weight: 300;
+    color: #CED8D4;
+   
+}
+.infolabel{
+    margin-bottom: 0px;
+     padding-left: 2px;
+}
+#profileinfo{
+    min-height: 700px;
+}
 
+.editprofilediv{
+    padding:20px;
+    min-height: 800px;
+}
 
 
 

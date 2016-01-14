@@ -3,14 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/oophp/kmom0710/webroot/css/dicegame.css</file>
-            <file>file:/C:/wamp/www/oophp/kmom0710/src/base/CDatabase.php</file>
-            <file>file:/C:/wamp/www/oophp/kmom0710/src/dicegame/C15PointPlayer.php</file>
-            <file>file:/C:/wamp/www/oophp/kmom0710/src/dicegame/C3Player.php</file>
-            <file>file:/C:/wamp/www/oophp/kmom0710/src/dicegame/CDiceGameMenus.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom0710/webroot/pages/rm/blogg.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom0710/webroot/pageparts/behindpage.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom0710/webroot/pages/rm/movies.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom0710/src/base/CMovieSearch.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom0710/webroot/pages/rm/start.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom0710/webroot/pages/rm/movie.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom0710/webroot/pages/rm/kalender.php</file>
             <file>file:/C:/wamp/www/oophp/kmom0710/webroot/pages/rm/dicegame.php</file>
-            <file>file:/C:/wamp/www/oophp/kmom0710/src/dicegame/CDiceGame100.php</file>
-            <file>file:/C:/wamp/www/oophp/kmom0710/src/base/CStart.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom0710/src/base/CBlogg.php</file>
+            <file>file:/C:/wamp/www/oophp/kmom0710/webroot/pages/rm/about.php</file>
         </group>
     </open-files>
 </project-private>
