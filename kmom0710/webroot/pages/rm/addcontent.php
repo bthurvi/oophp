@@ -37,22 +37,33 @@ else
   else
   {
     $today =  date("Y-m-d");
+    
+    //var_dump($user->isAdmin());
+    $disabled='';
+    $info='';
+    if(!$user->isAdmin())
+    {
+      $disabled = "disabled";
+      $info = "<p> Du kan inte editera eftersom du inte är administratör.</p>";
+    }
+    
 echo <<< MYHTML
  <div style=" border: 1px solid #777; border-radius: 3px; padding: 10px 20px;">
   <h1 class="center">Lägg till innehåll</h1>
-  <form method=post>
+  <form method=post $disabled>
        <p><label>Typ av innehåll:
-          <select equired="required" name='type' style=' width:228px; padding:2px;'>
+          <select required="required" name='type' style=' width:228px; padding:2px;' $disabled>
               <option value="post">post</option>
               <option value="page">page</option>
           </select>
        </label></p>
-       <p><label>Kategori: <input type='text'required="required" value='standard-information' style='width:266px; padding:2px;' name='category'/></label></p>
-       <p><label>Titel: <input type='text' required="required" autofocus='autofocus' style='width:296px; padding:2px;' name='title'/></label></p>
-       <p><label>Publiceringsdatum: <input type='date' required="required" value='{$today}' style='width:194px;' name='pdate'/></label></p>
-    <p><input type='submit' name='create' value='Skapa'/></p>
+       <p><label>Kategori: <input type='text'required="required" value='standard-information' style='width:266px; padding:2px;' name='category' $disabled/></label></p>
+       <p><label>Titel: <input type='text' required="required" autofocus='autofocus' style='width:296px; padding:2px;' name='title' $disabled/></label></p>
+       <p><label>Publiceringsdatum: <input type='date' required="required" value='{$today}' style='width:194px;' name='pdate' $disabled/></label></p>
+    <p><input type='submit' name='create' value='Skapa' $disabled/></p>
   </form>
 </div>
+$info
 MYHTML;
   }
 }

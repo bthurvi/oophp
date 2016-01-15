@@ -28,7 +28,7 @@ else //user is authorized
   if(!$cont->validContentId($id))
   { 
     $dbc = new CDatabase($urbax['database']);
-    $resultset = $dbc->ExecuteSelectQueryAndFetchAll('SELECT id, title FROM oophp0710_content WHERE deleted IS NULL');
+    $resultset = $dbc->ExecuteSelectQueryAndFetchAll("SELECT id, title FROM oophp0710_content WHERE deleted IS NULL and type='post'");
 
     echo "<h2>Välj post att redigera:</h2>";
 
@@ -84,28 +84,39 @@ else //user is authorized
        $options = '<option value="post" selected="selected">post</option><option value="page">page</option>';
      if($post[0]->type=="page")
        $options = '<option value="post">post</option><option value="page" selected="selected">page</option>';
+     
+     
+     //var_dump($user->isAdmin());
+    $disabled='';
+    $info='';
+    if(!$user->isAdmin())
+    {
+      $disabled = "disabled";
+      $info = "<p> Du kan inte editera eftersom du inte är administratör.</p>";
+    }
 
 
   echo <<< MYHTML
    <div style=" border: 1px solid #777; border-radius: 3px; padding: 10px 20px;">
     <h1 class="center">Redigera innehåll</h1>
-    <form method=post>
+    <form method=post $disabled>
          <p><label>Typ av innehåll:
-            <select required="required" name='type' style='color: #555;'>
+            <select required="required" name='type' style='color: #555;' $disabled>
                 {$options}
             </select>
          </label></p>
-         <p><label>Titel:<br/><input type='text' required="required" name='title' value='{$title}' style='min-width:600px;'/></label></p>
+         <p><label>Titel:<br/><input type='text' required="required" name='title' value='{$title}' style='min-width:600px;' $disabled/></label></p>
         <input type='hidden' name='id' value='{$id}'/>
-        <p><label>Slug:<br/><input type='text' name='slug' style='min-width:600px;' value='{$slug}'/></label></p>
-        <p><label>Url:<br/><input type='text' name='url' style='min-width:600px;' value='{$url}'/></label></p>
+        <p><label>Slug:<br/><input type='text' name='slug' style='min-width:600px;' value='{$slug}' $disabled/></label></p>
+        <p><label>Url:<br/><input type='text' name='url' style='min-width:600px;' value='{$url}' $disabled/></label></p>
         <p><label>Text:<br/><textarea name='data' style='min-width:598px;'>{$data}</textarea></label></p>
-        <p><label>Filter:<br/><input type='text' name='filter' style='min-width:600px;' value='{$filter}'/></label></p>
-        <p><label>Publiceringsdatum:<br/><input type='text' style='min-width:600px;' name='published' value='{$published}'/></label></p>
-      <p><input type='submit' name='uppdate' value='Spara'/> <input type='reset' class='aButton' value='Återställ'/></p>
+        <p><label>Filter:<br/><input type='text' name='filter' style='min-width:600px;' value='{$filter}'$disabled/></label></p>
+        <p><label>Publiceringsdatum:<br/><input type='text' style='min-width:600px;' name='published' value='{$published}' $disabled/></label></p>
+      <p><input type='submit' name='uppdate' value='Spara' $disabled/> <input type='reset' class='aButton' value='Återställ'/></p>
     </form>
-      <p><a href='?p=contentedit' class='aButton'>Avbryt</a></p>
+      <p><a href='?p=uppdatecontent' class='aButton'>Avbryt</a></p>
   </div>
+  $info
 MYHTML;
     }
    }

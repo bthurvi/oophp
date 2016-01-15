@@ -17,9 +17,9 @@ class CHtmlUi {
    * Function that returns a select-box
    * @param: $item - string-array that contains the elements wanted
    */
-  static function generateSelectList($items, $name=null, $selected=null)
+  static function generateSelectList($items, $name=null, $selected=null, $disabled)
   {
-    $h = " <select name='$name' id='$name'>";
+    $h = " <select name='$name' id='$name' $disabled>";
     foreach ($items as $itm){
       if($selected==$itm){
       $h .= "<option value='$itm' selected='selected'>$itm</option>"; }

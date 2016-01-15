@@ -31,6 +31,15 @@ else //user is authorized
      //echo "<script> setTimeout(function (){ window.location.href = '?p=contentdelete'; }, 2000);</script>";
   }
   
+  //var_dump($user->isAdmin());
+    $disabled='';
+    $info='';
+    if(!$user->isAdmin())
+    {
+      $disabled = "disabled";
+      $info = "<p> Du kan inte radera eftersom du inte är administratör.</p>";
+    }
+  
   //show table
   $dbc = new CDatabase($urbax['database']);
   $resultset = $dbc->ExecuteSelectQueryAndFetchAll('SELECT id, title FROM oophp0710_content WHERE deleted IS NULL');
@@ -41,10 +50,17 @@ else //user is authorized
   echo "<tr><th style='width:100px;'></th><th>Id</th><th>Titel</th></tr>";
   foreach ($resultset as $res) 
   {
-    echo "<tr><td><a href='?p=deletecontent&amp;id={$res->id}' class='aButton' style='width:50px; margin:0 auto; display:block;'>Radera</a></td><td>{$res->id}</td><td>{$res->title}</td></tr>";
+    echo "<tr><td>";
+    
+    if($user->isAdmin())
+     echo "<a href='?p=deletecontent&amp;id={$res->id}' class='aButton' style='width:70px; margin:0 auto; display:block;'>Radera</a>";
+    else
+     echo "<a href='?p=deletecontent' class='aButton' style='width:70px; margin:0 auto; display:block;'>Radera ej</a>";
+            
+   echo "</td><td>{$res->id}</td><td>{$res->title}</td></tr>";
   }
   echo "</table>";
-  
+  echo $info;
   
    
    

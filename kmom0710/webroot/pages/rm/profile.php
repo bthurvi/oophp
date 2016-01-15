@@ -3,6 +3,9 @@ if(!isset($_SESSION['user']))
   echo("Du måste vara inloggad för att kunna se profilen. <br/>Använd menyn upppe till höger.");
 else
 {
+  
+  $user->updateSessionUser($_SESSION['user']->id);
+  
   $user = $_SESSION['user'];
   //var_dump($user);
   

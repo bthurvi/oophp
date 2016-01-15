@@ -93,7 +93,17 @@ EOD;
     else
     {
       //output edit form
-    $categories = $db->ExecuteSelectQueryAndFetchAll("SELECT * FROM oophp0710_genre");  
+    $categories = $db->ExecuteSelectQueryAndFetchAll("SELECT * FROM oophp0710_genre");
+    
+    $user = CUser::Instance();
+    //var_dump($user->isAdmin());
+    $disabled='';
+    $info='';
+    if(!$user->isAdmin())
+    {
+      $disabled = "disabled";
+      $info = "<p> Du kan inte editera eftersom du inte är administratör.</p>";
+    }
     
     echo <<<EEE
     <form method=post id="movieinfoform">
@@ -101,42 +111,42 @@ EOD;
     <div id='movieinfoformrow1'>
     <input type='hidden' name='id' value='$movie->id'/>
      <div>
-      <p><label>Titel:<br/><input type='text' name='title' value='$movie->title'/></label></p>
+      <p><label>Titel:<br/><input type='text' name='title' value='$movie->title' $disabled/></label></p>
     </div>
     <div>
-      <p><label>Hyrespris:<br/><input type='number' name='rentalprice' value='$movie->rentalprice'/></label></p>
+      <p><label>Hyrespris:<br/><input type='number' name='rentalprice' value='$movie->rentalprice' $disabled/></label></p>
     </div>
     <div>
-      <p><label>Ressigör:<br/><input type='text' name='director' value='$movie->director'/></label></p>
+      <p><label>Ressigör:<br/><input type='text' name='director' value='$movie->director' $disabled/></label></p>
     </div>
     <div>
-    <p><label>Längd:<br/><input type='number' name='length' value='$movie->length'/></label></p>
+    <p><label>Längd:<br/><input type='number' name='length' value='$movie->length' $disabled/></label></p>
     </div>
     </div>
- <p><label>Handling:<br/><textarea name='plot'/>$movie->plot</textarea></label></p>
+ <p><label>Handling:<br/><textarea name='plot' $disabled/>$movie->plot</textarea></label></p>
     <div id="movieinfoformrow3">
       <div>
-      <p><label>År:<br/><input type='number' name='year' value='$movie->year'/></label></p>
+      <p><label>År:<br/><input type='number' name='year' value='$movie->year' $disabled/></label></p>
       </div>
 EEE;
     echo "<div><p><label>Textning:<br/>"
-    .CHtmlUi::generateSelectList(array('SV','EN','FR','IT','ES'),'subtext',$movie->subtext);
+    .CHtmlUi::generateSelectList(array('SV','EN','FR','IT','ES'),'subtext',$movie->subtext, $disabled);
      
     echo "</div><div><p><label>Tal:<br/>"
-    .CHtmlUi::generateSelectList(array('SV','EN','FR','IT','ES'),'speech',$movie->speech);
+    .CHtmlUi::generateSelectList(array('SV','EN','FR','IT','ES'),'speech',$movie->speech, $disabled);
      
     echo "</div><div><p><label>Format:<br/>"
-    .CHtmlUi::generateSelectList(array('DVD','VHS','BLR'),'format',$movie->format);
+    .CHtmlUi::generateSelectList(array('DVD','VHS','BLR'),'format',$movie->format, $disabled);
      
     echo "</div><div><p><label>Kvalité:<br/>"
-    .CHtmlUi::generateSelectList(array(10,20,30,40,50,50,70,80,90,100),'quality',intval($movie->quality));
+    .CHtmlUi::generateSelectList(array(10,20,30,40,50,50,70,80,90,100),'quality',intval($movie->quality),$disabled);
      
      echo <<< EEE
     </div><div>
-    <p><label>IMDB-länk:<br/><input type='text' name='imdblink' value='$movie->imdblink'/></label></p>
+    <p><label>IMDB-länk:<br/><input type='text' name='imdblink' value='$movie->imdblink' $disabled/></label></p>
     </div>
     <div>
-    <p><label>Youtube-trailer:<br/><input type='text' name='youtubetrailer' value='$movie->youtubetrailer'/></label></p>
+    <p><label>Youtube-trailer:<br/><input type='text' name='youtubetrailer' value='$movie->youtubetrailer' $disabled/></label></p>
     </div>
     </div>
     <div>
@@ -178,14 +188,16 @@ EEE;
     </div>
  
     <p class='uppdateNavigationButtons'>
-      <input type='submit' name='save' value='Spara'/> 
-      <input type='reset' class='aButton' value='Återställ'/>
+      <input type='submit' name='save' value='Spara' $disabled/> 
+      <input type='reset' class='aButton' value='Återställ' $disabled/>
       <a class='aButton' href='?p=updatemovie'>Avbryt</a>
-      <input type='submit' class='aButton' style='float:right;' name='nextpage' id='gotoConnectImage2Movie' value='Koppla bilder till film'> 
-    </p>
-   
-  </form>
 EEE;
+     if(!$disabled=='disabled')
+       echo "<input type='submit' class='aButton' style='float:right;' name='nextpage' id='gotoConnectImage2Movie' value='Koppla bilder till film'>";
+     
+     echo"</p>
+  </form>
+  $info";
     }
   }
   else // NOT in EDIT mode

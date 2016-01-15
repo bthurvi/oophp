@@ -43,14 +43,24 @@ else
   }
   else
   {
+    //var_dump($user->isAdmin());
+    $disabled='';
+    $info='';
+    if(!$user->isAdmin())
+    {
+      $disabled = "disabled";
+      $info = "<p> Du kan inte editera eftersom du inte är administratör.</p>";
+    }
+    
       echo <<< CCCP
       <div style=" border: 1px solid #777; border-radius: 3px; padding: 10px 20px;">
           <h1 class="center">Skapa ny film</h1>
       <form method=post>
-        <p><label>Titel:<br/><input type='text' name='title'/></label></p>
-        <p><input type='submit' name='create' value='Skapa'/></p>
+        <p><label>Titel:<br/><input type='text' name='title' $disabled/></label></p>
+        <p><input type='submit' name='create' value='Skapa'$disabled/></p>
       </form>
       </div>
+      $info
 CCCP;
   }
 

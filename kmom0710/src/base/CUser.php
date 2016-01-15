@@ -29,6 +29,28 @@ class CUser
    return is_null(self::$instance) ? self::$instance = new self : self::$instance;
  }
  
+ public function uppdateUserProfile()
+ {
+   extract($_POST);
+   
+   $sql = "UPDATE oophp0710_user SET name=?,intrests=?,music=?,books =?,favoritemovie=? WHERE id=?";
+   $params=array($usname,$usintrests,$usmusic,$usbook,$usfavoritemovie,$usid);
+   
+   return $this->db->ExecuteQuery($sql,$params);
+   
+ }
+ 
+ public function updateSessionUser($id)
+ {
+   $sql = "SELECT id,role,acronym,name,intrests,music,books,favoritemovie FROM oophp0710_user WHERE id = ?";
+   $params = array($id);
+   
+   $res = $this->db->ExecuteSelectQueryAndFetchAll($sql,$params);
+   
+   $_SESSION['user'] = $res[0];
+   
+ }
+ 
  public function isUsernameAvaliable($name)
  {
    $sql = "SELECT acronym FROM oophp0710_user WHERE acronym=?";
@@ -109,7 +131,7 @@ class CUser
  public function Login($user, $password)
  {  
      //build query and array
-    $sql = "SELECT role,acronym,name,intrests,music,books,favoritemovie FROM oophp0710_user WHERE acronym = ? AND password = md5(concat(?, salt))";
+    $sql = "SELECT id,role,acronym,name,intrests,music,books,favoritemovie FROM oophp0710_user WHERE acronym = ? AND password = md5(concat(?, salt))";
     $params = array($user, $password);
 
     //run query

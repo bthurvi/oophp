@@ -60,6 +60,15 @@ else
 
   }
   
+  //var_dump($user->isAdmin());
+    $disabled='';
+    $info='';
+    if(!$user->isAdmin())
+    {
+      $disabled = "disabled";
+      $info = "<p> Du kan inte radera eftersom du inte är administratör.</p>";
+    }
+  
   echo "<h1 class='center'>Välj film att radera</h1>";
 
   echo "<table class='table'>
@@ -71,7 +80,15 @@ else
   foreach ($res as $i=>$row) 
   {
     echo "<tr>"
-    . "<td width='5%' style='text-align:center;'><a class='aButton' href='?p=deletemovie&amp;id={$row->id}'>radera</a></td>"
+    . "<td width='5%' style='text-align:center;'>";
+    
+    if($user->isAdmin())
+      echo "<a class='aButton' href='?p=deletemovie&amp;id={$row->id}'>radera</a>";
+    else
+     echo "<a class='aButton' href='?p=deletemovie'>radera ej</a>";
+    
+            
+    echo "</td>"
     . "<td><strong>{$row->title}</strong></td>"
     . "<td>{$row->year}</td>"
     . "<td>{$row->tid}</td>"
@@ -79,7 +96,7 @@ else
   }
 
   echo "</table>";
-  
+  echo $info;
 }
 ?>
 

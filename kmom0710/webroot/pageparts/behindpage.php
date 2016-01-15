@@ -1,39 +1,47 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- 
-$urbax['behindpage']=<<<EDO
- <div id="login" class="closed">
- <form method='post'>
-  Användarnamn: <input type="text" name="acronym"> 
-  Lösenord:   <input type="password" name='password'>
-  &nbsp;&nbsp; <input type='submit' name='login' value='Logga in'/>
-  <span style='font-size:12px;'> &nbsp;&nbsp; (Befintliga user/pass: <b>admin/admin</b>
-    &amp; <b>doe/doe</b>)</span>
-</form>
-</div>
-EDO;*/
-if(isset($_POST['editprofile']))
+
+
+
+
+if(isset($_POST['saveprofile']))
+{
+  $res = $user->uppdateUserProfile();
+  
+  if($res)
+    $info = "Profil uppdaterad.";
+  else
+    $info = "Ooops, nått gick fel - profilen blev INTE uppdaterad.";
+  
+  $urbax['behindpage'] = <<< html
+  <div id="login" >
+  <form method='post'>$info <input type='submit' value='ok'></form>
+  </div>
+  <div id="logininfo" onclick='showLogin()'><i class="fa fa-angle-down"></i> 
+         &nbsp;Inloggad som <strong>{$user->getName()}</strong></div> 
+html;
+}
+else if(isset($_POST['editprofile']))
 {
   $us = $_SESSION['user'];
+ 
+  
 $urbax['behindpage'] =<<< html
    <div id="login" class='editprofilediv'>
   <form method='post'>
   <p></p>
   <h1 style='margin: 0; margin-bottom:10px;'>Editera profil</h1>
+  <input type='hidden' name='usid' value='{$us->id}' >
   <p class='infolabel'>Namn:</p>
-  <p class='infodiv'>{$us->name}&nbsp;</p>
+  <input type='text' name='usname' value='{$us->name}' class='eidtprofileinput'>
   <p class='infolabel'>Intressen:</p>
-  <p class='infodiv'>{$us->intrests}&nbsp;</p>
+  <input type='text' name='usintrests' value='{$us->intrests}'class='eidtprofileinput'>
   <p class='infolabel'>Musik:</p>
-  <p class='infodiv'>{$us->music}&nbsp;</p>
+  <input type='text' name='usmusic' value='{$us->music}'class='eidtprofileinput'>
   <p class='infolabel'>Böcker:</p>
-  <p class='infodiv'>{$us->books}&nbsp;</p>
+  <input type='text' name='usbook' value='{$us->books}'class='eidtprofileinput'>
   <p class='infolabel'>Favoritfilm:</p>
-  <p class='infodiv'>{$us->favoritemovie}&nbsp;</p>
+  <input type='text' name='usfavoritemovie' value='{$us->favoritemovie}' class='eidtprofileinput'>
   <p>
   <br/>
   <input type='submit' name='saveprofile' value='Spara'>
