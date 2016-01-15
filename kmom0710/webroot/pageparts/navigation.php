@@ -106,7 +106,9 @@ $menu = array(new CMenuItem('Start','?p=start'),
               new CMenuItem('Kalender','?p=calendar'),
               new CMenuItem('Tävling','?p=game'),
               new CMenuItem('Om RM','?p=about'),
-              new CMenuItem('Profil','?p=profile')
+              new CMenuItem('Profil','?p=profile'),
+              new CMenuItem('Visa källkod','?p=code'),
+              new CMenuItem('Redovisningar','?p=report'),
     );
 
 if($user->IsAuthenticated())
@@ -278,15 +280,21 @@ else
       $urbax['title'] = "Visa källkod";
       $urbax['stylesheets'][]="css/source.css";
       break;
-    case "desc": 
-      $file = "description.php";
-      $urbax['title'] = "Redovisning";
-      break;
+   
     case "gallery": 
       $file = "gallery.php";
       $urbax['title'] = "Bildgalleri";
       $urbax['stylesheets'][]="css/gallery.css";
       break;*/
+    case "report": 
+      $file = "description.php";
+      $urbax['title'] = "Redovisning";
+      break;
+    case "code": 
+      $file = "showcode.php"; 
+      $urbax['title'] = "Visa källkod";
+      $urbax['stylesheets'][]="css/source.css";
+      break;
     case "game": 
       $file = "rm/dicegame.php"; 
       $urbax['title'] = "Spel";

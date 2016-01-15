@@ -1,5 +1,78 @@
 <h1>Redovisningar</h1>
 
+
+<h4>Kmom0710 - <a href="http://dbwebb.se/oophp/kmom0710">Projekt</a></h4>
+
+<p>Länk till min projektsida: <a href="http://www.student.bth.se/~urvi15/oophp/kmom0710/webroot/">http://www.student.bth.se/~urvi15/oophp/kmom0710/webroot/</a></p>
+
+
+<h5>Struktur/innehåll:</h5>
+
+<p>Jag har med följande delar på min webbplats: första sida, en sida om tillgängliga filmer, en sida om nyheter(bloggar), en sida om företaget. webbplatsen har en header, logo, titlel och slogan. Det finns en navigationslist med länkar till webbplatsens olika delar. Slutligen finns det en footer med företagsnamnet. Webbsidan skyddas av inloggning och när man är inloggad kan man via ett gränssnitt ändra innehållet på bloggarna till webbplatsen. Eftersom dete inte stod vilket innehåll så valde jag att tolka kriteriet på detta sätt. Det är ju ändå bara en sida som har ett innehåll (den om rm).</p>
+
+<p>Jag tycker mig ha fått med allt innehåll som krävs. Utseendemässigt tycker jag att webbplatsen ser ok ut. Jag saknar dock att den är responsiv.  CSS-koden skulle kunna vara skriven mycket bättre, användbarheten och det enhetliga utseendet skulle även det kunna förbättras. Men detta var vad tiden medgav. Jag hoppas det räcker för 10p på denna del?</p>
+
+<h5>Filmer:</h5>
+
+<p>Alla filmer visas i en lista med begränsad information om filmen. Listan kan sökas i och  sorteras.  Man kan även välja hur många rader som visas. Det finns stöd för paginering. Alla filmer kan kopplas till en eller flera kategorier. Jag har lagrat tio filmer i databasen. Klickar man på en film så kan man se en trailer (hämtar från youtube), alla bilder som är kopplade till filen (man kan koppla om dem om man är admin), läsa synopsis samt se information om årtal, textning. Vidare finns det en länk till aktuell IMDB-sida för respektive film.</p>
+
+<p>De bilder som visas om en film (i listan och om en separat film) använder img.php för att visa olika bildstorlekar.</p>
+
+<p>Loggar man in som admin kan man redigera all information om varje film, det går att ladda upp en en eller flera bilder, koppla dessa till en eller flera filmer. Det går även på ett i mitt tycke smidigt sätt att ange vilken/vilka kategorier som en film tillhör.</p>
+    
+<p>Jag tror och  hoppas jag uppfyllt alla krav i denna del för att få maximala 10 poäng?</p>
+
+<h5>Nyheter</h5>
+
+<p>Det finns en sida för nyhetsbogar med minst 7 bloginlägg. Endast första meningen av varje inlägg visas i denna översikt. Man kan klicka på rubriken eller på läs mer >> för att läsa inlägget i sin helhet.</p> 
+<p>Varje inlägg tillhör vidare en kategori, klickar man på den kategorin så visas en lista med endast de inlägg som tillhör samma kategori.</p>
+
+<p>Om man loggar in så kan man skapa nya bloggar, uppdatera dem samt radera.</p>
+
+<p>Jag hoppas och tror att jag gjort alla delar i detta krav för att få maximala 10 poäng på denna del?</p>
+
+<h5>Första sidan</h5>
+
+<p>På första sidan visas de tre nyaste filmerna (De tre som sist lades till) och de tre senaste blogginläggen.</p>
+
+<p>Det finns en lista/navigationsmeny över de olika filmkategorierna.</p> 
+
+<p>Den mest populära film och senast hyrda film visas.</p> 
+
+<p>Alla delar av informationen på förstasidan är länkad vidare till mer information kring respektive innehåll.</p>
+
+<p>Sidan ser i mitt tycke okej ut. Däremot är den tyvärr inte responsiv. Men jag hoppas ändå att det jag gjort kan räcka till 10 poäng?</p>
+
+<h5>Extra funktioner</h5>
+
+<p>Jag har fixat en sida där användaren delta i ett tärningsspel. Eftersom det inte stod något om regler valde jag att göra som så att användaren spelar mot 4 st AI-spelare (av olika sort). Vinner spelaren lagras angiven e-post i en databbastabell. Därifårn kan en administratör kontakta spelarna och  skicka dem information om gratis filmer.</p>
+
+<p>Det finns även en film-kaldender sida. Där månadens film (kopplat via ett databasfält - av DBadmin) visas som trailer.</p>
+
+<p>En ny användare av webbplatsen kan skapa sin egen inloggning och profil. Då kan den användaren se vad som admin kan göra, men inte ändra. Det finns även en enkel sida som visar information om inloggad användares profil.</p>
+
+<p>Som jag har skrivit tidigare går det att ladda upp bilder när man editerar nya filmer.</p>
+
+<p>Till filmer och blogg finns det en enkel breadcrumb-navigering.</p>
+
+<p>Som jag har nämnt  tidigare så ligger mitt anax uppe på git-hub (se tex länkar i tidigare redovisningar).</p>
+
+<p>Som egna funktioner till webbplatsen vill jag lyfta fram inloggningen som ligger bakom varje sida (i mitt tycke är det lite snyggt). Fär att få det att fungera skrev jag lite enkelt javascript. Vidare gillar jag det sätt man anger vilken/vilka kategorier som en en en film tilllhör (jag tycker att det blev lite snyggt och lättanvänt). Slutligen är jag lite stolt över hur man kopplar samman en film och vilka bilder som den skall visa (tycker det är mycket enklare och smidigare för den som skall editera med ett enkelt galleri än någon jobbig text-baserad sak).</p> 
+    
+<p>Jag hoppas att detta räcker för minst 10 poäng på denna del.</p>
+
+<p>Det tog mig ganska lång tid att genomföra detta projekt eftersom jag både ville göra en hyfsad design men även implementera nästan alla krav. Det var inte så extremt svårt men det var rätt mycket jobb. Det som tog längst tid var att hålla databasen uppdaterad (allteftersom jag jobbade lade jag till kolumner och data). Det var ett rimligt projekt för kursen.</p>
+
+<p>Mina tankar om denna kurs är att den var relativt arbetsam. Materialet var okej - men kanske inte lika bra som i förra kursen. Kontakten med lärarna har fungerat fint (det har inte varit så ofta jag behövt hjälp). Jag är någonstans mitt emellan nöjd och missnöjd med kursen. Jag kommer kanske inte att rekommendera just denna kurs för kollegor/vänner - däremot tycker jag kurspaketet sammantaget hittills varit mycket bra.  Jag ger kursen betyget 6 på en skala 1-10.</p>
+
+<p>Efter att nu ha provat tillämpa anax/urbax kan jag säga att jag tycker att det fungerar sådär. En del saker är bra, som uppdelningen i filer. Däremot tycker jag det är svårt att få det smidigt med html-koden. Om man lägger dem i klasserna måste man ju returner eller echo:a. Lägger man däremot html-koden i sidkontroller så blir den lätt klottrig. Jag hoppas att det kommer att gå att hitta en bättre/smidigare lösning på detta när jag kommer till MVC-kursen.</p> 
+
+<p>Vidare vill jag framlägga att jag, finner sortering via javascript smidigare än sortering via php (upplevs snabbare/smidigare som användare tycker jag). Paginering däremot är förmodligen bättre att göra via php om/när man har stora datamängder.</p>
+
+<p>Med allt detta vill jag tacka för mig.<br/>
+    Tack och hej - leverpastej.</p>
+
+
 <h4>Kmom06 - <a href="http://dbwebb.se/oophp/kmom06">Bildbearbetning och galleri</a></h4>
 
 <p>Jag inledde detta moment genom att provade att använda den färdiga CImage klassen från github - men jag kom fram till att det var det för mycket onödig kod som skulle med. Därför valde jag istället att bygga klassen steg för steg enligt guiden. Det tog  lite tid att sätta sig in i mos kod, nästan så att jag tycker att det hade blivit snabbare om jag kodat allt från grunden. Å andra sidanhade jag sannolikt inte implementerat all funktionalitet som Mikael hade lagt in. Kanske var det därför bra att jag följde guiden.</p> 
