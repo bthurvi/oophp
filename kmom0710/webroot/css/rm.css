@@ -63,7 +63,10 @@ styles for header part of page
 #nav a:active{ color:#888;}
 #nav li:hover>ul{display: block;}
 
-.activeNav>a{text-decoration: underline;}
+.activeNav>a{text-decoration: underline;
+            background: #FFA122;
+            color: black !important;
+}
 
 
 /*
@@ -74,7 +77,7 @@ main content
     border-top: 1px solid rgba(55, 53, 48, 0.47);
     position: relative;
     margin-top: 40px;
-    min-height:660px;
+    min-height:900px;
     background-color: rgba(0,0,0,0.85);
     padding:20px;
     color: #eee;
@@ -496,6 +499,12 @@ paginationhits
     color: #333;
     width: 100%;
    
+}
+
+#redovisning{
+        background: #eee;
+    color: black;
+    padding: 10px;
 }
 
 

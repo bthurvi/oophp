@@ -166,8 +166,9 @@ else if($user->status)
          Användarnamn: <input type="text" name='acronym'> 
          Lösenord:   <input type="password" name='password'>
          &nbsp;&nbsp; <input type='submit' name='login' value='Logga in'/>
-         <span style='font-size:12px;'> &nbsp;&nbsp; (Befintliga user/pass: <b>admin/admin</b>
-           &amp; <b>doe/doe</b>)</span> {$user->status}
+        {$user->status}
+         <span style='font-size:10px;'> &nbsp;&nbsp; (Std. user/pass: <b>admin/admin</b>
+           &amp; <b>doe/doe</b> )</span> 
        </form>
        </div>
         <div id="logininfo" onclick='showLogin()'><i class="fa fa-angle-down"></i> 
@@ -181,13 +182,13 @@ else
         <form method='post' style="display:inline-block;">
          Användarnamn: <input type="text" name='acronym'> 
          Lösenord:   <input type="password" name='password'>
-         &nbsp;&nbsp; <input type='submit' name='login' value='Logga in'/>
-         <span style='font-size:12px;'> &nbsp;&nbsp; (Befintliga user/pass: <b>admin/admin</b>
-           &amp; <b>doe/doe</b>)</span> 
+         &nbsp;&nbsp; <input type='submit' name='login' value='Logga in'/>  
        </form>
        <form method="post" style="display:inline-block;">
            &nbsp;<input type='submit' name='newuser' value='Skapa nytt användarkonto'/>
        </form>
+         <span style='font-size:10px;'> &nbsp;&nbsp; (Std. user/pass: <b>admin/admin</b>
+           &amp; <b>doe/doe</b>)</span>
        </div>
         <div id="logininfo" onclick='showLogin()'><i class="fa fa-angle-down"></i> 
          &nbsp;Logga in</div>

@@ -1,5 +1,6 @@
 <h1>Redovisningar</h1>
 
+<div id="redovisning">
 
 <h4>Kmom0710 - <a href="http://dbwebb.se/oophp/kmom0710">Projekt</a></h4>
 
@@ -69,9 +70,12 @@
 
 <p>Vidare vill jag framlägga att jag, finner sortering via javascript smidigare än sortering via php (upplevs snabbare/smidigare som användare tycker jag). Paginering däremot är förmodligen bättre att göra via php om/när man har stora datamängder.</p>
 
-<p>Med allt detta vill jag tacka för mig.<br/>
-    Tack och hej - leverpastej.</p>
+<p>Med allt detta vill jag tacka för mig.</p>
+<p><strong>Tack och hej - leverpastej.</strong></p>
 
+
+<p>&nbsp;</p>
+<hr>
 
 <h4>Kmom06 - <a href="http://dbwebb.se/oophp/kmom06">Bildbearbetning och galleri</a></h4>
 
@@ -361,3 +365,4 @@ den branchen tillbaka med master:n. Det var lärorikt och gav god erfarenhet tyc
 <p>Det gick bra för mig att inkludera source.php som en modul. först fick jag lov att lägga till en get-parameter i sökvägen för breadcrumben, mapparna och filerna eftersom jag använder mig av en index-sida med get parametrar. Jag fick även fixa lite med CSS-en för att få en snygg utskrift. </p>
   
 <p>Efter uppladdningen av av detta, kmom01, gjorde jag även extrauppgiften med GitHub - eftersom jag ville påminna mig om det. Jag hade gjort det förr, någon gång, men glömt en del. Det sägs ju att repetition är kunskapens moder...</p>
+</div>
