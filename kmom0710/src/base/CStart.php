@@ -88,17 +88,17 @@ class CStart
                         <div class="heading">Nyaste filmerna:</div>
                        <div class="cols3">
                           <a href="?p=movie&amp;id={$this->latest3movies[0]->id}">
-                          <img src='pages/img.php?src={$movieImg[0]}&amp;width=400&amp;height=150&amp;crop-to-fit' alt='en bild'/><br/>
+                          <img src='pages/img.php?src={$movieImg[0]}&amp;width=350&amp;height=150&amp;crop-to-fit' alt='en bild'/><br/>
                           {$this->latest3movies[0]->titel}</a>
                        </div>
                        <div class="cols3">
                           <a href="?p=movie&amp;id={$this->latest3movies[1]->id}">
-                          <img src='pages/img.php?src={$movieImg[1]}&amp;width=400&amp;height=150&amp;crop-to-fit' alt='en bild'/><br/>
+                          <img src='pages/img.php?src={$movieImg[1]}&amp;width=350&amp;height=150&amp;crop-to-fit' alt='en bild'/><br/>
                           {$this->latest3movies[1]->titel}</a>
                        </div>
                        <div class="cols3">
                           <a href="?p=movie&amp;id={$this->latest3movies[2]->id}">
-                          <img src='pages/img.php?src={$movieImg[2]}&amp;width=400&amp;height=150&amp;crop-to-fit' alt='en bild'/><br/>
+                          <img src='pages/img.php?src={$movieImg[2]}&amp;width=350&amp;height=150&amp;crop-to-fit' alt='en bild'/><br/>
                           {$this->latest3movies[2]->titel}</a>
                        </div>
                     </div>

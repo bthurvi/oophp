@@ -48,6 +48,7 @@ else //user is authorized
        // Get parameters 
       $id     = isset($_POST['id'])    ? strip_tags($_POST['id']) : (isset($_GET['id']) ? strip_tags($_GET['id']) : null);
       $title  = isset($_POST['title']) ? $_POST['title'] : null;
+      $category  = isset($_POST['category']) ? $_POST['category'] : null;
       $slug   = isset($_POST['slug'])  ? $_POST['slug']  : null;
       $url    = isset($_POST['url'])   ? strip_tags($_POST['url']) : null;
       $data   = isset($_POST['data'])  ? $_POST['data'] : array();
@@ -55,9 +56,9 @@ else //user is authorized
       $filter = isset($_POST['filter']) ? $_POST['filter'] : array();
       $published = isset($_POST['published'])  ? strip_tags($_POST['published']) : array();
 
-       if($updatedId = $cont->update($slug, $url, $type, $title, $data, $filter, $published, $id))
+       if($updatedId = $cont->update($slug, $category, $url, $type, $title, $data, $filter, $published, $id))
        {
-        echo  "Innehåll uppdaterat.<p> <a href='?p=contentedit&amp;id=$updatedId' class='aButton'>Editera mer</a>";
+        echo  "Innehåll uppdaterat.<p> <a href='?p=uppdatecontent' class='aButton'>Editera mer</a>";
        }
     }
     else
@@ -65,6 +66,7 @@ else //user is authorized
      //get values
      $post = $cont->getContent($id);
      $title = $post[0]->title;
+     $category = $post[0]->category;
      $slug = $post[0]->slug;
      $url = $post[0]->url;
      $data = $post[0]->data;
@@ -107,6 +109,7 @@ else //user is authorized
          </label></p>
          <p><label>Titel:<br/><input type='text' required="required" name='title' value='{$title}' style='min-width:600px;' $disabled/></label></p>
         <input type='hidden' name='id' value='{$id}'/>
+        <p><label>Kategori:<br/><input type='text' name='category' style='min-width:600px;' value='{$category}' $disabled/></label></p>
         <p><label>Slug:<br/><input type='text' name='slug' style='min-width:600px;' value='{$slug}' $disabled/></label></p>
         <p><label>Url:<br/><input type='text' name='url' style='min-width:600px;' value='{$url}' $disabled/></label></p>
         <p><label>Text:<br/><textarea name='data' style='min-width:598px;'>{$data}</textarea></label></p>

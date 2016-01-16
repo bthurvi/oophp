@@ -17,17 +17,9 @@ public static function chosePlayersMenu()
   <form method="post">
     <h3>Tävla mot fyra datorspelare (AI) om att först nå 100 poäng. Vinn en videofilm!</h3>
     <span class="lablewidth100">Människor:</span>
-    <label><input type="radio" name="humans" value="1" checked>1 </label> 
-    <!--<label><input type="radio" name="humans" value="2">2 </label> 
-    <label><input type="radio" name="humans" value="3">3 </label> 
-    <label><input type="radio" name="humans" value="4">4 </label> 
-    <label><input type="radio" name="humans" value="5">5 </label>--> 
+    <label><input type="radio" name="humans" value="1" checked>1 </label>  
     <br/>
     <span class="lablewidth100">Datorspelare (AI):</span>
-    <!--<label><input type="radio" name="ai" value="0" >0 </label>
-    <label><input type="radio" name="ai" value="1" >1 </label> 
-    <!--<label><input type="radio" name="ai" value="2">2 </label> 
-    <label><input type="radio" name="ai" value="3">3 </label> -->
     <label><input type="radio" name="ai" value="4" checked>4 </label>
     <p>
     <input type="hidden" name="cont" value="fortsätta spela">

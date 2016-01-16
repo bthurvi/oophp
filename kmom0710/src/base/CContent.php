@@ -60,10 +60,10 @@ class CContent
   }
   
   
-  public function update($slug, $url, $type, $tite, $data, $filter, $published, $id)
+  public function update($slug,$category, $url, $type, $tite, $data, $filter, $published, $id)
   {
-    $sql = 'UPDATE oophp0710_content SET slug=?,url=?,type=?,title=?,data=?,filter=?,published=?,updated=NOW() WHERE id=?';
-    $params = array($slug, $url, $type, $tite, $data, $filter, $published, $id);
+    $sql = 'UPDATE oophp0710_content SET slug=?,category=?,url=?,type=?,title=?,data=?,filter=?,published=?,updated=NOW() WHERE id=?';
+    $params = array($slug, $category, $url, $type, $tite, $data, $filter, $published, $id);
     $ok = $this->cdb->ExecuteQuery($sql, $params);
     $this->cdb->SaveDebug();
     

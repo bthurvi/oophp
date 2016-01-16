@@ -75,7 +75,7 @@ class CCalendar
      <!--<img class="header" src="img/calendar/{$this->getMonthImage()}" 
      alt="image of the month">-->
      
-     <iframe class="header" src="https://www.youtube.com/embed/{$monthmovie->film}?rel=0&amp;showinfo=0&amp;autoplay=1" frameborder="0" allowfullscreen></iframe>
+     <iframe class="header" src="https://www.youtube.com/embed/{$monthmovie->film}?rel=0&amp;showinfo=0&amp;autoplay=1" allowfullscreen></iframe>
        
     </header>
      
